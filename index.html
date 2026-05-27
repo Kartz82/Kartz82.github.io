@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kartikeya Vemula | Data Scientist Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandCream: '#FAF9F5', // Premium warm creative canvas
+                        brandCharcoal: '#262626', // Deep soft charcoal typography
+                        brandMuted: '#525252', // Balanced secondary body text
+                        brandElectric: '#0066FF', // Precise high-tech electric blue accents
+                        brandElectricHover: '#0052CC'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-brandCream text-brandCharcoal font-sans antialiased selection:bg-brandElectric selection:text-white">
+
+    <!-- STICKY CONTROL PANEL -->
+    <nav class="sticky top-0 z-50 bg-brandCream/90 backdrop-blur-md border-b border-stone-200">
+        <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="font-mono text-sm tracking-wider font-bold text-brandCharcoal hover:text-brandElectric transition">KV // DATA</a>
+            <div class="flex items-center gap-6 text-sm font-medium">
+                <a href="#about" class="hover:text-brandElectric transition">About</a>
+                <a href="#skills" class="hover:text-brandElectric transition">Skills</a>
+                <a href="#projects" class="hover:text-brandElectric transition">Projects</a>
+                <a href="#education" class="hover:text-brandElectric transition">Education</a>
+                <a href="#contact" class="hover:text-brandElectric transition">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO PROFILE HEADER -->
+    <header id="about" class="max-w-5xl mx-auto px-6 pt-20 pb-16 border-b border-stone-200">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+                <h1 class="text-4xl md:text-5xl font-black tracking-tight text-brandCharcoal">Kartikeya Vemula</h1>
+                <p class="text-xl md:text-2xl mt-3 text-brandElectric font-semibold">Data Scientist | Experimentation &amp; ML Systems</p>
+                <p class="text-base md:text-lg text-brandMuted mt-4 max-w-3xl font-normal leading-relaxed">
+                    Specializing in building statistically rigorous experimentation frameworks, anomalous telemetry diagnostic engines, and tail-risk time series pipelines. I engineer production-style analytical code that mitigates selection bias and provides verifiable product deployment guardrails.
+                </p>
+            </div>
+            <!-- LEETCODE STREAK BADGE -->
+            <a href="https://leetcode.com/u/Kartikeya036/" target="_blank" class="flex items-center gap-3 bg-stone-100 border border-stone-200 rounded-lg p-3 shrink-0 hover:border-brandElectric transition group">
+                <span class="text-2xl">🔥</span>
+                <div>
+                    <p class="text-xs font-mono uppercase tracking-wider text-brandMuted group-hover:text-brandElectric transition">LeetCode Streak</p>
+                    <p class="text-lg font-bold text-brandCharcoal">89 Days Active</p>
+                </div>
+            </a>
+        </div>
+        
+        <div class="mt-8 flex flex-wrap gap-4">
+            <a href="#projects" class="bg-brandCharcoal hover:bg-neutral-800 text-white font-medium px-5 py-2.5 rounded-lg transition text-sm">Review Engine Projects</a>
+            <a href="https://drive.google.com/file/d/1jzRKq2rFCOXxvN3Lo_FVx3Of6JU82jif/view?usp=sharing" target="_blank" class="border border-stone-300 hover:bg-stone-100 text-brandCharcoal font-medium px-5 py-2.5 rounded-lg transition text-sm flex items-center gap-2">
+                <span>📄</span> View Executed Resume
+            </a>
+        </div>
+    </header>
+
+    <!-- CORE TECHNICAL MATRIX -->
+    <section id="skills" class="max-w-5xl mx-auto px-6 py-12 border-b border-stone-200">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-brandMuted mb-6">Core Technical Competency Matrix</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-sm font-bold text-brandCharcoal uppercase tracking-wider border-l-2 border-brandElectric pl-3">Statistical Experimentation</h3>
+                <p class="text-sm mt-2 text-brandMuted font-normal leading-relaxed">A/B Testing pipelines, Z-test &amp; T-test Inference, Power Analysis simulations, Sample Ratio Mismatch (SRM) Detection, Causal Inference, Selection Bias Mitigation, False Discovery Rate (FDR) Control.</p>
+            </div>
+            <div>
+                <h3 class="text-sm font-bold text-brandCharcoal uppercase tracking-wider border-l-2 border-brandElectric pl-3">Predictive Forecasting &amp; ML</h3>
+                <p class="text-sm mt-2 text-brandMuted font-normal leading-relaxed">Advanced Ensemble Systems (XGBoost, Random Forest), SHAP Explainability frameworks, ARIMA (Box-Jenkins, ADF testing), Meta Prophet changepoint tuning, Extreme Value Theory (GPD/POT models), Walk-Forward Backtesting.</p>
+            </div>
+            <div>
+                <h3 class="text-sm font-bold text-brandCharcoal uppercase tracking-wider border-l-2 border-brandElectric pl-3">Data Engineering Core</h3>
+                <p class="text-sm mt-2 text-brandMuted font-normal leading-relaxed">SQL query tuning, Distributed processing via BigQuery &amp; Apache Spark, Idempotent REST API Extraction pipelines, Star Schema Warehouse Architecture design, YAML orchestration layouts.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCANNABLE CASE STUDIES CONTAINER -->
+    <main id="projects" class="max-w-5xl mx-auto px-6 py-16">
+        <h2 class="text-2xl font-black tracking-tight text-brandCharcoal mb-10">Production Case Studies</h2>
+        
+        <div class="space-y-16">
+            
+            <!-- AB-ENGINE -->
+            <article class="group relative bg-white border border-stone-200 rounded-lg p-6 hover:shadow-md hover:border-brandElectric/40 transition">
+                <div class="flex flex-col md:flex-row md:items-baseline justify-between gap-2">
+                    <h3 class="text-xl font-bold text-brandCharcoal group-hover:text-brandElectric transition">AB-Engine: Automated Experimentation Platform with Metric Strategy Layer</h3>
+                    <a href="https://github.com/Kartz82" target="_blank" class="text-xs font-mono text-brandMuted hover:text-brandElectric font-bold tracking-tight">src/ab_engine &rarr;</a>
+                </div>
+                <div class="mt-2 flex flex-wrap gap-2">
+                    <span class="bg-stone-100 text-stone-700 text-xs px-2.5 py-1 rounded font-mono">Python</span>
+                    <span class="bg-stone-100 text-stone-700 text-xs px-2.5 py-1 rounded font-mono">SciPy Stats</span>
+                    <span class="bg-stone-100 text-stone-700 text-xs px-2.5 py-1 rounded font-mono">NumPy</span>
+                    <span class="bg-stone-100 text-stone-700 text-xs px-2.5 py-1 rounded font-mono">YAML Config</span>
+                </div>
+                <ul class="mt-4 space-y-2 text-brandMuted text-sm font-normal max-w-4xl">
+                    <li><strong class="font-semibold text-brandCharcoal">The Architecture:</strong> Engineered an end-to-end simulation framework managing 10,000 deterministic user records, embedding SHA-256 hash bucketing, dynamic power analysis, parametric inference processing (Z/T tests), and strict Sample Ratio Mismatch (SRM) checks.</li>
+                    <li><strong class="font-semibold text-brandCharcoal">Quantified Impact:</strong> During a checkout optimization phase run, captured a <span class="text-brandCharcoal font-semibold">+3.4% conversion lift (p=0.038)</span> while concurrently triggering automated guardrail isolation to flag an obscured 1.8% long-term retention decline inside the iOS user segment.</li>
+                    <li><strong class="font-semibold text-brandCharcoal">Business Logic Integration:</strong> Constructed abstract, plain-language operational deployment recommendation reports parsed via custom YAML structures to prevent p-hacking and selection bias across multi-tiered user environments.</li>
+                </ul>
+            </article>
+
+            <!-- KPI MONITORING ENGINE -->
+            <article class="group relative bg-white border border-stone-200 rounded-lg p-6 hover:shadow-md hover:border-brandElectric/40 transition">
+                <div class="flex flex-col md:flex-row md:items-baseline justify-between gap-2">
+                    <h3 class="text-xl font-bold text-brandCharcoal group-hover:text-brandElectric transition">Predictive KPI Monitoring &amp; Root Cause Diagnostic Engine</h3>
+                    <a href="https://github.com/Kartz82" target="_blank" class="text-xs font-mono text-brandMuted hover:text-brandElectric font-bold tracking-tight">src/diagnostic_engine &rarr;</a>
+                </div>
+                <div class="mt-2 flex flex-wrap gap-2">
+                    <span class="bg-stone-100 text-stone-700 text-xs px-2.5 py-1 rounded font-mono">XGBoost</span>
+                    <span class="bg-stone-100 text-stone-700 text-xs px-2.5 py-1 rounded font-mono">BigQuery SQL</span>
+                    <span class="bg-stone-100 text-stone-700 text-xs px-2.5 py-1 rounded font-mono">SHAP</span>
+                    <span class="bg-stone-100 text-stone-700 text-xs px-2.5 py-1 rounded font-mono">Data Validation Gate</span>
+                </div>
+                <ul class="mt-4 space-y-2 text-brandMuted text-sm font-normal max-w-4xl">
+                    <li><strong class="font-semibold text-brandCharcoal">The Architecture:</strong> Constructed an ML anomaly detection matrix processing ~1.2M historical metric logs across nested features (Device, Region, Browser), running a zero-fault verification pipeline checking volume and null-pointer rates prior to calculation.</li>
+                    <li><strong class="font-semibold text-brandCharcoal">Quantified Impact:</strong> Replaced a high-noise baseline rolling Z-score layout (<span class="text-stone-500">62% precision</span>) with an optimized time-series cross-validated XGBoost residual predictor, boosting total metric tracking precision to <span class="text-brandCharcoal font-semibold">84%</span> and recall performance to <span class="text-brandCharcoal font-semibold">91%</span>.</li>
+                    <li><strong class="font-semibold text-brandCharcoal">Operational Velocity:</strong> Integrated multi-dimensional SHAP explanations tracking top anomaly features alongside automated segment degradation alerts, trimming core operational investigation timelines by <span class="text-brandCharcoal font-semibold">35%</span> via programmatic JSON alerts.</li>
+                </ul>
+            </article>
+
+            <!-- EXTREME VALUE AQI Prediction -->
+            <article class="group relative bg-white border border-stone-200 rounded-lg p-6 hover:shadow-md hover:border-brandElectric/40 transition">
+                <div class="flex flex-col md:flex-row md:items-baseline justify-between gap-2">
+                    <h3 class="text-xl font-bold text-brandCharcoal group-hover:text-brandElectric transition">Extreme-Value AQI Prediction &amp; Early Warning System</h3>
+                    <a href="https://github.com/Kartz82/Extreme-Value-AQI-Prediction-for-Baltimore-City" target="_blank" class="text-xs font-mono text-brandMuted hover:text-brandElectric font-bold tracking-tight">src/aqi_evt_pipeline &rarr;</a>
+                </div>
+                <div class="mt-2 flex flex-wrap gap-2">
+                    <span class="bg-stone-100 text-stone-700 text-xs px-2.5 py-1 rounded font-mono">Ensemble ML</span>
+                    <span class="bg-stone-100 text-stone-700 text-xs px-2.5 py-1 rounded font-mono">SciPy (GenPareto/POT)</span>
+                    <span class="bg-stone-100 text-stone-700 text-xs px-2.5 py-1 rounded font-mono">17-Year EPA Array</span>
+                    <span class="bg-stone-100 text-stone-700 text-xs px-2.5 py-1 rounded font-mono">Risk Indicators</span>
+                </div>
+                <ul class="mt-4 space-y-2 text-brandMuted text-sm font-normal max-w-4xl">
+                    <li><strong class="font-semibold text-brandCharcoal">The Architecture:</strong> Tailored an analytical pipeline addressing tail-risk air quality distributions using ~2.1M raw rows of telemetry records. Combined predictive regression baselines with a Peak-Over-Threshold filter to extract residual spikes, modeling anomalies through Generalized Pareto parameters.</li>
+                    <li><strong class="font-semibold text-brandCharcoal">Quantified Impact:</strong> The engineered hybrid modeling setup generated an improved <span class="text-brandCharcoal font-semibold">R² of 0.84</span> and stable RMSE scores of 9.8 across extreme validation data splits, significantly outperforming unweighted baseline models (<span class="text-stone-500">R² of 0.61</span>).</li>
+                    <li><strong class="font-semibold text-brandCharcoal">System Output:</strong> Effectively flags and logs high-risk ambient pollution events to output robust 72-hour safety metrics and early warning indicators for stakeholder transparency.</li>
+                </ul>
+            </article>
+
+            <!-- ARIMA PIPELINE -->
+            <article class="group relative bg-white border border-stone-200 rounded-lg p-6 hover:shadow-md hover:border-brandElectric/40 transition">
+                <div class="flex flex-col md:flex-row md:items-baseline justify-between gap-2">
+                    <h3 class="text-xl font-bold text-brandCharcoal group-hover:text-brandElectric transition">Multi-Asset ARIMA Forecasting &amp; Anomaly Detection Pipeline</h3>
+                    <a href="https://github.com/Kartz82/fish-detection-recognition" target="_blank" class="text-xs font-mono text-brandMuted hover:text-brandElectric font-bold tracking-tight">src/time_series_arima &rarr;</a>
+                </div>
+                <div class="mt-2 flex flex-wrap gap-2">
+                    <span class="bg-stone-100 text-stone-700 text-xs px-2.5 py-1 rounded font-mono">ARIMA(2,1,2)</span>
+                    <span class="bg-stone-100 text-stone-700 text-xs px-2.5 py-1 rounded font-mono">Meta Prophet</span>
+                    <span class="bg-stone-100 text-stone-700 text-xs px-2.5 py-1 rounded font-mono">Walk-Forward Backtests</span>
+                    <span class="bg-stone-100 text-stone-700 text-xs px-2.5 py-1 rounded font-mono">Statsmodels</span>
+                </div>
+                <ul class="mt-4 space-y-2 text-brandMuted text-sm font-normal max-w-4xl">
+                    <li><strong class="font-semibold text-brandCharcoal">The Architecture:</strong> Programmed an automated Box-Jenkins modeling layout handling independent asset vectors (NVDA, AMD, MSFT). Enforced systematic Augmented Dickey-Fuller stationarity validations, log differences ($d=1$), and ACF/PACF autocorrelation parameter parsing.</li>
+                    <li><strong class="font-semibold text-brandCharcoal">Comparative Analysis:</strong> Validated ARIMA pipelines against structural Meta Prophet configurations; established that Prophet produced a <span class="text-brandCharcoal font-semibold">12% lower RMSE error rate</span> across structural seasonal variables, while pure ARIMA layouts dominated mean-reverting tracking blocks.</li>
+                    <li><strong class="font-semibold text-brandCharcoal">Confidence Envelopes:</strong> Outlines robust 30-day directional prediction horizons bound within strict 95% certainty limits, achieving a <span class="text-brandCharcoal font-semibold">25% increase</span> in operational precision over simple static indicators.</li>
+                </ul>
+            </article>
+
+            <!-- WAREHOUSE ETL -->
+            <article class="group relative bg-white border border-stone-200 rounded-lg p-6 hover:shadow-md hover:border-brandElectric/40 transition">
+                <div class="flex flex-col md:flex-row md:items-baseline justify-between gap-2">
+                    <h3 class="text-xl font-bold text-brandCharcoal group-hover:text-brandElectric transition">Engineering Analytics Data Warehouse &amp; Insight Pipeline</h3>
+                    <a href="https://github.com/Kartz82" target="_blank" class="text-xs font-mono text-brandMuted hover:text-brandElectric font-bold tracking-tight">src/github_etl &rarr;</a>
+                </div>
+                <div class="mt-2 flex flex-wrap gap-2">
+                    <span class="bg-stone-100 text-stone-700 text-xs px-2.5 py-1 rounded font-mono">GitHub REST API</span>
+                    <span class="bg-stone-100 text-stone-700 text-xs px-2.5 py-1 rounded font-mono">BigQuery Storage</span>
+                    <span class="bg-stone-100 text-stone-700 text-xs px-2.5 py-1 rounded font-mono">Star Schema Design</span>
+                    <span class="bg-stone-100 text-stone-700 text-xs px-2.5 py-1 rounded font-mono">Idempotent Pipeline</span>
+                </div>
+                <ul class="mt-4 space-y-2 text-brandMuted text-sm font-normal max-w-4xl">
+                    <li><strong class="font-semibold text-brandCharcoal">The Architecture:</strong> Architected a high-throughput extraction pipeline ingesting developer telemetry records from 50+ localized codebases, denormalizing JSON payloads directly into highly distributed BigQuery Star Schema dimensions.</li>
+                    <li><strong class="font-semibold text-brandCharcoal">System Resilience:</strong> Implemented defensive, idempotent parsing logic to securely isolate pagination blocks, REST rate-limiting ceilings, and corrupt payload states across 500+ execution tests without data drops.</li>
+                    <li><strong class="font-semibold text-brandCharcoal">Analytical Velocity:</strong> Surface micro-level analytical metrics spanning tracking health, repository commit speeds, and project output volumes directly to engineering leadership.</li>
+                </ul>
+            </article>
+
+        </div>
+    </main>
+
+    <!-- ACADEMIC TRAINING HISTORY -->
+    <section id="education" class="max-w-5xl mx-auto px-6 py-12 border-t border-stone-200">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-brandMuted mb-6">Academic Training &amp; Qualifications</h2>
+        <div class="space-y-6">
+            <div class="flex flex-col md:flex-row md:items-baseline justify-between">
+                <div>
+                    <h3 class="text-base font-bold text-brandCharcoal">M.S. in Data Science</h3>
+                    <p class="text-sm text-brandMuted">University of Maryland Baltimore County, USA</p>
+                    <p class="text-xs text-brandMuted mt-1 font-mono">Specialization: Machine Learning, Statistical Modeling, Experimental Design, Time Series Analysis</p>
+                </div>
+                <div class="text-left md:text-right mt-1 md:mt-0">
+                    <p class="text-sm font-semibold text-brandCharcoal">GPA: 3.78 / 4.0</p>
+                    <p class="text-xs text-brandMuted">2024 &mdash; 2026</p>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row md:items-baseline justify-between border-t border-stone-100 pt-4">
+                <div>
+                    <h3 class="text-base font-bold text-brandCharcoal">B.Tech in Computer Science</h3>
+                    <p class="text-sm text-brandMuted">GITAM University, Visakhapatnam, AP, India</p>
+                    <p class="text-xs text-brandMuted mt-1 font-mono">Status: First-Class with Distinction</p>
+                </div>
+                <div class="text-left md:text-right mt-1 md:mt-0">
+                    <p class="text-sm font-semibold text-brandCharcoal">GPA: 8.89 / 10</p>
+                    <p class="text-xs text-brandMuted">2020 &mdash; 2024</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER ENGAGEMENT LOGISTICS -->
+    <footer id="contact" class="bg-stone-100 border-t border-stone-200 mt-20">
+        <div class="max-w-5xl mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div>
+                <p class="text-sm font-mono text-brandMuted font-bold">CONTACT TERMINAL</p>
+                <p class="text-xl font-bold text-brandCharcoal mt-1">Let's build reliable systems together.</p>
+                <p class="text-sm text-brandMuted mt-1">Location: Baltimore, MD, USA</p>
+            </div>
+            <div class="flex flex-wrap gap-4 text-sm font-medium">
+                <a href="mailto:vnskartikeya@gmail.com" class="bg-brandElectric hover:bg-brandElectricHover text-white px-4 py-2 rounded-lg transition">Email Me</a>
+                <a href="https://www.linkedin.com/in/kartikeya-vemula/" target="_blank" class="border border-stone-300 hover:bg-stone-200 text-brandCharcoal px-4 py-2 rounded-lg transition">LinkedIn</a>
+                <a href="https://github.com/Kartz82" target="_blank" class="border border-stone-300 hover:bg-stone-200 text-brandCharcoal px-4 py-2 rounded-lg transition">GitHub</a>
+            </div>
+        </div>
+        <div class="max-w-5xl mx-auto px-6 pb-8 text-xs text-stone-400 font-mono flex flex-col md:flex-row justify-between border-t border-stone-200/60 pt-4">
+            <div>&copy; 2026 Kartikeya Vemula. Built for scale using Tailwind CDN infrastructure.</div>
+            <div class="mt-1 md:mt-0">Zero build compile overhead. Responsive layout optimized.</div>
+        </div>
+    </footer>
+
+</body>
+</html>
