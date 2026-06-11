@@ -706,7 +706,7 @@
 
 
     <!-- ─── SCENE 3: FUNNEL ─── -->
-    <div class="section-bridge reveal">STAGE 03 OF 05 &nbsp;·&nbsp; The warehouse told us what happened. Now: why are users not converting? GA4 event streams reveal a 75.8% drop before product pages.</div>
+    <div class="section-bridge reveal">STAGE 03 OF 05 &nbsp;·&nbsp; The warehouse explained what happened. Now: why are users not converting? GA4 event streams reveal funnel leakage, attribution shifts, and experiment outcomes.</div>
     <section id="funnel" class="scene px-6 md:px-16 bg-[#070A13]"
              data-name="Funnel Center" data-rows="34984" data-scope="GA4 Telemetry Pipeline">
 
@@ -720,12 +720,11 @@
                     Growth Funnel<br>Intelligence Engine
                 </h2>
                 <p class="text-sm text-gray-400 leading-relaxed">
-                    No one knew where users were dropping out of the purchase journey.
-                    I reconstructed <span class="text-white font-semibold">34,984 GA4 sessions</span>
-                    into sequential step transitions — and found that
-                    <span class="text-rose-400 font-bold">75.8%</span> of landing traffic
-                    never reached a product page. High-intent sessions converted at
-                    <span class="text-emerald-400 font-bold">13x</span> the rate of organic traffic.
+                    Raw GA4 event streams showed conversions, but not the complete user journey.
+                    I reconstructed  <span class="text-white font-semibold">34,984 GA4 sessions</span>
+                    into acquisition, funnel, attribution, and experimentation layers—revealing a
+                    <span class="text-rose-400 font-bold">75.8%</span> of landing-to-product drop-off, channel attribution shifts, 
+                    and statistically insignificant experiment outcomes that prevented false optimization decisions.
                 </p>
 
                 <div class="space-y-1 pt-1">
@@ -761,18 +760,18 @@
                 <div class="bg-gray-950/80 border border-blue-500/15 rounded-lg p-3 font-mono text-xs">
                     <div class="text-[9px] text-blue-400 font-bold uppercase tracking-wider mb-1">Key Finding</div>
                     <p class="text-gray-300 leading-relaxed">
-                        High-intent sessions (direct/branded traffic) converted at
-                        <span class="text-emerald-400 font-bold">13x</span> the rate of organic sessions.
-                        A/B test framework validated this with 95% confidence.
+                        <span class="text-rose-400 font-bold">75.8%</span> of users dropped before reaching a product page.
+                        Direct traffic converted at significantly higher rates than organic traffic,
+                        while A/B testing showed no statistically significant uplift, preventing decisions based on noise.
                     </p>
                 </div>
 
                 <div class="flex flex-wrap gap-1 pt-1">
-                    <span class="chip">Python</span>
+                    <span class="chip">GA4 Analytics</span>
                     <span class="chip">SQL</span>
-                    <span class="chip">GA4 Events</span>
+                    <span class="chip">Funnel Analysis</span>
                     <span class="chip">A/B Testing</span>
-                    <span class="chip">Attribution Modelling</span>
+                    <span class="chip">Product Analytics</span>
                 </div>
                 <div class="flex flex-wrap gap-2 pt-1">
                     <button onclick="AJ.openDepth(3,'E')"
@@ -789,7 +788,7 @@
             <div class="lg:col-span-7 reveal-right">
                 <div class="img-frame" onclick="AJ.openLightbox('assets/growth/funnel_leakage.png','Funnel Leakage Analysis')">
                     <div class="img-frame-bar">
-                        <span>🚀 COMMAND CENTER // FUNNEL_LEAKAGE.PNG</span>
+                        <span>🚀 PRODUCT ANALYTICS // FUNNEL_LEAKAGE.PNG</span>
                         <span class="text-blue-400 font-bold text-[9px]">Click to expand</span>
                     </div>
                     <div class="img-frame-body" style="height: 46vh;">
@@ -1319,7 +1318,7 @@ ORDER BY cvr DESC;</pre>
 <div class="text-[9px] text-blue-400 font-bold uppercase tracking-wider mt-4 mb-1">// A/B Test Framework</div>
 <p class="text-gray-400">Chi-square test on conversion proportions. High-intent (direct/branded) vs organic sessions. p &lt; 0.001. 13× lift confirmed at 95% CI.</p>`
             },
-            D: { dashboard: 'assets/funnel/funnel_leakage.png', label: 'Funnel Leakage Analysis Dashboard' }
+            D: { dashboard: 'assets/growth/funnel_leakage.png', label: 'Funnel Leakage Analysis' }
         },
         4: {
             E: {
