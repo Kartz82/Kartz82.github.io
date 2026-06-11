@@ -3,256 +3,1975 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kartikeya | Growth & Data Platform Engineer</title>
-    <!-- Tailwind CSS for clean structural styling -->
+    <title>Kartikeya Vemula — Data Analyst · Found £171K in dormant customer value</title>
+    <meta name="description" content="Kartikeya Vemula — Data Analyst specialising in SQL, Python, product analytics, ETL pipelines, and customer intelligence. Portfolio of 5 end-to-end analytics projects.">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- Lucide Icons for clean vector graphics -->
-    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* Custom scroll behavior and hidden scrollbars for immersive feel */
+        /* ─── RESET & BASE ─────────────────────────────────────────────── */
+        *, *::before, *::after { box-sizing: border-box; }
+
+        :root {
+            --bg-deep:    #070A13;
+            --bg-mid:     #0B111E;
+            --bg-surface: #111827;
+            --border:     #1E293B;
+            --text-muted: #6B7280;
+            --text-body:  #D1D5DB;
+            --text-head:  #F9FAFB;
+            --accent-blue:    #3B82F6;
+            --accent-indigo:  #6366F1;
+            --accent-emerald: #10B981;
+            --accent-rose:    #F43F5E;
+            --accent-amber:   #F59E0B;
+            --accent-orange:  #F97316;
+            --snap-duration: 480ms;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-body);
+            font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ─── SCROLLBAR HIDE ───────────────────────────────────────────── */
         ::-webkit-scrollbar { display: none; }
-        html, body {
-            scrollbar-width: none;
-            background-color: #0b0f19;
-            color: #f3f4f6;
-            font-family: system-ui, -apple-system, sans-serif;
-        }
-        .horizontal-track {
+        * { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* ─── HORIZONTAL TRACK ─────────────────────────────────────────── */
+        #pipeline-track {
+            display: flex;
+            flex-direction: row;
+            /* width set by JS based on scene count */
+            height: 100vh;
             will-change: transform;
-            transition: transform 0.1s linear;
+            transition: transform var(--snap-duration) cubic-bezier(0.16, 1, 0.3, 1);
         }
+
+        .scene {
+            width: 100vw;
+            height: 100vh;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ─── TEXTURE LAYERS ───────────────────────────────────────────── */
+        .tex-blueprint {
+            background-image:
+                linear-gradient(to right, rgba(99,102,241,0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(99,102,241,0.04) 1px, transparent 1px);
+            background-size: 44px 44px;
+        }
+        .tex-grid {
+            background-image:
+                linear-gradient(to right, rgba(16,185,129,0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(16,185,129,0.03) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .tex-scan {
+            background-image:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 3px,
+                    rgba(244,63,94,0.015) 3px,
+                    rgba(244,63,94,0.015) 4px
+                );
+        }
+        .tex-warm {
+            background: radial-gradient(ellipse at center bottom, rgba(249,115,22,0.06) 0%, transparent 65%);
+        }
+
+        /* ─── MODAL BACKDROP ───────────────────────────────────────────── */
+        .modal-backdrop {
+            backdrop-filter: blur(16px);
+            background-color: rgba(7,10,19,0.96);
+        }
+
+        /* ─── SVG PLACEHOLDER FADE ─────────────────────────────────────── */
+        .img-placeholder { transition: opacity 0.4s ease; }
+        .img-real {
+            position: absolute;
+            inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .img-real.loaded { opacity: 0.85; }
+
+        /* ─── PULSE DOT ────────────────────────────────────────────────── */
+        @keyframes pulse-ring {
+            0%   { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(2);   opacity: 0; }
+        }
+        .pulse-ring::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: var(--accent-orange);
+            opacity: 0.3;
+            animation: pulse-ring 2s ease-out infinite;
+        }
+
+        /* ─── SCROLL HINT BOUNCE ───────────────────────────────────────── */
+        @keyframes nudge-right {
+            0%, 100% { transform: translateX(0); }
+            50%       { transform: translateX(6px); }
+        }
+        .nudge { animation: nudge-right 1.6s ease-in-out infinite; }
+
+        /* ─── CAMPFIRE GLOW ────────────────────────────────────────────── */
+        @keyframes flicker {
+            0%, 100% { opacity: 1; filter: drop-shadow(0 0 8px rgba(249,115,22,0.6)); }
+            50%       { opacity: 0.8; filter: drop-shadow(0 0 14px rgba(249,115,22,0.9)); }
+        }
+        .campfire-icon { animation: flicker 2.2s ease-in-out infinite; }
+
+        /* ─── MOBILE LAYOUT ────────────────────────────────────────────── */
+        @media (max-width: 767px) {
+            body { overflow: auto; }
+            #pipeline-track {
+                flex-direction: column !important;
+                width: 100% !important;
+                height: auto !important;
+                transform: none !important;
+                transition: none !important;
+            }
+            .scene {
+                width: 100% !important;
+                height: auto !important;
+                min-height: 100svh;
+                overflow: visible !important;
+                padding-top: 4.5rem;
+                padding-bottom: 3rem;
+                border-bottom: 1px solid var(--border);
+            }
+            #hud-panel    { display: none !important; }
+            #dot-nav      { display: none !important; }
+            #desktop-hint { display: none !important; }
+            #mobile-rail  { display: flex !important; }
+            #scroll-hint  { display: none !important; }
+        }
+
+        /* ─── CHIP ─────────────────────────────────────────────────────── */
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            font-family: ui-monospace, monospace;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: var(--text-muted);
+        }
+
+        /* ─── STAGE BADGE ──────────────────────────────────────────────── */
+        .stage-badge {
+            display: inline-flex;
+            font-family: ui-monospace, monospace;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 4px;
+        }
+
+        /* ─── METRIC CARD ──────────────────────────────────────────────── */
+        .metric-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-family: ui-monospace, monospace;
+        }
+
+        /* ─── PIPELINE STEP ────────────────────────────────────────────── */
+        .pipeline-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 12px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: ui-monospace, monospace;
+            font-size: 11px;
+        }
+
+        /* ─── CODE BLOCK ───────────────────────────────────────────────── */
+        pre.code-block {
+            background: #000;
+            border: 1px solid #1E293B;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 11px;
+            font-family: ui-monospace, monospace;
+            color: #94A3B8;
+            overflow-x: auto;
+            line-height: 1.6;
+        }
+
+        /* ─── IMAGE FRAME ──────────────────────────────────────────────── */
+        .img-frame {
+            position: relative;
+            background: var(--bg-deep);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8);
+        }
+        .img-frame-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 12px;
+            border-bottom: 1px solid var(--border);
+            font-family: ui-monospace, monospace;
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+        .img-frame-body {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        /* ─── FAST MODE BUTTON ─────────────────────────────────────────── */
+        .fast-mode-btn {
+            background: var(--accent-blue);
+            color: #fff;
+            font-family: ui-monospace, monospace;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.15s;
+            box-shadow: 0 4px 20px rgba(59,130,246,0.3);
+        }
+        .fast-mode-btn:hover { background: #2563EB; }
+
+        /* ─── CONTACT LINK ─────────────────────────────────────────────── */
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: ui-monospace, monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+        .contact-link:hover { color: var(--text-head); }
+
+        /* ─── SKILL PILL ───────────────────────────────────────────────── */
+        .skill-pill {
+            font-family: ui-monospace, monospace;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid;
+            white-space: nowrap;
+        }
+
+        /* ─── SECTION BRIDGE ───────────────────────────────────────────── */
+        .bridge-text {
+            position: absolute;
+            top: 16px;
+            left: 0; right: 0;
+            text-align: center;
+            font-family: ui-monospace, monospace;
+            font-size: 10px;
+            color: #374151;
+            letter-spacing: 0.05em;
+            padding: 0 2rem;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* ─── CAMPFIRE LINK ────────────────────────────────────────────── */
+        .cf-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 12px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-family: ui-monospace, monospace;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-body);
+            text-decoration: none;
+            transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+        }
+        .cf-link:hover {
+            border-color: var(--accent-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px -8px rgba(249,115,22,0.2);
+        }
+
+        /* ─── DOT NAV ──────────────────────────────────────────────────── */
+        .dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #1F2937;
+        }
+        .dot.active {
+            background: var(--accent-blue);
+            transform: scale(1.4);
+            box-shadow: 0 0 8px rgba(59,130,246,0.5);
+        }
+
+        /* ─── ACHIEVEMENT CARD ─────────────────────────────────────────── */
+        .ach-card {
+            background: var(--bg-deep);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transition: border-color 0.2s;
+            cursor: pointer;
+        }
+
+        /* ─── MOBILE RAIL ──────────────────────────────────────────────── */
+        #mobile-rail {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 50;
+            background: rgba(7,10,19,0.95);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+            padding: 10px 12px;
+            gap: 6px;
+            overflow-x: auto;
+        }
+        .rail-chip {
+            flex-shrink: 0;
+            font-family: ui-monospace, monospace;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+        .rail-chip.active {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: #fff;
+        }
+
+        /* ─── MODAL OPEN/CLOSE ─────────────────────────────────────────── */
+        .modal { display: none; }
+        .modal.open { display: flex; }
     </style>
 </head>
-<body class="overflow-x-hidden antialiased">
+<body>
 
-    <!-- ================= SECTION 1: THE HORIZONTAL TRACK ================= -->
-    <div id="horizontal-trigger" class="relative h-[300vh]">
-        <div class="sticky top-0 h-screen w-full overflow-hidden">
-            <div id="track" class="horizontal-track absolute top-0 left-0 flex h-screen w-[300vw]">
-                
-                <!-- Stop 1: Introduction / Hero -->
-                <section class="w-screen h-screen flex flex-col justify-center px-12 md:px-24 bg-gradient-to-br from-[#0b0f19] to-[#111827]">
-                    <div class="max-w-4xl">
-                        <span class="text-blue-400 font-mono tracking-widest text-sm uppercase block mb-3">// ARCHITECTURAL PORTFOLIO</span>
-                        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
-                            Building Systems That <br>
-                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">Transform Raw Events</span> Into Impact.
-                        </h1>
-                        <p class="text-gray-400 text-lg md:text-xl max-w-2xl mb-8">
-                            Scroll down to launch the system pipeline. We’ll traverse the infrastructure from warehouse ingestion to automated statistical hypothesis engines.
-                        </p>
-                        <div class="flex items-center gap-3 text-gray-500 font-mono text-sm animate-pulse">
-                            <i data-lucide="mouse-pointer-click"></i>
-                            <span>SCROLL DOWN TO INITIATE PIPELINE</span>
-                        </div>
-                    </div>
-                </section>
+<!-- ═══════════════════════════════════════════════════════════════════
+     PERSISTENT: CONTACT BAR (top-left, every section)
+════════════════════════════════════════════════════════════════════ -->
+<div class="fixed top-4 left-4 z-40 flex items-center gap-3 hidden md:flex">
+    <a href="mailto:vnskartikeya@gmail.com" class="contact-link">
+        <span>✉</span><span>vnskartikeya@gmail.com</span>
+    </a>
+    <span class="text-gray-700">·</span>
+    <!-- ⚠ REPLACE href WITH YOUR REAL LINKEDIN URL -->
+    <a href="https://linkedin.com/in/YOUR-HANDLE" target="_blank" rel="noopener" class="contact-link">LinkedIn ↗</a>
+    <span class="text-gray-700">·</span>
+    <!-- ⚠ REPLACE href WITH YOUR REAL GITHUB URL -->
+    <a href="https://github.com/YOUR-HANDLE" target="_blank" rel="noopener" class="contact-link">GitHub ↗</a>
+</div>
 
-                <!-- Stop 2: Career Pipeline Milestone 1 -->
-                <section class="w-screen h-screen flex items-center justify-center bg-[#111827] px-12">
-                    <div class="grid grid-cols-1 md:grid-cols-2 max-w-6xl gap-12 items-center">
-                        <div>
-                            <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 mb-6 border border-blue-500/20">
-                                <i data-lucide="database"></i>
-                            </div>
-                            <span class="text-sm font-mono text-blue-400">STAGE 01 // INGESTION CORE</span>
-                            <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">The Customer Intelligence Warehouse</h2>
-                            <p class="text-gray-400 mb-6">
-                                Engineered a high-throughput, structured staging ecosystem designed to ingest, process, and clean raw un-tokenized GA4 production event dumps.
-                            </p>
-                        </div>
-                        <div class="bg-[#1f2937] p-6 rounded-2xl border border-gray-800 shadow-2xl font-mono text-xs text-green-400">
-                            <p class="text-gray-500">// Terminal Log Readout</p>
-                            <p class="mt-2 text-white">python src/database_loader.py</p>
-                            <p class="text-yellow-400">🔌 Connecting to PostgreSQL port 5433...</p>
-                            <p>🧹 Truncating stale warehouse records...</p>
-                            <p class="text-blue-400">📥 Stream active: execute_batch (Page Size: 5000)</p>
-                            <p>✅ Success! 100,000 event frames committed seamlessly.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Stop 3: Career Pipeline Milestone 2 -->
-                <section class="w-screen h-screen flex items-center justify-center bg-[#0f172a] px-12">
-                    <div class="grid grid-cols-1 md:grid-cols-2 max-w-6xl gap-12 items-center">
-                        <div class="order-2 md:order-1 bg-[#1e293b] p-8 rounded-2xl border border-gray-800 shadow-2xl flex flex-col gap-4">
-                            <div class="flex justify-between items-center border-b border-gray-700 pb-3">
-                                <span class="font-bold text-white text-sm">Cohort Distribution</span>
-                                <span class="text-xs bg-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded font-mono">RFM Live</span>
-                            </div>
-                            <div class="h-4 w-full bg-gray-800 rounded-full overflow-hidden flex">
-                                <div class="bg-emerald-500 h-full w-[45%]" title="Champions"></div>
-                                <div class="bg-blue-500 h-full w-[30%]" title="Loyal"></div>
-                                <div class="bg-yellow-500 h-full w-[15%]" title="At Risk"></div>
-                                <div class="bg-rose-500 h-full w-[10%]" title="Lost"></div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-2 text-xs font-mono text-gray-400">
-                                <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Champions (45%)</div>
-                                <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-blue-500"></span> Loyal (30%)</div>
-                            </div>
-                        </div>
-                        <div class="order-1 md:order-2">
-                            <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 mb-6 border border-indigo-500/20">
-                                <i data-lucide="users"></i>
-                            </div>
-                            <span class="text-sm font-mono text-indigo-400">STAGE 02 // COHORT ANALYSIS</span>
-                            <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Customer Segmentation Platform</h2>
-                            <p class="text-gray-400 mb-6">
-                                Programmed mathematical modeling layers to segment active users into deterministic behavioral clusters, identifying churn vulnerabilities automatically.
-                            </p>
-                        </div>
-                    </div>
-                </section>
-
-            </div>
-        </div>
+<!-- ═══════════════════════════════════════════════════════════════════
+     PERSISTENT: HUD (top-right)
+════════════════════════════════════════════════════════════════════ -->
+<div id="hud-panel" class="fixed top-4 right-4 z-40 bg-[#0B111E]/95 border border-[#1E293B] px-4 py-3 rounded-xl backdrop-blur-md font-mono text-xs space-y-1 shadow-2xl">
+    <div class="text-gray-600 font-bold text-[9px] tracking-widest uppercase">// MISSION CONTROL</div>
+    <div class="text-gray-400">Environment: <span id="hud-name" class="text-blue-400 font-bold">System Init</span></div>
+    <div class="text-gray-400">Rows: <span id="hud-rows" class="text-emerald-400 font-bold">—</span></div>
+    <div class="text-gray-400">Scope: <span id="hud-scope" class="text-amber-400 font-bold">—</span></div>
+    <div class="text-[9px] text-gray-700 pt-1 border-t border-gray-800 flex gap-2 mt-1">
+        <span>[E] Architecture</span><span>[D] Dashboard</span><span>[M] Metrics</span>
     </div>
+</div>
 
-    <!-- ================= SECTION 2: IMERSIVE THEME PARK ================= -->
-    <div class="relative bg-[#090d16] border-t border-gray-900">
-        <div class="max-w-6xl mx-auto px-6 py-24">
-            <div class="text-center mb-20">
-                <span class="text-emerald-400 font-mono text-sm tracking-widest uppercase">// SYSTEM ARCHITECTURE ARCADE</span>
-                <h2 class="text-4xl md:text-5xl font-extrabold mt-2 text-white">Interactive Engine Mechanics</h2>
-            </div>
-
-            <!-- Attraction 1: Ingestion Conveyor -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-32">
-                <div class="lg:col-span-5">
-                    <div class="text-xs font-mono text-emerald-400 mb-2">[ PIPELINE ASYNC ENGINE ]</div>
-                    <h3 class="text-2xl font-bold text-white mb-4">The Data Factory Ingestion Conveyor</h3>
-                    <p class="text-gray-400 leading-relaxed mb-6">
-                        Watch raw events tokenize in real time. This micro-architecture cleanly standardizes inconsistent cross-platform string values, resolves nested structures, and batches clean records into Postgres.
-                    </p>
-                </div>
-                <div class="lg:col-span-7 bg-[#0f172a] h-64 rounded-2xl border border-gray-800 p-6 flex flex-col justify-center overflow-hidden relative">
-                    <!-- Pure CSS/JS Animated Conveyor Belt simulation loop -->
-                    <div class="flex gap-4 animate-[marquee_15s_linear_infinite] whitespace-nowrap absolute">
-                        <div class="bg-[#1e293b] border border-gray-700 px-4 py-3 rounded-xl flex items-center gap-3 shadow-md text-xs font-mono">
-                            <i class="text-yellow-500" data-lucide="file-json"></i>
-                            <div>
-                                <p class="text-gray-300">evt_session_start</p>
-                                <p class="text-[10px] text-gray-500">medium: cpc</p>
-                            </div>
-                        </div>
-                        <div class="bg-[#1e293b] border border-gray-700 px-4 py-3 rounded-xl flex items-center gap-3 shadow-md text-xs font-mono">
-                            <i class="text-blue-500" data-lucide="file-json"></i>
-                            <div>
-                                <p class="text-gray-300">evt_view_item</p>
-                                <p class="text-[10px] text-gray-500">device: mobile</p>
-                            </div>
-                        </div>
-                        <div class="bg-[#1e293b] border border-gray-700 px-4 py-3 rounded-xl flex items-center gap-3 shadow-md text-xs font-mono">
-                            <i class="text-emerald-500" data-lucide="file-json"></i>
-                            <div>
-                                <p class="text-gray-300">evt_purchase</p>
-                                <p class="text-[10px] text-gray-500">revenue: $142.50</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Conveyor rollers visual base alignment -->
-                    <div class="w-full h-2 bg-gray-800 rounded-full mt-24 border border-gray-700 relative">
-                        <span class="absolute -top-1 left-1/4 w-4 h-4 bg-gray-600 rounded-full border border-gray-500 animate-spin"></span>
-                        <span class="absolute -top-1 left-2/4 w-4 h-4 bg-gray-600 rounded-full border border-gray-500 animate-spin"></span>
-                        <span class="absolute -top-1 left-3/4 w-4 h-4 bg-gray-600 rounded-full border border-gray-500 animate-spin"></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Attraction 2: The Experiment Matrix Lab -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <div class="lg:col-span-5 lg:order-2">
-                    <div class="text-xs font-mono text-purple-400 mb-2">[ HYPOTHESIS VALIDATION ]</div>
-                    <h3 class="text-2xl font-bold text-white mb-4">The Automated Multi-Gate Z-Test Lab</h3>
-                    <p class="text-gray-400 leading-relaxed mb-6">
-                        No more looking at spreadsheets. This matrix engine processes experimental variants on the fly, performing multi-stage proportion evaluations to isolate stat-significance metrics instantly.
-                    </p>
-                </div>
-                <div class="lg:col-span-7 lg:order-1 bg-[#0f172a] p-6 rounded-2xl border border-gray-800 font-mono text-xs text-gray-300">
-                    <div class="flex justify-between items-center mb-4 bg-[#1e293b] p-3 rounded-xl border border-gray-700">
-                        <span class="text-white font-bold">Experiment Alpha: Conversion Funnel</span>
-                        <span class="text-green-400 font-bold animate-pulse">● Live Engine Running</span>
-                    </div>
-                    <div class="space-y-3">
-                        <div class="p-3 bg-[#111827] rounded-lg border border-gray-800 flex justify-between items-center">
-                            <span>Stage 1: Session Start</span>
-                            <span class="text-gray-500">Control: 100% | Variant: 100% (p = 1.00)</span>
-                        </div>
-                        <div class="p-3 bg-[#111827] rounded-lg border border-gray-800 flex justify-between items-center">
-                            <span>Stage 3: Add To Cart</span>
-                            <span class="text-emerald-400 font-bold">Variant +14.2% Lift (p = 0.02) ★</span>
-                        </div>
-                        <div class="p-3 bg-[#111827] rounded-lg border border-gray-800 flex justify-between items-center">
-                            <span>Stage 5: Completed Purchase</span>
-                            <span class="text-purple-400 font-bold">Variant +8.7% Lift (p = 0.04) ★</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!-- ═══════════════════════════════════════════════════════════════════
+     PERSISTENT: BOTTOM-LEFT CONTROLS
+════════════════════════════════════════════════════════════════════ -->
+<div class="fixed bottom-6 left-6 z-40 flex items-center gap-3">
+    <button class="fast-mode-btn" onclick="AJ.openFastMode()">⚡ Jump to Section</button>
+    <div id="desktop-hint" class="bg-[#0B111E]/90 border border-[#1E293B] px-3 py-2 rounded-lg text-[10px] text-gray-500 font-mono hidden lg:block">
+        Scroll or use arrow keys to navigate
     </div>
+</div>
 
-    <!-- ================= SECTION 3: THE CAMPFIRE WRAP-UP ================= -->
-    <footer class="relative bg-gradient-to-b from-[#090d16] to-[#04060a] overflow-hidden py-32 border-t border-gray-900">
-        <!-- Ambient CSS Stars background container asset -->
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-orange-500/5 via-transparent to-transparent pointer-events-none"></div>
-        
-        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
-            <!-- Campfire core graphics placeholder element -->
-            <div class="inline-flex flex-col items-center mb-8">
-                <div class="w-16 h-16 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-500 border border-orange-500/30 animate-bounce">
-                    <i data-lucide="flame" class="w-8 h-8 fill-orange-500"></i>
-                </div>
-                <div class="flex gap-2 -mt-1">
-                    <span class="w-6 h-2 bg-amber-800 rounded-full transform rotate-12"></span>
-                    <span class="w-6 h-2 bg-amber-950 rounded-full transform -rotate-12"></span>
-                </div>
+<!-- ═══════════════════════════════════════════════════════════════════
+     PERSISTENT: DOT NAV (bottom-right)
+════════════════════════════════════════════════════════════════════ -->
+<div id="dot-nav" class="fixed bottom-6 right-6 z-40 bg-[#0B111E]/80 border border-[#1E293B] p-2 rounded-xl flex gap-2 backdrop-blur-sm"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     MOBILE: TOP RAIL
+════════════════════════════════════════════════════════════════════ -->
+<div id="mobile-rail"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     HORIZONTAL TRACK
+════════════════════════════════════════════════════════════════════ -->
+<div id="pipeline-track">
+
+    <!-- ──────────────────────────────────────────────────────────────
+         SCENE 0: HERO
+    ────────────────────────────────────────────────────────────────── -->
+    <section class="scene flex flex-col justify-center px-6 md:px-20 bg-gradient-to-br from-[#070A13] to-[#0B111E]"
+             data-name="Overview" data-rows="" data-scope="Analytics Portfolio">
+
+        <!-- scroll hint -->
+        <div id="scroll-hint" class="absolute bottom-8 right-8 flex items-center gap-2 font-mono text-[10px] text-gray-600 nudge">
+            <span>scroll to explore</span>
+            <span>→</span>
+        </div>
+
+        <div class="max-w-3xl space-y-5">
+
+            <!-- status badges -->
+            <div class="flex flex-wrap items-center gap-2">
+                <span class="skill-pill border-emerald-500/30 text-emerald-400 bg-emerald-500/8">● Open to Work</span>
+                <span class="skill-pill border-blue-500/20 text-blue-400 bg-blue-500/5">Data Analyst · Product Analytics · BI</span>
             </div>
 
-            <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-4">The Journey's Convergence</h2>
-            <p class="text-gray-400 text-lg max-w-xl mx-auto mb-12">
-                This pipeline demonstrates how I frame analytics challenges: write clean code, containerize environments, and anchor metrics in deep mathematical integrity.
+            <!-- name -->
+            <h1 class="text-5xl md:text-7xl font-black tracking-tight text-white leading-none">
+                Kartikeya<br>Vemula
+            </h1>
+
+            <!-- education line -->
+            <p class="font-mono text-sm text-gray-500">
+                <!-- ⚠ REPLACE WITH YOUR ACTUAL DEGREE / UNIVERSITY / YEAR -->
+                MSc Business Analytics &nbsp;·&nbsp; [University Name] &nbsp;·&nbsp; [Graduation Year]
             </p>
 
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="#" class="px-6 py-3 bg-white text-gray-950 font-medium rounded-xl hover:bg-gray-100 transition flex items-center gap-2 shadow-lg">
-                    <i data-lucide="file-text" class="w-4 h-4"></i> Access Resume Asset
+            <!-- hook -->
+            <p class="text-base text-gray-300 max-w-xl leading-relaxed">
+                I found <span class="text-emerald-400 font-bold">£171K</span> sitting dormant in a customer base
+                that looked healthy on the surface. My analytics systems find what standard dashboards miss —
+                from warehouse architecture to anomaly detection to purchase affinity mapping.
+            </p>
+
+            <!-- stat grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono text-xs pt-1">
+                <div class="metric-card">
+                    <div class="text-[9px] text-gray-500 uppercase mb-1">Rows Processed</div>
+                    <div class="text-base font-bold text-blue-400">1.06M+</div>
+                </div>
+                <div class="metric-card">
+                    <div class="text-[9px] text-gray-500 uppercase mb-1">Revenue Surfaced</div>
+                    <div class="text-base font-bold text-emerald-400">£3M+</div>
+                </div>
+                <div class="metric-card">
+                    <div class="text-[9px] text-gray-500 uppercase mb-1">Funnel Leak Found</div>
+                    <div class="text-base font-bold text-amber-400">75.8%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="text-[9px] text-gray-500 uppercase mb-1">Anomaly Z-Score</div>
+                    <div class="text-base font-bold text-rose-400">−9.89</div>
+                </div>
+            </div>
+
+            <!-- skills strip -->
+            <div class="space-y-2 pt-1">
+                <div class="text-[9px] font-mono text-gray-600 uppercase tracking-wider">Core Stack</div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-pill border-blue-500/25 text-blue-400 bg-blue-500/5">SQL · PostgreSQL</span>
+                    <span class="skill-pill border-emerald-500/25 text-emerald-400 bg-emerald-500/5">Python · Pandas</span>
+                    <span class="skill-pill border-indigo-500/25 text-indigo-400 bg-indigo-500/5">ETL · Data Warehousing</span>
+                    <span class="skill-pill border-amber-500/25 text-amber-400 bg-amber-500/5">GA4 · Product Analytics</span>
+                    <span class="skill-pill border-rose-500/25 text-rose-400 bg-rose-500/5">Statistical Analysis · A/B Testing</span>
+                    <span class="skill-pill border-purple-500/25 text-purple-400 bg-purple-500/5">Dashboarding · BI</span>
+                </div>
+            </div>
+
+            <!-- CTAs -->
+            <div class="flex flex-wrap items-center gap-3 pt-2">
+                <button onclick="AJ.go(1)"
+                    class="bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-bold py-3 px-6 rounded-lg transition-colors cursor-pointer">
+                    Begin Journey →
+                </button>
+                <!-- ⚠ REPLACE href WITH YOUR REAL CV PDF PATH -->
+                <a href="assets/Kartikeya_Vemula_CV.pdf" download
+                    class="bg-transparent border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 font-mono text-xs font-bold py-3 px-5 rounded-lg transition-colors">
+                    Download CV
                 </a>
-                <a href="#" class="px-6 py-3 bg-gray-900 text-white font-medium rounded-xl hover:bg-gray-800 transition flex items-center gap-2 border border-gray-800">
-                    <i data-lucide="github" class="w-4 h-4"></i> View Base Repository
-                </a>
+                <a href="mailto:vnskartikeya@gmail.com" class="contact-link text-xs">✉ Email me</a>
             </div>
         </div>
-    </footer>
+    </section>
 
-    <!-- Initialize Vector Icons Engine and Scroll Core -->
-    <script>
-        lucide.createIcons();
 
-        const track = document.getElementById('track');
-        const trigger = document.getElementById('horizontal-trigger');
+    <!-- ──────────────────────────────────────────────────────────────
+         SCENE 1: DATA FACTORY (WAREHOUSE)
+         Structurally distinct: blueprint grid, vertical pipeline flow left-side
+    ────────────────────────────────────────────────────────────────── -->
+    <section class="scene flex items-center px-6 md:px-16 bg-[#070A13] tex-blueprint"
+             data-name="Data Factory" data-rows="1067371" data-scope="PostgreSQL Star Schema"
+             data-arch="1" data-dash="assets/warehouse/executive_overview.png">
 
-        window.addEventListener('scroll', () => {
-            const triggerTop = trigger.offsetTop;
-            const triggerHeight = trigger.offsetHeight - window.innerHeight;
-            const scrolled = window.scrollY - triggerTop;
+        <div class="bridge-text">STAGE 01 OF 05 &nbsp;·&nbsp; Before you can understand your customers, you need reliable data about them. This is where it starts.</div>
 
-            if (scrolled >= 0 && scrolled <= triggerHeight) {
-                // Calculate percentage of vertical scroll completed inside target trigger block
-                const pct = scrolled / triggerHeight;
-                // Move horizontal track layer accordingly (300vw container minus initial 100vw view frame)
-                const moveX = pct * (window.innerWidth * 2);
-                track.style.transform = `translateX(-${moveX}px)`;
+        <div class="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-10 items-center pt-6">
+
+            <!-- LEFT: pipeline anatomy (unique structure for this scene) -->
+            <div class="lg:col-span-5 space-y-4 z-10">
+                <div class="stage-badge bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                    Environment 01 // Data Factory
+                </div>
+                <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">
+                    Customer Intelligence<br>Warehouse
+                </h2>
+                <p class="text-sm text-gray-400 leading-relaxed">
+                    A retail operation spanning <span class="text-white font-semibold">43 countries</span> had no reliable
+                    way to see which markets were growing and which were at risk.
+                    I built the warehouse that changed that — cleaning 1M+ transactions into
+                    a star schema that made country-level performance queryable in seconds.
+                </p>
+
+                <!-- Pipeline anatomy — unique to this scene -->
+                <div class="space-y-2 pt-1">
+                    <div class="text-[9px] font-mono text-gray-600 uppercase tracking-wider mb-2">// ETL Pipeline Anatomy</div>
+                    <div class="pipeline-step">
+                        <span class="text-rose-400 font-bold font-mono text-xs mt-0.5 shrink-0">A</span>
+                        <div>
+                            <div class="text-gray-200 font-semibold text-xs">Raw Ingestion</div>
+                            <div class="text-gray-500 mt-0.5">1,067,371 e-commerce rows · null handling · type coercion</div>
+                        </div>
+                    </div>
+                    <div class="w-px h-3 bg-indigo-500/30 ml-5"></div>
+                    <div class="pipeline-step">
+                        <span class="text-amber-400 font-bold font-mono text-xs mt-0.5 shrink-0">B</span>
+                        <div>
+                            <div class="text-gray-200 font-semibold text-xs">Transform</div>
+                            <div class="text-gray-500 mt-0.5">Idempotent de-duplication · referential integrity checks</div>
+                        </div>
+                    </div>
+                    <div class="w-px h-3 bg-indigo-500/30 ml-5"></div>
+                    <div class="pipeline-step">
+                        <span class="text-emerald-400 font-bold font-mono text-xs mt-0.5 shrink-0">C</span>
+                        <div>
+                            <div class="text-gray-200 font-semibold text-xs">Load → Star Schema</div>
+                            <div class="text-gray-500 mt-0.5"><code class="text-indigo-300">fact_sales</code> · <code class="text-indigo-300">dim_customers</code> · <code class="text-indigo-300">dim_date</code></div>
+                        </div>
+                    </div>
+                    <div class="w-px h-3 bg-indigo-500/30 ml-5"></div>
+                    <div class="pipeline-step border-emerald-500/20">
+                        <span class="text-blue-400 font-bold font-mono text-xs mt-0.5 shrink-0">D</span>
+                        <div>
+                            <div class="text-gray-200 font-semibold text-xs">Executive Dashboards</div>
+                            <div class="text-gray-500 mt-0.5">Revenue · market share · cohort retention</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- metrics row -->
+                <div class="grid grid-cols-2 gap-2 font-mono text-xs pt-1">
+                    <div class="metric-card">
+                        <div class="text-[9px] text-gray-500 uppercase">Validated Rows</div>
+                        <div class="font-bold text-blue-400">1,062,984</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="text-[9px] text-gray-500 uppercase">Revenue Surfaced</div>
+                        <div class="font-bold text-emerald-400">£3M+ · 43 countries</div>
+                    </div>
+                </div>
+
+                <!-- chips -->
+                <div class="flex flex-wrap gap-1 pt-1">
+                    <span class="chip">PostgreSQL</span>
+                    <span class="chip">Python</span>
+                    <span class="chip">ETL</span>
+                    <span class="chip">Star Schema</span>
+                    <span class="chip">SQL Analytics</span>
+                </div>
+
+                <!-- action buttons -->
+                <div class="flex flex-wrap gap-2 pt-1">
+                    <button onclick="AJ.openDepth(1,'E')"
+                        class="bg-indigo-600 hover:bg-indigo-500 text-white font-mono font-bold text-xs py-2 px-4 rounded transition-colors cursor-pointer">
+                        View SQL Architecture [E]
+                    </button>
+                    <button onclick="AJ.openDepth(1,'D')"
+                        class="border border-[#1E293B] hover:border-indigo-500/50 text-gray-400 font-mono text-xs py-2 px-4 rounded transition-colors cursor-pointer">
+                        Dashboard [D]
+                    </button>
+                </div>
+            </div>
+
+            <!-- RIGHT: image frame -->
+            <div class="lg:col-span-7">
+                <div class="img-frame" onclick="AJ.openLightbox('assets/warehouse/executive_overview.png','Executive Overview — Warehouse')">
+                    <div class="img-frame-bar">
+                        <span>🏭 FACTORY OUTPUT // EXECUTIVE_OVERVIEW.PNG</span>
+                        <span class="text-indigo-400 font-bold text-[9px]">Click to expand</span>
+                    </div>
+                    <div class="img-frame-body" style="height: 46vh;">
+                        <!-- SVG fallback: star schema diagram -->
+                        <svg class="img-placeholder w-full h-full" viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                            <rect width="560" height="280" fill="#040710"/>
+                            <!-- centre fact table -->
+                            <rect x="200" y="100" width="160" height="80" rx="6" fill="#1e1b4b" stroke="#4338ca" stroke-width="1.5"/>
+                            <text x="280" y="134" text-anchor="middle" fill="#818cf8" font-family="monospace" font-size="11" font-weight="bold">fact_sales</text>
+                            <text x="280" y="152" text-anchor="middle" fill="#6366f1" font-family="monospace" font-size="9">1,062,984 rows</text>
+                            <text x="280" y="168" text-anchor="middle" fill="#4f46e5" font-family="monospace" font-size="9">revenue · qty · date_id</text>
+                            <!-- dim_customers -->
+                            <rect x="30" y="30" width="130" height="60" rx="5" fill="#0c1a2e" stroke="#1e40af" stroke-width="1"/>
+                            <text x="95" y="55" text-anchor="middle" fill="#60a5fa" font-family="monospace" font-size="10" font-weight="bold">dim_customers</text>
+                            <text x="95" y="72" text-anchor="middle" fill="#3b82f6" font-family="monospace" font-size="9">5,876 profiles</text>
+                            <line x1="160" y1="75" x2="200" y2="128" stroke="#1e40af" stroke-width="1" stroke-dasharray="4"/>
+                            <!-- dim_date -->
+                            <rect x="400" y="30" width="130" height="60" rx="5" fill="#0c1a2e" stroke="#1e40af" stroke-width="1"/>
+                            <text x="465" y="55" text-anchor="middle" fill="#60a5fa" font-family="monospace" font-size="10" font-weight="bold">dim_date</text>
+                            <text x="465" y="72" text-anchor="middle" fill="#3b82f6" font-family="monospace" font-size="9">25 months</text>
+                            <line x1="400" y1="75" x2="360" y2="128" stroke="#1e40af" stroke-width="1" stroke-dasharray="4"/>
+                            <!-- dim_geography -->
+                            <rect x="30" y="185" width="130" height="60" rx="5" fill="#0c1a2e" stroke="#1e40af" stroke-width="1"/>
+                            <text x="95" y="210" text-anchor="middle" fill="#60a5fa" font-family="monospace" font-size="10" font-weight="bold">dim_geography</text>
+                            <text x="95" y="227" text-anchor="middle" fill="#3b82f6" font-family="monospace" font-size="9">43 countries</text>
+                            <line x1="160" y1="215" x2="200" y2="168" stroke="#1e40af" stroke-width="1" stroke-dasharray="4"/>
+                            <!-- dim_product -->
+                            <rect x="400" y="185" width="130" height="60" rx="5" fill="#0c1a2e" stroke="#1e40af" stroke-width="1"/>
+                            <text x="465" y="210" text-anchor="middle" fill="#60a5fa" font-family="monospace" font-size="10" font-weight="bold">dim_product</text>
+                            <text x="465" y="227" text-anchor="middle" fill="#3b82f6" font-family="monospace" font-size="9">categories · SKUs</text>
+                            <line x1="400" y1="215" x2="360" y2="168" stroke="#1e40af" stroke-width="1" stroke-dasharray="4"/>
+                            <text x="280" y="265" text-anchor="middle" fill="#374151" font-family="monospace" font-size="9">Star Schema · PostgreSQL · ETL Pipeline</text>
+                        </svg>
+                        <img class="img-real" src="assets/warehouse/executive_overview.png" alt="Executive overview dashboard"
+                             onload="this.classList.add('loaded'); this.previousElementSibling.style.opacity='0';"
+                             onerror="this.style.display='none'">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ──────────────────────────────────────────────────────────────
+         SCENE 2: SEGMENTATION CITY
+         Structurally distinct: district map layout, volume bars on right
+    ────────────────────────────────────────────────────────────────── -->
+    <section class="scene flex items-center px-6 md:px-16 bg-[#0B111E] tex-grid"
+             data-name="Segmentation City" data-rows="5876" data-scope="RFM Behavioral Matrix"
+             data-arch="2" data-dash="assets/segmentation/05_segment_scorecard.png">
+
+        <div class="bridge-text">STAGE 02 OF 05 &nbsp;·&nbsp; The warehouse is built. Now: who actually lives in it? RFM scoring maps 5,876 customers into behavioural districts.</div>
+
+        <div class="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-10 items-center pt-6">
+
+            <!-- LEFT: district map (unique layout for this scene) -->
+            <div class="lg:col-span-5 space-y-4 z-10">
+                <div class="stage-badge bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    Environment 02 // Segmentation City
+                </div>
+                <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">
+                    Customer<br>Intelligence City
+                </h2>
+                <p class="text-sm text-gray-400 leading-relaxed">
+                    Marketing was treating all customers the same. I used
+                    <span class="text-white font-semibold">RFM scoring</span> to divide 5,876 accounts into
+                    behavioural districts — revealing that just 26% of customers were generating
+                    <span class="text-emerald-400 font-bold">68.35%</span> of all revenue,
+                    while <span class="text-rose-400 font-bold">£171K</span> sat dormant in accounts that looked active.
+                </p>
+
+                <!-- District map — unique visual structure for this scene -->
+                <div class="space-y-1.5 pt-1">
+                    <div class="text-[9px] font-mono text-gray-600 uppercase tracking-wider mb-2">// Customer District Map</div>
+
+                    <div class="bg-emerald-950/40 border border-emerald-500/30 rounded-lg p-2.5 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="text-base">🏙</span>
+                            <div>
+                                <div class="font-bold text-emerald-400 text-xs font-mono">Champions District</div>
+                                <div class="text-[10px] text-gray-500">High R · High F · High M</div>
+                            </div>
+                        </div>
+                        <div class="text-right font-mono">
+                            <div class="text-emerald-400 font-bold text-xs">68.35% Revenue</div>
+                            <div class="text-gray-600 text-[10px]">Vol: 26.2%</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-teal-950/25 border border-teal-500/20 rounded-lg p-2.5 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="text-base">🌆</span>
+                            <div>
+                                <div class="font-bold text-teal-400 text-xs font-mono">Loyal &amp; Potential Base</div>
+                                <div class="text-[10px] text-gray-500">Growing engagement signals</div>
+                            </div>
+                        </div>
+                        <div class="text-right font-mono">
+                            <div class="text-teal-400 font-bold text-xs">Mid-tier value</div>
+                            <div class="text-gray-600 text-[10px]">Vol: 34.1%</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-rose-950/40 border border-rose-500/30 rounded-lg p-2.5 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="text-base">⚠️</span>
+                            <div>
+                                <div class="font-bold text-rose-400 text-xs font-mono">At Risk Sector</div>
+                                <div class="text-[10px] text-gray-500">Declining recency · revenue dormant</div>
+                            </div>
+                        </div>
+                        <div class="text-right font-mono">
+                            <div class="text-rose-400 font-bold text-xs">£171K at risk</div>
+                            <div class="text-gray-600 text-[10px]">Vol: 18.5%</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-900/60 border border-gray-800 rounded-lg p-2.5 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="text-base">💤</span>
+                            <div>
+                                <div class="font-bold text-gray-500 text-xs font-mono">Hibernating / Lost</div>
+                                <div class="text-[10px] text-gray-600">Low recency · low frequency</div>
+                            </div>
+                        </div>
+                        <div class="text-right font-mono">
+                            <div class="text-gray-500 font-bold text-xs">Reactivation targets</div>
+                            <div class="text-gray-700 text-[10px]">Vol: 21.2%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-1 pt-1">
+                    <span class="chip">RFM Scoring</span>
+                    <span class="chip">Python</span>
+                    <span class="chip">Cohort Analysis</span>
+                    <span class="chip">LTV Estimation</span>
+                    <span class="chip">Retention Analytics</span>
+                </div>
+
+                <div class="flex flex-wrap gap-2 pt-1">
+                    <button onclick="AJ.openDepth(2,'E')"
+                        class="bg-emerald-600 hover:bg-emerald-500 text-white font-mono font-bold text-xs py-2 px-4 rounded transition-colors cursor-pointer">
+                        RFM Code [E]
+                    </button>
+                    <button onclick="AJ.openDepth(2,'D')"
+                        class="border border-[#1E293B] hover:border-emerald-500/50 text-gray-400 font-mono text-xs py-2 px-4 rounded transition-colors cursor-pointer">
+                        Scorecard [D]
+                    </button>
+                </div>
+            </div>
+
+            <!-- RIGHT: image frame -->
+            <div class="lg:col-span-7">
+                <div class="img-frame" onclick="AJ.openLightbox('assets/segmentation/05_segment_scorecard.png','Segment Scorecard')">
+                    <div class="img-frame-bar">
+                        <span>👥 CITY INTERFACE // SEGMENT_SCORECARD.PNG</span>
+                        <span class="text-emerald-400 font-bold text-[9px]">Click to expand</span>
+                    </div>
+                    <div class="img-frame-body" style="height: 46vh;">
+                        <!-- SVG fallback: RFM distribution bars -->
+                        <svg class="img-placeholder w-full h-full" viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                            <rect width="560" height="280" fill="#040a0e"/>
+                            <text x="280" y="30" text-anchor="middle" fill="#374151" font-family="monospace" font-size="10">RFM Customer Segment Distribution</text>
+                            <!-- Champions -->
+                            <rect x="40" y="50" width="147" height="24" rx="3" fill="#065f46" opacity="0.7"/>
+                            <rect x="40" y="50" width="147" height="24" rx="3" fill="#10b981" opacity="0.2"/>
+                            <text x="55" y="67" fill="#34d399" font-family="monospace" font-size="10" font-weight="bold">Champions</text>
+                            <text x="200" y="67" fill="#6ee7b7" font-family="monospace" font-size="10">26.2% · 68.35% rev</text>
+                            <!-- Loyal -->
+                            <rect x="40" y="88" width="190" height="24" rx="3" fill="#134e4a" opacity="0.6"/>
+                            <text x="55" y="105" fill="#5eead4" font-family="monospace" font-size="10">Loyal Customers</text>
+                            <text x="242" y="105" fill="#2dd4bf" font-family="monospace" font-size="10">34.1%</text>
+                            <!-- At risk -->
+                            <rect x="40" y="126" width="103" height="24" rx="3" fill="#4c0519" opacity="0.7"/>
+                            <rect x="40" y="126" width="103" height="24" rx="3" fill="#f43f5e" opacity="0.15"/>
+                            <text x="55" y="143" fill="#fb7185" font-family="monospace" font-size="10" font-weight="bold">At Risk ⚠</text>
+                            <text x="155" y="143" fill="#f43f5e" font-family="monospace" font-size="10">18.5% · £171K</text>
+                            <!-- Hibernating -->
+                            <rect x="40" y="164" width="118" height="24" rx="3" fill="#1f2937" opacity="0.8"/>
+                            <text x="55" y="181" fill="#6b7280" font-family="monospace" font-size="10">Hibernating</text>
+                            <text x="170" y="181" fill="#4b5563" font-family="monospace" font-size="10">21.2%</text>
+                            <!-- revenue concentration bar -->
+                            <rect x="40" y="215" width="480" height="12" rx="3" fill="#111827"/>
+                            <rect x="40" y="215" width="328" height="12" rx="3" fill="#10b981" opacity="0.6"/>
+                            <text x="40" y="243" fill="#374151" font-family="monospace" font-size="9">0%</text>
+                            <text x="355" y="243" fill="#10b981" font-family="monospace" font-size="9">68.35% revenue</text>
+                            <text x="495" y="243" fill="#374151" font-family="monospace" font-size="9">100%</text>
+                            <text x="280" y="270" text-anchor="middle" fill="#374151" font-family="monospace" font-size="9">Champions generate 68.35% of total revenue from 26.2% of customers</text>
+                        </svg>
+                        <img class="img-real" src="assets/segmentation/05_segment_scorecard.png" alt="Segment scorecard dashboard"
+                             onload="this.classList.add('loaded'); this.previousElementSibling.style.opacity='0';"
+                             onerror="this.style.display='none'">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ──────────────────────────────────────────────────────────────
+         SCENE 3: FUNNEL CENTER
+         Structurally distinct: narrowing funnel visualization dominates left panel
+    ────────────────────────────────────────────────────────────────── -->
+    <section class="scene flex items-center px-6 md:px-16 bg-[#070A13]"
+             data-name="Funnel Center" data-rows="34984" data-scope="GA4 Telemetry Pipeline"
+             data-arch="3" data-dash="assets/funnel/funnel_leakage.png">
+
+        <div class="bridge-text">STAGE 03 OF 05 &nbsp;·&nbsp; The warehouse told us what happened. Now: why are users not converting? GA4 event streams reveal a 75.8% drop before product pages.</div>
+
+        <div class="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-10 items-center pt-6">
+
+            <!-- LEFT: funnel anatomy (unique structure) -->
+            <div class="lg:col-span-5 space-y-4 z-10">
+                <div class="stage-badge bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                    Environment 03 // Conversion Command Center
+                </div>
+                <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">
+                    Growth Funnel<br>Intelligence Engine
+                </h2>
+                <p class="text-sm text-gray-400 leading-relaxed">
+                    No one knew where users were dropping out of the purchase journey.
+                    I reconstructed <span class="text-white font-semibold">34,984 GA4 sessions</span>
+                    into sequential step transitions — and found that
+                    <span class="text-rose-400 font-bold">75.8%</span> of landing traffic
+                    never reached a product page. High-intent sessions converted at
+                    <span class="text-emerald-400 font-bold">13x</span> the rate of organic traffic.
+                </p>
+
+                <!-- Funnel steps — the layout itself narrows, unique to this scene -->
+                <div class="space-y-1 pt-1">
+                    <div class="text-[9px] font-mono text-gray-600 uppercase tracking-wider mb-2">// Conversion Step Analysis</div>
+
+                    <div class="bg-blue-900/30 border border-blue-500/40 rounded-lg px-3 py-2 flex justify-between items-center">
+                        <span class="font-mono text-xs text-blue-300">1. Session Landing</span>
+                        <span class="font-mono text-xs font-bold text-white">34,984 · 100%</span>
+                    </div>
+
+                    <div class="flex items-start gap-2 pl-3">
+                        <div class="w-px flex-shrink-0 h-full bg-rose-500 mt-1" style="min-height:28px;"></div>
+                        <div class="text-[10px] font-mono text-rose-400 font-bold uppercase py-1">⚡ 75.8% lost here — critical break</div>
+                    </div>
+
+                    <div class="bg-gray-900/60 border border-gray-700 rounded-lg px-3 py-2 flex justify-between items-center ml-4">
+                        <span class="font-mono text-xs text-gray-400">2. Product View</span>
+                        <span class="font-mono text-xs font-bold text-rose-400">8,467 · 24.2%</span>
+                    </div>
+                    <div class="flex items-start gap-2 pl-7">
+                        <div class="w-px flex-shrink-0 bg-gray-700 mt-1" style="min-height:16px;"></div>
+                    </div>
+                    <div class="bg-gray-900/40 border border-gray-800 rounded-lg px-3 py-2 flex justify-between items-center ml-8">
+                        <span class="font-mono text-xs text-gray-500">3. Cart Add</span>
+                        <span class="font-mono text-xs font-bold text-gray-500">2,614 · 7.5%</span>
+                    </div>
+                    <div class="flex items-start gap-2 pl-11">
+                        <div class="w-px flex-shrink-0 bg-gray-800 mt-1" style="min-height:16px;"></div>
+                    </div>
+                    <div class="bg-emerald-950/30 border border-emerald-500/20 rounded-lg px-3 py-2 flex justify-between items-center ml-12">
+                        <span class="font-mono text-xs text-emerald-400">4. Purchase</span>
+                        <span class="font-mono text-xs font-bold text-emerald-400">1,084 · 3.1%</span>
+                    </div>
+                </div>
+
+                <!-- key finding -->
+                <div class="bg-gray-950/80 border border-blue-500/15 rounded-lg p-3 font-mono text-xs">
+                    <div class="text-[9px] text-blue-400 font-bold uppercase tracking-wider mb-1">Key Finding</div>
+                    <p class="text-gray-300 leading-relaxed">
+                        High-intent sessions (direct/branded traffic) converted at
+                        <span class="text-emerald-400 font-bold">13x</span> the rate of organic sessions.
+                        A/B test framework validated this with 95% confidence.
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap gap-1 pt-1">
+                    <span class="chip">Python</span>
+                    <span class="chip">SQL</span>
+                    <span class="chip">GA4 Events</span>
+                    <span class="chip">A/B Testing</span>
+                    <span class="chip">Attribution Modelling</span>
+                </div>
+
+                <div class="flex flex-wrap gap-2 pt-1">
+                    <button onclick="AJ.openDepth(3,'E')"
+                        class="bg-blue-600 hover:bg-blue-500 text-white font-mono font-bold text-xs py-2 px-4 rounded transition-colors cursor-pointer">
+                        SQL Query [E]
+                    </button>
+                    <button onclick="AJ.openDepth(3,'D')"
+                        class="border border-[#1E293B] hover:border-blue-500/50 text-gray-400 font-mono text-xs py-2 px-4 rounded transition-colors cursor-pointer">
+                        Leakage Chart [D]
+                    </button>
+                </div>
+            </div>
+
+            <!-- RIGHT: image frame -->
+            <div class="lg:col-span-7">
+                <div class="img-frame" onclick="AJ.openLightbox('assets/funnel/funnel_leakage.png','Funnel Leakage Analysis')">
+                    <div class="img-frame-bar">
+                        <span>🚀 COMMAND CENTER // FUNNEL_LEAKAGE.PNG</span>
+                        <span class="text-blue-400 font-bold text-[9px]">Click to expand</span>
+                    </div>
+                    <div class="img-frame-body" style="height: 46vh;">
+                        <!-- SVG fallback: funnel diagram -->
+                        <svg class="img-placeholder w-full h-full" viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                            <rect width="560" height="280" fill="#040710"/>
+                            <text x="280" y="25" text-anchor="middle" fill="#374151" font-family="monospace" font-size="10">Conversion Funnel — GA4 Session Analysis</text>
+                            <!-- Step 1 full width -->
+                            <rect x="40" y="40" width="480" height="36" rx="4" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.2"/>
+                            <text x="80" y="63" fill="#93c5fd" font-family="monospace" font-size="11" font-weight="bold">1. Landing Page</text>
+                            <text x="460" y="63" text-anchor="end" fill="#fff" font-family="monospace" font-size="11" font-weight="bold">34,984 · 100%</text>
+                            <!-- arrow + loss label -->
+                            <text x="280" y="103" text-anchor="middle" fill="#f43f5e" font-family="monospace" font-size="10" font-weight="bold">↓ 75.8% DROP — critical leakage</text>
+                            <!-- Step 2 narrowed -->
+                            <rect x="120" y="112" width="320" height="36" rx="4" fill="#2d1b1b" stroke="#f43f5e" stroke-width="1.2"/>
+                            <text x="160" y="135" fill="#fca5a5" font-family="monospace" font-size="11" font-weight="bold">2. Product View</text>
+                            <text x="420" y="135" text-anchor="end" fill="#f87171" font-family="monospace" font-size="11" font-weight="bold">8,467 · 24.2%</text>
+                            <!-- Step 3 -->
+                            <rect x="180" y="162" width="200" height="30" rx="4" fill="#1f2937" stroke="#374151" stroke-width="1"/>
+                            <text x="210" y="182" fill="#9ca3af" font-family="monospace" font-size="10">3. Cart</text>
+                            <text x="365" y="182" text-anchor="end" fill="#6b7280" font-family="monospace" font-size="10">2,614 · 7.5%</text>
+                            <!-- Step 4 -->
+                            <rect x="210" y="205" width="140" height="30" rx="4" fill="#064e3b" stroke="#10b981" stroke-width="1"/>
+                            <text x="240" y="225" fill="#6ee7b7" font-family="monospace" font-size="10" font-weight="bold">4. Purchase ✓</text>
+                            <text x="340" y="225" text-anchor="end" fill="#34d399" font-family="monospace" font-size="10">1,084 · 3.1%</text>
+                            <text x="280" y="268" text-anchor="middle" fill="#374151" font-family="monospace" font-size="9">High-intent sessions convert at 13× baseline · A/B tested at 95% CI</text>
+                        </svg>
+                        <img class="img-real" src="assets/funnel/funnel_leakage.png" alt="Funnel leakage dashboard"
+                             onload="this.classList.add('loaded'); this.previousElementSibling.style.opacity='0';"
+                             onerror="this.style.display='none'">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ──────────────────────────────────────────────────────────────
+         SCENE 4: KPI CONTROL TOWER
+         Structurally distinct: incident chronology timeline, alert status grid
+    ────────────────────────────────────────────────────────────────── -->
+    <section class="scene flex items-center px-6 md:px-16 bg-[#0B111E] tex-scan"
+             data-name="KPI Tower" data-rows="540" data-scope="−9.89 Anomaly Alert"
+             data-arch="4" data-dash="assets/kpi/incident_center.png">
+
+        <div class="bridge-text">STAGE 04 OF 05 &nbsp;·&nbsp; The funnel analysis asked "where?" This system asks "when does something go wrong — and how do we catch it automatically?"</div>
+
+        <div class="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-10 items-center pt-6">
+
+            <!-- LEFT: alert timeline (unique structure) -->
+            <div class="lg:col-span-5 space-y-4 z-10">
+                <div class="stage-badge bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                    Environment 04 // KPI Control Tower
+                </div>
+                <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">
+                    KPI Monitoring &amp;<br>Diagnostic Engine
+                </h2>
+                <p class="text-sm text-gray-400 leading-relaxed">
+                    Something was wrong with conversion rates, but no one knew what.
+                    I built a monitoring system that caught a
+                    <span class="text-rose-400 font-bold">−9.89 Z-score anomaly</span>
+                    before it became a revenue crisis. Root cause:
+                    <span class="text-amber-400 font-bold">Mobile / EMEA / Safari</span>
+                    converting at 38% below baseline. Identified in under 4 hours.
+                    Without this system, it would have gone undetected for weeks.
+                </p>
+
+                <!-- Incident chronology — unique timeline structure -->
+                <div class="space-y-1 pt-1">
+                    <div class="text-[9px] font-mono text-gray-600 uppercase tracking-wider mb-2">// Incident Detection Sequence</div>
+                    <div class="grid grid-cols-4 gap-1.5 font-mono text-[10px] text-center">
+                        <div class="bg-emerald-950/40 border border-emerald-500/30 py-2 rounded text-emerald-400 font-bold">
+                            1. Monitor
+                        </div>
+                        <div class="bg-amber-950/30 border border-amber-500/20 py-2 rounded text-amber-400">
+                            2. Detect
+                        </div>
+                        <div class="bg-rose-950/50 border border-rose-500 py-2 rounded text-white font-bold">
+                            3. Diagnose ←
+                        </div>
+                        <div class="bg-gray-900 border border-gray-800 py-2 rounded text-gray-600">
+                            4. Report
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Evidence card -->
+                <div class="bg-gray-950/80 border border-rose-500/20 rounded-xl p-3 space-y-2 font-mono text-xs">
+                    <div class="flex justify-between items-center">
+                        <span class="text-[9px] text-rose-400 font-bold uppercase tracking-wider">// Root Cause Evidence</span>
+                        <span class="text-[9px] text-rose-400 animate-pulse">● ALERT ACTIVE</span>
+                    </div>
+                    <div class="space-y-1 text-gray-400">
+                        <div class="flex justify-between">
+                            <span>Z-Score Deviation</span>
+                            <span class="text-rose-400 font-bold">−9.89</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Observed CVR</span>
+                            <span class="text-white font-bold">0.0606</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Expected Baseline</span>
+                            <span class="text-emerald-400 font-bold">0.0988</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Primary Offender</span>
+                            <span class="text-amber-400 font-bold">Mobile / EMEA / Safari</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stream switcher -->
+                <div class="space-y-1.5">
+                    <div class="text-[9px] font-mono text-gray-600 uppercase tracking-wider">Select dashboard view:</div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button id="kpi-btn-1" onclick="AJ.switchKpiStream('assets/kpi/incident_center.png','Incident Center',this)"
+                            class="bg-blue-600 text-white font-mono text-[10px] font-bold py-2 rounded transition-colors cursor-pointer">
+                            1. Incident
+                        </button>
+                        <button id="kpi-btn-2" onclick="AJ.switchKpiStream('assets/kpi/incident_summary.png','Summary Log',this)"
+                            class="bg-gray-900 border border-gray-800 text-gray-400 font-mono text-[10px] py-2 rounded transition-colors cursor-pointer">
+                            2. Summary
+                        </button>
+                        <button id="kpi-btn-3" onclick="AJ.switchKpiStream('assets/kpi/segment_root_cause.png','Root Cause',this)"
+                            class="bg-gray-900 border border-gray-800 text-gray-400 font-mono text-[10px] py-2 rounded transition-colors cursor-pointer">
+                            3. Root Cause
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-1 pt-1">
+                    <span class="chip">Python</span>
+                    <span class="chip">Z-Score Analysis</span>
+                    <span class="chip">Statistical Monitoring</span>
+                    <span class="chip">Root Cause Analysis</span>
+                </div>
+            </div>
+
+            <!-- RIGHT: switchable image frame -->
+            <div class="lg:col-span-7">
+                <div class="img-frame">
+                    <div class="img-frame-bar">
+                        <span id="kpi-label">📡 CONTROL TOWER // INCIDENT_CENTER.PNG</span>
+                        <span onclick="AJ.openLightbox(document.getElementById('kpi-img').src, 'KPI Diagnostic View')"
+                              class="text-rose-400 font-bold text-[9px] cursor-pointer hover:text-rose-300 transition-colors">
+                            Maximize ↗
+                        </span>
+                    </div>
+                    <div class="img-frame-body" style="height: 46vh;" onclick="AJ.openLightbox(document.getElementById('kpi-img').src, 'KPI Diagnostic View')">
+                        <!-- SVG fallback -->
+                        <svg id="kpi-svg" class="img-placeholder w-full h-full" viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                            <rect width="560" height="280" fill="#04070e"/>
+                            <text x="280" y="22" text-anchor="middle" fill="#374151" font-family="monospace" font-size="10">KPI Monitoring — Conversion Rate Anomaly Detection</text>
+                            <!-- baseline line -->
+                            <line x1="40" y1="140" x2="520" y2="140" stroke="#1e293b" stroke-width="1" stroke-dasharray="6"/>
+                            <text x="530" y="144" fill="#374151" font-family="monospace" font-size="9">0.0988</text>
+                            <!-- normal CVR line -->
+                            <polyline points="40,135 80,138 120,133 160,136 200,134 240,137 280,135" stroke="#10b981" stroke-width="2" fill="none"/>
+                            <!-- anomaly drop -->
+                            <polyline points="280,135 320,145 360,175 380,190 400,188 420,192" stroke="#f43f5e" stroke-width="2.5" fill="none"/>
+                            <!-- anomaly marker -->
+                            <circle cx="380" cy="190" r="6" fill="none" stroke="#f43f5e" stroke-width="2"/>
+                            <line x1="380" y1="184" x2="380" y2="60" stroke="#f43f5e" stroke-width="1" stroke-dasharray="4" opacity="0.5"/>
+                            <text x="385" y="58" fill="#f43f5e" font-family="monospace" font-size="10" font-weight="bold">Z = −9.89</text>
+                            <text x="385" y="70" fill="#f87171" font-family="monospace" font-size="9">Mobile/EMEA/Safari</text>
+                            <!-- axis labels -->
+                            <text x="40" y="265" fill="#374151" font-family="monospace" font-size="9">Day 1</text>
+                            <text x="470" y="265" fill="#374151" font-family="monospace" font-size="9">Day 30</text>
+                            <text x="280" y="265" text-anchor="middle" fill="#f43f5e" font-family="monospace" font-size="9">Anomaly: CVR 0.0606 vs 0.0988 baseline (−38.6%)</text>
+                        </svg>
+                        <img id="kpi-img" class="img-real" src="assets/kpi/incident_center.png" alt="KPI incident dashboard"
+                             onload="this.classList.add('loaded'); document.getElementById('kpi-svg').style.opacity='0';"
+                             onerror="this.style.display='none'">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ──────────────────────────────────────────────────────────────
+         SCENE 5: RETAIL MARKETPLACE
+         Structurally distinct: actual rule pairs displayed inline, product network
+    ────────────────────────────────────────────────────────────────── -->
+    <section class="scene flex items-center px-6 md:px-16 bg-[#070A13]"
+             data-name="Retail Marketplace" data-rows="25820" data-scope="Apriori Affinity Rules"
+             data-arch="5" data-dash="assets/instacart/market_basket.png">
+
+        <div class="bridge-text">STAGE 05 OF 05 &nbsp;·&nbsp; Individual anomalies are solved. The final question: what do customers buy together — and how do we use that to drive revenue?</div>
+
+        <div class="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-10 items-center pt-6">
+
+            <!-- LEFT: affinity rule display (unique structure) -->
+            <div class="lg:col-span-5 space-y-4 z-10">
+                <div class="stage-badge bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                    Environment 05 // Retail Marketplace
+                </div>
+                <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">
+                    Market Basket<br>Association Platform
+                </h2>
+                <p class="text-sm text-gray-400 leading-relaxed">
+                    Across 3.4M+ Instacart orders, I used the
+                    <span class="text-white font-semibold">Apriori algorithm</span> to identify
+                    hidden purchase affinities — 25,820 association rules —
+                    and built 18 high-confidence cross-sell pathways.
+                    Top rule: Bananas → Organic Strawberries at
+                    <span class="text-amber-400 font-bold">4.12× lift</span>.
+                </p>
+
+                <!-- Affinity rule display — unique to this scene -->
+                <div class="space-y-2 pt-1">
+                    <div class="text-[9px] font-mono text-gray-600 uppercase tracking-wider mb-2">// Top Association Rules</div>
+
+                    <div class="bg-gray-950/80 border border-amber-500/20 rounded-lg p-3">
+                        <div class="flex items-center justify-between gap-2 font-mono text-xs">
+                            <span class="text-amber-400 font-bold">Bananas</span>
+                            <div class="flex-1 flex flex-col items-center gap-0.5">
+                                <div class="w-full border-b border-dashed border-gray-700"></div>
+                                <span class="text-blue-400 text-[9px] font-bold">LIFT: 4.12×  ·  CONF: 0.71</span>
+                            </div>
+                            <span class="text-emerald-400 font-bold">Organic Strawberries</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-950/60 border border-gray-800 rounded-lg p-3">
+                        <div class="flex items-center justify-between gap-2 font-mono text-xs">
+                            <span class="text-amber-300">Organic Baby Spinach</span>
+                            <div class="flex-1 flex flex-col items-center gap-0.5">
+                                <div class="w-full border-b border-dashed border-gray-800"></div>
+                                <span class="text-blue-500 text-[9px]">LIFT: 3.26×  ·  CONF: 0.64</span>
+                            </div>
+                            <span class="text-emerald-300">Organic Avocado</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-950/40 border border-gray-800 rounded-lg p-3">
+                        <div class="flex items-center justify-between gap-2 font-mono text-xs text-gray-500">
+                            <span>Organic Whole Milk</span>
+                            <div class="flex-1 flex flex-col items-center gap-0.5">
+                                <div class="w-full border-b border-dashed border-gray-800"></div>
+                                <span class="text-[9px]">LIFT: 2.89×</span>
+                            </div>
+                            <span>Organic Large Eggs</span>
+                        </div>
+                    </div>
+
+                    <div class="text-[10px] text-gray-600 font-mono text-right pt-0.5">
+                        25,820 rules computed · 18 production cross-sell pathways
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 font-mono text-xs">
+                    <div class="metric-card">
+                        <div class="text-[9px] text-gray-500 uppercase">Top Rule Lift</div>
+                        <div class="font-bold text-amber-400">4.12×</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="text-[9px] text-gray-500 uppercase">Reorder Rate</div>
+                        <div class="font-bold text-emerald-400">59% baseline</div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-1 pt-1">
+                    <span class="chip">Python</span>
+                    <span class="chip">Apriori Algorithm</span>
+                    <span class="chip">mlxtend</span>
+                    <span class="chip">Association Rules</span>
+                </div>
+
+                <div class="flex flex-wrap gap-2 pt-1">
+                    <button onclick="AJ.openDepth(5,'E')"
+                        class="bg-amber-600 hover:bg-amber-500 text-white font-mono font-bold text-xs py-2 px-4 rounded transition-colors cursor-pointer">
+                        Apriori Code [E]
+                    </button>
+                    <button onclick="AJ.openLightbox('assets/instacart/market_basket.png','Market Basket')"
+                        class="border border-[#1E293B] hover:border-amber-500/50 text-gray-400 font-mono text-xs py-2 px-4 rounded transition-colors cursor-pointer">
+                        Basket Map [D]
+                    </button>
+                </div>
+            </div>
+
+            <!-- RIGHT: image frame -->
+            <div class="lg:col-span-7">
+                <div class="img-frame" onclick="AJ.openLightbox('assets/instacart/market_basket.png','Market Basket Affinity Map')">
+                    <div class="img-frame-bar">
+                        <span>🛒 MARKETPLACE INTERFACE // MARKET_BASKET.PNG</span>
+                        <span class="text-amber-400 font-bold text-[9px]">Click to expand</span>
+                    </div>
+                    <div class="img-frame-body" style="height: 46vh;">
+                        <!-- SVG fallback: network graph -->
+                        <svg class="img-placeholder w-full h-full" viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                            <rect width="560" height="280" fill="#040710"/>
+                            <text x="280" y="22" text-anchor="middle" fill="#374151" font-family="monospace" font-size="10">Market Basket — Item Affinity Network</text>
+                            <!-- nodes -->
+                            <circle cx="200" cy="120" r="28" fill="#451a03" stroke="#f59e0b" stroke-width="1.5"/>
+                            <text x="200" y="116" text-anchor="middle" fill="#fbbf24" font-family="monospace" font-size="9" font-weight="bold">Bananas</text>
+                            <text x="200" y="128" text-anchor="middle" fill="#f59e0b" font-family="monospace" font-size="8">59% reorder</text>
+
+                            <circle cx="370" cy="80" r="24" fill="#052e16" stroke="#10b981" stroke-width="1.5"/>
+                            <text x="370" y="76" text-anchor="middle" fill="#34d399" font-family="monospace" font-size="8.5" font-weight="bold">Organic</text>
+                            <text x="370" y="88" text-anchor="middle" fill="#10b981" font-family="monospace" font-size="8">Strawberries</text>
+
+                            <circle cx="390" cy="175" r="22" fill="#052e16" stroke="#10b981" stroke-width="1"/>
+                            <text x="390" y="172" text-anchor="middle" fill="#6ee7b7" font-family="monospace" font-size="8">Baby Spinach</text>
+                            <text x="390" y="183" text-anchor="middle" fill="#34d399" font-family="monospace" font-size="8">Organic</text>
+
+                            <circle cx="140" cy="200" r="20" fill="#042f2e" stroke="#0d9488" stroke-width="1"/>
+                            <text x="140" y="201" text-anchor="middle" fill="#5eead4" font-family="monospace" font-size="8">Avocado</text>
+
+                            <circle cx="280" cy="195" r="18" fill="#1c1917" stroke="#78716c" stroke-width="1"/>
+                            <text x="280" y="196" text-anchor="middle" fill="#a8a29e" font-family="monospace" font-size="8">Whole Milk</text>
+
+                            <!-- edges with lift labels -->
+                            <line x1="228" y1="108" x2="348" y2="88" stroke="#f59e0b" stroke-width="2.5" opacity="0.7"/>
+                            <text x="290" y="92" text-anchor="middle" fill="#fbbf24" font-family="monospace" font-size="9" font-weight="bold">4.12×</text>
+
+                            <line x1="228" y1="130" x2="368" y2="163" stroke="#10b981" stroke-width="1.5" opacity="0.5"/>
+                            <text x="308" y="155" fill="#6ee7b7" font-family="monospace" font-size="8">3.26×</text>
+
+                            <line x1="180" y1="140" x2="158" y2="182" stroke="#0d9488" stroke-width="1" opacity="0.4"/>
+                            <line x1="216" y1="140" x2="265" y2="182" stroke="#78716c" stroke-width="1" opacity="0.3"/>
+
+                            <text x="280" y="265" text-anchor="middle" fill="#374151" font-family="monospace" font-size="9">25,820 rules · Apriori (min_support=0.01) · 18 cross-sell pathways identified</text>
+                        </svg>
+                        <img class="img-real" src="assets/instacart/market_basket.png" alt="Market basket rules visualisation"
+                             onload="this.classList.add('loaded'); this.previousElementSibling.style.opacity='0';"
+                             onerror="this.style.display='none'">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ──────────────────────────────────────────────────────────────
+         SCENE 6: ANALYST REFLECTION (replaces Achievement Wall)
+         Structurally distinct: synthesis + skills matrix + personal voice
+    ────────────────────────────────────────────────────────────────── -->
+    <section class="scene flex flex-col justify-center px-6 md:px-20 bg-[#0B111E]"
+             data-name="Reflection" data-rows="" data-scope="Journey Synthesis">
+
+        <div class="max-w-4xl w-full mx-auto space-y-8">
+
+            <div class="space-y-3">
+                <div class="stage-badge bg-teal-500/10 text-teal-400 border border-teal-500/20">
+                    Journey Synthesis // What These Projects Mean Together
+                </div>
+                <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">
+                    What I Learned<br>Building All Five Systems
+                </h2>
+                <p class="text-base text-gray-300 leading-relaxed max-w-2xl">
+                    The hardest part of analytics is never the code. It's knowing which question to ask
+                    before you write the first query. These five systems taught me that data work has a
+                    natural order: <span class="text-white font-semibold">build reliable infrastructure first,
+                    understand your customers second, diagnose problems third, then optimise.</span>
+                    Every shortcut in that sequence costs you more than the shortcut saved.
+                </p>
+            </div>
+
+            <!-- Skills-to-project matrix -->
+            <div class="space-y-3">
+                <div class="text-[9px] font-mono text-gray-600 uppercase tracking-wider">// Skills Demonstrated — Project Mapping</div>
+                <div class="overflow-x-auto">
+                    <table class="w-full font-mono text-xs border-collapse">
+                        <thead>
+                            <tr class="text-gray-600 text-[9px] uppercase tracking-wider">
+                                <th class="text-left py-2 pr-4 font-normal">Skill</th>
+                                <th class="text-center py-2 px-2 font-normal">Warehouse</th>
+                                <th class="text-center py-2 px-2 font-normal">Segment</th>
+                                <th class="text-center py-2 px-2 font-normal">Funnel</th>
+                                <th class="text-center py-2 px-2 font-normal">KPI</th>
+                                <th class="text-center py-2 px-2 font-normal">Basket</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-400">
+                            <tr class="border-t border-gray-800/60">
+                                <td class="py-1.5 pr-4 text-gray-300">SQL / PostgreSQL</td>
+                                <td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-gray-600">—</td>
+                            </tr>
+                            <tr class="border-t border-gray-800/60">
+                                <td class="py-1.5 pr-4 text-gray-300">Python / Pandas</td>
+                                <td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td>
+                            </tr>
+                            <tr class="border-t border-gray-800/60">
+                                <td class="py-1.5 pr-4 text-gray-300">ETL / Data Pipeline</td>
+                                <td class="text-center text-emerald-400">✓</td><td class="text-center text-gray-600">—</td><td class="text-center text-gray-600">—</td><td class="text-center text-gray-600">—</td><td class="text-center text-gray-600">—</td>
+                            </tr>
+                            <tr class="border-t border-gray-800/60">
+                                <td class="py-1.5 pr-4 text-gray-300">Data Warehousing</td>
+                                <td class="text-center text-emerald-400">✓</td><td class="text-center text-gray-600">—</td><td class="text-center text-gray-600">—</td><td class="text-center text-gray-600">—</td><td class="text-center text-gray-600">—</td>
+                            </tr>
+                            <tr class="border-t border-gray-800/60">
+                                <td class="py-1.5 pr-4 text-gray-300">Customer Analytics</td>
+                                <td class="text-center text-gray-600">—</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-gray-600">—</td><td class="text-center text-gray-600">—</td><td class="text-center text-emerald-400">✓</td>
+                            </tr>
+                            <tr class="border-t border-gray-800/60">
+                                <td class="py-1.5 pr-4 text-gray-300">Product Analytics / GA4</td>
+                                <td class="text-center text-gray-600">—</td><td class="text-center text-gray-600">—</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-gray-600">—</td><td class="text-center text-gray-600">—</td>
+                            </tr>
+                            <tr class="border-t border-gray-800/60">
+                                <td class="py-1.5 pr-4 text-gray-300">Statistical Analysis</td>
+                                <td class="text-center text-gray-600">—</td><td class="text-center text-gray-600">—</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td>
+                            </tr>
+                            <tr class="border-t border-gray-800/60">
+                                <td class="py-1.5 pr-4 text-gray-300">Dashboarding / BI</td>
+                                <td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- What I am looking for -->
+            <div class="bg-gray-950/60 border border-teal-500/15 rounded-xl p-4 space-y-2">
+                <div class="text-[9px] font-mono text-teal-400 uppercase tracking-wider font-bold">// What I Am Looking For</div>
+                <p class="text-sm text-gray-300 leading-relaxed">
+                    <!-- ⚠ PERSONALISE THIS TO YOUR ACTUAL JOB SEARCH -->
+                    I am looking for a team where analytics genuinely influences what gets built or how resources get
+                    allocated — not one where dashboards are produced but rarely acted on.
+                    Data Analyst, Product Analyst, or Analytics Engineer roles at product-led organisations.
+                    Ideally London-based or remote-first.
+                </p>
+            </div>
+
+            <div>
+                <button onclick="AJ.go(7)"
+                    class="bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-bold py-3 px-6 rounded-lg transition-colors cursor-pointer">
+                    One more thing →
+                </button>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ──────────────────────────────────────────────────────────────
+         SCENE 7: CAMPFIRE
+         Structurally distinct: warm radial glow, human voice, full contact
+    ────────────────────────────────────────────────────────────────── -->
+    <section class="scene flex flex-col justify-center items-center px-6 tex-warm bg-gradient-to-b from-[#0B111E] to-[#04070D] text-center"
+             data-name="Campfire" data-rows="" data-scope="Shutdown">
+
+        <div class="max-w-xl space-y-6 z-10">
+
+            <!-- fire -->
+            <div class="relative inline-flex justify-center items-center w-14 h-14 mx-auto">
+                <span class="absolute inset-0 rounded-full bg-orange-500/10 animate-ping"></span>
+                <span class="campfire-icon text-3xl">🔥</span>
+            </div>
+
+            <div class="space-y-4">
+                <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">
+                    The Analytics Campfire
+                </h2>
+
+                <!-- Human voice — personalise this -->
+                <div class="text-sm text-gray-300 leading-relaxed space-y-3 text-left">
+                    <p>
+                        If you've made it here, you've seen how I think about data — not as rows to process,
+                        but as questions to answer. Every project in this portfolio started with someone not
+                        knowing something they needed to know.
+                    </p>
+                    <p>
+                        <!-- ⚠ PERSONALISE: say something specific and true about yourself -->
+                        I find the gap between "we have data" and "we make decisions from data" genuinely
+                        interesting to close. That gap is almost always analytical, not technical.
+                    </p>
+                    <p class="text-gray-400">
+                        I'm looking for a team working on hard problems with real data. If that's you,
+                        I'd genuinely like to hear from you.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Contact grid -->
+            <div class="grid grid-cols-2 gap-3 max-w-sm mx-auto pt-2">
+                <a href="mailto:vnskartikeya@gmail.com" class="cf-link col-span-2">
+                    ✉ vnskartikeya@gmail.com
+                </a>
+                <!-- ⚠ REPLACE WITH REAL LINKEDIN URL -->
+                <a href="https://linkedin.com/in/YOUR-HANDLE" target="_blank" rel="noopener" class="cf-link">
+                    👔 LinkedIn
+                </a>
+                <!-- ⚠ REPLACE WITH REAL GITHUB URL -->
+                <a href="https://github.com/YOUR-HANDLE" target="_blank" rel="noopener" class="cf-link">
+                    💻 GitHub
+                </a>
+                <!-- ⚠ REPLACE WITH REAL CV PATH -->
+                <a href="assets/Kartikeya_Vemula_CV.pdf" download class="cf-link col-span-2">
+                    📄 Download CV
+                </a>
+            </div>
+
+            <button onclick="AJ.go(0)"
+                class="text-[10px] text-gray-700 font-mono hover:text-gray-500 transition-colors cursor-pointer bg-transparent border-none">
+                ↺ Restart journey
+            </button>
+        </div>
+    </section>
+
+</div><!-- end pipeline-track -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     MODAL: FAST MODE / JUMP TO SECTION
+════════════════════════════════════════════════════════════════════ -->
+<div id="modal-fast" class="modal fixed inset-0 z-50 modal-backdrop items-center justify-center p-4">
+    <div class="bg-[#0B111E] border border-[#1E293B] w-full max-w-md rounded-2xl p-5 shadow-2xl font-mono"
+         onclick="event.stopPropagation()">
+        <div class="flex items-center justify-between border-b border-[#1E293B] pb-3 mb-3">
+            <span class="text-blue-400 font-bold text-xs uppercase tracking-wider">// Jump to Section</span>
+            <button onclick="AJ.closeFastMode()" class="text-gray-600 hover:text-white cursor-pointer text-sm">✕</button>
+        </div>
+        <div id="fast-mode-list" class="space-y-1.5 text-xs"></div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     MODAL: LIGHTBOX
+════════════════════════════════════════════════════════════════════ -->
+<div id="modal-lightbox" class="modal fixed inset-0 z-50 modal-backdrop items-center justify-center p-4"
+     onclick="AJ.closeLightbox()">
+    <div class="max-w-5xl w-full bg-[#0B111E] border border-[#1E293B] rounded-xl p-2 shadow-2xl"
+         onclick="event.stopPropagation()">
+        <div class="flex items-center justify-between border-b border-[#1E293B] px-2 py-2 mb-2 font-mono text-xs text-gray-500">
+            <span id="lightbox-label">Dashboard View</span>
+            <button onclick="AJ.closeLightbox()" class="text-gray-600 hover:text-white cursor-pointer font-bold">✕ Close</button>
+        </div>
+        <img id="lightbox-img" src="" alt="Dashboard expanded view" class="w-full max-h-[78vh] object-contain rounded-lg">
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     MODAL: DEPTH (Architecture / Code / Metrics)
+════════════════════════════════════════════════════════════════════ -->
+<div id="modal-depth" class="modal fixed inset-0 z-50 modal-backdrop items-center justify-center p-4"
+     onclick="AJ.closeDepthModal()">
+    <div class="bg-[#0B111E] border border-[#1E293B] w-full max-w-2xl rounded-2xl p-5 shadow-2xl font-mono max-h-[85vh] overflow-y-auto"
+         onclick="event.stopPropagation()">
+        <div class="flex items-center justify-between border-b border-[#1E293B] pb-3 mb-4">
+            <div>
+                <div id="depth-title" class="text-white font-bold text-sm"></div>
+                <div id="depth-subtitle" class="text-[10px] text-gray-600 uppercase tracking-wider mt-0.5"></div>
+            </div>
+            <button onclick="AJ.closeDepthModal()" class="text-gray-600 hover:text-white cursor-pointer text-sm">✕ Close</button>
+        </div>
+        <div id="depth-body" class="space-y-4 text-xs text-gray-300 leading-relaxed"></div>
+    </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SCRIPT: SINGLE MODULE — AJ
+════════════════════════════════════════════════════════════════════ -->
+<script>
+const AJ = (() => {
+
+    // ── Scene configuration ─────────────────────────────────────────
+    const SCENES = [
+        { name: 'Overview',           rows: null,    scope: 'Analytics Portfolio' },
+        { name: 'Data Factory',        rows: 1067371, scope: 'PostgreSQL Star Schema' },
+        { name: 'Segmentation City',   rows: 5876,    scope: 'RFM Behavioural Matrix' },
+        { name: 'Funnel Center',        rows: 34984,   scope: 'GA4 Telemetry Pipeline' },
+        { name: 'KPI Tower',           rows: 540,     scope: '−9.89 Anomaly Alert' },
+        { name: 'Retail Marketplace',  rows: 25820,   scope: 'Apriori Affinity Rules' },
+        { name: 'Reflection',          rows: null,    scope: 'Journey Synthesis' },
+        { name: 'Campfire',            rows: null,    scope: 'Shutdown' },
+    ];
+
+    // ── Depth content registry ──────────────────────────────────────
+    const DEPTH = {
+        1: {
+            E: {
+                title: 'Data Factory — SQL Architecture',
+                subtitle: 'Star schema design · ETL idempotency · PostgreSQL',
+                html: `
+<div class="text-[9px] text-indigo-400 font-bold uppercase tracking-wider mb-2">// Star Schema Query Pattern</div>
+<pre class="code-block">-- Revenue by country, last 25 months
+SELECT
+  g.country_name,
+  d.year_month,
+  SUM(f.revenue)          AS total_revenue,
+  COUNT(DISTINCT f.customer_id) AS active_customers
+FROM fact_sales f
+  JOIN dim_date      d ON f.date_id      = d.date_id
+  JOIN dim_geography g ON f.geography_id = g.geography_id
+WHERE d.year_month >= DATE_TRUNC('month', NOW()) - INTERVAL '25 months'
+GROUP BY 1, 2
+ORDER BY 1, 2;</pre>
+<div class="text-[9px] text-indigo-400 font-bold uppercase tracking-wider mt-4 mb-2">// Schema Design</div>
+<pre class="code-block">fact_sales        (sale_id PK, customer_id FK, date_id FK, geography_id FK, product_id FK, revenue, quantity)
+dim_customers     (customer_id PK, country_code, acquisition_date, tier)
+dim_date          (date_id PK, full_date, year_month, quarter, year)
+dim_geography     (geography_id PK, country_name, region, continent)
+dim_product       (product_id PK, sku, category, sub_category)</pre>
+<div class="text-[9px] text-emerald-400 font-bold uppercase tracking-wider mt-4 mb-1">// Impact</div>
+<ul class="list-disc list-inside space-y-1 text-gray-400">
+  <li>1,067,371 rows ingested · 4,387 deduplication conflicts resolved</li>
+  <li>£3M+ retail value surface — queryable across 43 countries in &lt;2s</li>
+  <li>25-month historical depth enabling cohort-over-cohort comparison</li>
+</ul>`
+            },
+            D: { dashboard: 'assets/warehouse/executive_overview.png', label: 'Executive Overview Dashboard' },
+            M: {
+                title: 'Data Factory — Metrics',
+                subtitle: 'Pipeline performance · data quality · scope',
+                html: `
+<ul class="list-none space-y-3 text-gray-300">
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">Rows Ingested</span><span class="text-blue-400 font-bold text-sm">1,067,371</span></li>
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">Validated Insertions</span><span class="text-emerald-400 font-bold text-sm">1,062,984</span></li>
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">Data Quality Rate</span><span class="text-emerald-400 font-bold text-sm">99.6%</span></li>
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">Temporal Depth</span><span class="text-amber-400 font-bold text-sm">25 Months · 43 Countries</span></li>
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">Revenue Surface</span><span class="text-emerald-400 font-bold text-sm">£3M+</span></li>
+</ul>`
             }
-        });
-    </script>
+        },
+        2: {
+            E: {
+                title: 'Segmentation City — RFM Code',
+                subtitle: 'Python · Pandas · behavioural clustering',
+                html: `
+<div class="text-[9px] text-emerald-400 font-bold uppercase tracking-wider mb-2">// RFM Score Calculation</div>
+<pre class="code-block">import pandas as pd
+from datetime import date
+
+snapshot = date(2011, 12, 31)
+
+rfm = df.groupby('CustomerID').agg(
+    Recency   = ('InvoiceDate', lambda x: (snapshot - x.max().date()).days),
+    Frequency = ('InvoiceNo',   'nunique'),
+    Monetary  = ('TotalPrice',  'sum')
+).reset_index()
+
+# Score each dimension 1–5
+rfm['R'] = pd.qcut(rfm['Recency'],   5, labels=[5,4,3,2,1])
+rfm['F'] = pd.qcut(rfm['Frequency'].rank(method='first'), 5, labels=[1,2,3,4,5])
+rfm['M'] = pd.qcut(rfm['Monetary'],  5, labels=[1,2,3,4,5])
+
+rfm['RFM_Score'] = rfm['R'].astype(str) + rfm['F'].astype(str) + rfm['M'].astype(str)
+
+def segment(row):
+    r, f, m = int(row['R']), int(row['F']), int(row['M'])
+    if r >= 4 and f >= 4 and m >= 4: return 'Champions'
+    if r >= 3 and f >= 3:             return 'Loyal Customers'
+    if r <= 2 and f >= 3:             return 'At Risk'
+    if r <= 2 and f <= 2:             return 'Hibernating'
+    return 'Potential Loyalists'
+
+rfm['Segment'] = rfm.apply(segment, axis=1)</pre>
+<div class="text-[9px] text-emerald-400 font-bold uppercase tracking-wider mt-4 mb-1">// Result</div>
+<p class="text-gray-400">Champions (26.2% of customers) → 68.35% of total revenue. At Risk segment (18.5%) → £171K dormant value flagged for reactivation campaigns.</p>`
+            },
+            D: { dashboard: 'assets/segmentation/05_segment_scorecard.png', label: 'Segment Scorecard Dashboard' },
+            M: {
+                title: 'Segmentation City — Metrics',
+                subtitle: 'Customer distribution · revenue concentration · risk',
+                html: `
+<ul class="list-none space-y-3 text-gray-300">
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">Total Customers Segmented</span><span class="text-emerald-400 font-bold text-sm">5,876</span></li>
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">Champions Revenue Share</span><span class="text-emerald-400 font-bold text-sm">68.35%</span></li>
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">At-Risk Value (Dormant)</span><span class="text-rose-400 font-bold text-sm">£171,000+</span></li>
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">Retention Analysis Depth</span><span class="text-amber-400 font-bold text-sm">25-month cohort heatmap</span></li>
+</ul>`
+            }
+        },
+        3: {
+            E: {
+                title: 'Funnel Center — SQL Event Reconstruction',
+                subtitle: 'GA4 event streams · session-level step transitions',
+                html: `
+<div class="text-[9px] text-blue-400 font-bold uppercase tracking-wider mb-2">// Session-Level Funnel Query</div>
+<pre class="code-block">SELECT
+  session_id,
+  COUNT(CASE WHEN event_name = 'session_start' THEN 1 END) AS landed,
+  COUNT(CASE WHEN event_name = 'view_item'     THEN 1 END) AS viewed_product,
+  COUNT(CASE WHEN event_name = 'add_to_cart'   THEN 1 END) AS added_cart,
+  COUNT(CASE WHEN event_name = 'purchase'      THEN 1 END) AS purchased,
+  MAX(traffic_source) AS channel
+FROM ga4_events
+WHERE event_date BETWEEN '2023-01-01' AND '2023-03-31'
+GROUP BY session_id;
+
+-- Conversion rate by channel
+SELECT
+  channel,
+  COUNT(*)                              AS sessions,
+  AVG(CASE WHEN purchased > 0 THEN 1.0 ELSE 0 END) AS cvr
+FROM funnel_sessions
+GROUP BY channel
+ORDER BY cvr DESC;</pre>
+<div class="text-[9px] text-blue-400 font-bold uppercase tracking-wider mt-4 mb-1">// A/B Test Framework</div>
+<p class="text-gray-400">Chi-square test on conversion proportions. High-intent (direct/branded) vs organic sessions. p &lt; 0.001. 13× lift confirmed at 95% CI.</p>`
+            },
+            D: { dashboard: 'assets/funnel/funnel_leakage.png', label: 'Funnel Leakage Analysis Dashboard' },
+            M: {
+                title: 'Funnel Center — Metrics',
+                subtitle: 'Session volume · step conversions · attribution',
+                html: `
+<ul class="list-none space-y-3 text-gray-300">
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">Sessions Analysed</span><span class="text-blue-400 font-bold text-sm">34,984</span></li>
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">Unique Users</span><span class="text-blue-400 font-bold text-sm">28,464</span></li>
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">Landing → Product Drop</span><span class="text-rose-400 font-bold text-sm">75.8%</span></li>
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">High-Intent Lift</span><span class="text-emerald-400 font-bold text-sm">13× conversion rate</span></li>
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">A/B Test Confidence</span><span class="text-emerald-400 font-bold text-sm">95% CI · p &lt; 0.001</span></li>
+</ul>`
+            }
+        },
+        4: {
+            E: {
+                title: 'KPI Tower — Anomaly Detection Logic',
+                subtitle: 'Z-score monitoring · rolling baseline · root cause',
+                html: `
+<div class="text-[9px] text-rose-400 font-bold uppercase tracking-wider mb-2">// Z-Score Anomaly Detection</div>
+<pre class="code-block">import numpy as np
+import pandas as pd
+
+def detect_anomaly(series: pd.Series, window: int = 28) -> pd.DataFrame:
+    rolling_mean = series.rolling(window).mean()
+    rolling_std  = series.rolling(window).std()
+    z_scores     = (series - rolling_mean) / rolling_std
     
-    <!-- CSS Animation Logic Extensions inline framework -->
-    <style>
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
+    return pd.DataFrame({
+        'value':    series,
+        'baseline': rolling_mean,
+        'z_score':  z_scores,
+        'alert':    z_scores.abs() > 3.0  # 3-sigma threshold
+    })
+
+# Result for conversion rate series
+result = detect_anomaly(df['daily_cvr'])
+# Day 23: z_score = -9.89  ← anomaly flagged
+
+# Root-cause segmentation
+segments = df.groupby(['device', 'region', 'browser'])['cvr'].mean()
+offender = segments.idxmin()
+# ('Mobile', 'EMEA', 'Safari') → CVR 0.0606 vs 0.0988 baseline</pre>
+<div class="text-[9px] text-rose-400 font-bold uppercase tracking-wider mt-4 mb-1">// Outcome</div>
+<p class="text-gray-400">Anomaly detected 4 hours after onset. Root segment identified programmatically. Incident report generated automatically. Without monitoring: estimated 3–4 weeks undetected.</p>`
+            },
+            D: { dashboard: 'assets/kpi/incident_center.png', label: 'KPI Incident Center Dashboard' },
+            M: {
+                title: 'KPI Tower — Metrics',
+                subtitle: 'Detection performance · anomaly magnitude · resolution',
+                html: `
+<ul class="list-none space-y-3 text-gray-300">
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">Anomaly Z-Score</span><span class="text-rose-400 font-bold text-sm">−9.89 σ</span></li>
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">Observed CVR</span><span class="text-white font-bold text-sm">0.0606</span></li>
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">Expected Baseline CVR</span><span class="text-emerald-400 font-bold text-sm">0.0988 (+38.6% gap)</span></li>
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">Root Cause Segment</span><span class="text-amber-400 font-bold text-sm">Mobile / EMEA / Safari</span></li>
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">Time to Detection</span><span class="text-blue-400 font-bold text-sm">&lt; 4 hours</span></li>
+</ul>`
+            }
+        },
+        5: {
+            E: {
+                title: 'Retail Marketplace — Apriori Algorithm',
+                subtitle: 'Python · mlxtend · association rules · lift analysis',
+                html: `
+<div class="text-[9px] text-amber-400 font-bold uppercase tracking-wider mb-2">// Apriori Rule Mining</div>
+<pre class="code-block">from mlxtend.frequent_patterns import apriori, association_rules
+from mlxtend.preprocessing import TransactionEncoder
+import pandas as pd
+
+# Build transaction matrix
+te = TransactionEncoder()
+te_array = te.fit_transform(transactions)
+basket = pd.DataFrame(te_array, columns=te.columns_)
+
+# Mine frequent itemsets
+frequent = apriori(basket, min_support=0.01, use_colnames=True)
+
+# Generate rules
+rules = association_rules(frequent, metric='lift', min_threshold=1.0)
+rules = rules.sort_values('lift', ascending=False)
+
+# Top result:
+# antecedents: {Banana}
+# consequents: {Organic Strawberries}
+# support:     0.014
+# confidence:  0.71
+# lift:        4.12  ← 4× more likely to buy together than by chance</pre>
+<div class="text-[9px] text-amber-400 font-bold uppercase tracking-wider mt-4 mb-1">// Scale</div>
+<p class="text-gray-400">3.4M+ orders · 206K customers · 49K products · 25,820 rules generated · 18 high-confidence cross-sell pathways identified (lift &gt; 3.0, confidence &gt; 0.6).</p>`
+            },
+            D: { dashboard: 'assets/instacart/market_basket.png', label: 'Market Basket Affinity Map' },
+            M: {
+                title: 'Retail Marketplace — Metrics',
+                subtitle: 'Dataset scale · rule quality · business pathways',
+                html: `
+<ul class="list-none space-y-3 text-gray-300">
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">Total Orders</span><span class="text-blue-400 font-bold text-sm">3,421,067</span></li>
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">Unique Customers</span><span class="text-emerald-400 font-bold text-sm">206,209</span></li>
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">Association Rules Generated</span><span class="text-amber-400 font-bold text-sm">25,820</span></li>
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">Top Rule Lift</span><span class="text-amber-400 font-bold text-sm">4.12× (Bananas → Organic Strawberries)</span></li>
+  <li class="metric-card"><span class="text-gray-500 text-[9px] block uppercase mb-1">Cross-Sell Pathways (lift&gt;3)</span><span class="text-emerald-400 font-bold text-sm">18 production-ready</span></li>
+</ul>`
+            }
         }
-    </style>
+    };
+
+    // ── State ────────────────────────────────────────────────────────
+    let idx = 0;
+    let animating = false;
+    let wheelAccum = 0;
+    const N = SCENES.length;
+
+    // ── DOM helpers ──────────────────────────────────────────────────
+    const $ = id => document.getElementById(id);
+    const track = () => $('pipeline-track');
+
+    // ── Init ─────────────────────────────────────────────────────────
+    function init() {
+        // Set track width
+        track().style.width = `${N * 100}vw`;
+
+        // Build dot nav
+        const dotNav = $('dot-nav');
+        SCENES.forEach((s, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'dot' + (i === 0 ? ' active' : '');
+            btn.title = s.name;
+            btn.setAttribute('aria-label', `Go to section: ${s.name}`);
+            btn.addEventListener('click', () => go(i));
+            dotNav.appendChild(btn);
+        });
+
+        // Build fast mode list
+        const list = $('fast-mode-list');
+        const accents = ['text-gray-400','text-indigo-400','text-emerald-400','text-blue-400','text-rose-400','text-amber-400','text-teal-400','text-orange-400'];
+        const hints   = ['','1.06M rows','5,876 customers','75.8% drop found','−9.89 Z-score','25,820 rules','Skills matrix','Contact'];
+        SCENES.forEach((s, i) => {
+            const div = document.createElement('div');
+            div.className = 'flex items-center justify-between p-2.5 bg-[#070A13] border border-gray-800 rounded-lg cursor-pointer hover:border-blue-500 transition-colors';
+            div.innerHTML = `<span class="text-gray-300">${s.name}</span><span class="font-bold text-[10px] ${accents[i]}">${hints[i]}</span>`;
+            div.addEventListener('click', () => { go(i); closeFastMode(); });
+            list.appendChild(div);
+        });
+
+        // Build mobile rail
+        const rail = $('mobile-rail');
+        SCENES.forEach((s, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'rail-chip' + (i === 0 ? ' active' : '');
+            btn.textContent = `${i}. ${s.name}`;
+            btn.setAttribute('aria-label', `Go to section: ${s.name}`);
+            btn.addEventListener('click', () => go(i));
+            rail.appendChild(btn);
+        });
+
+        // Events
+        window.addEventListener('wheel', onWheel, { passive: false });
+        window.addEventListener('keydown', onKey);
+        window.addEventListener('touchstart', onTouchStart, { passive: true });
+        window.addEventListener('touchend', onTouchEnd, { passive: true });
+        window.addEventListener('resize', onResize);
+
+        // Close modals on backdrop click
+        $('modal-fast').addEventListener('click', closeFastMode);
+        $('modal-lightbox').addEventListener('click', closeLightbox);
+        $('modal-depth').addEventListener('click', closeDepthModal);
+
+        updateHUD();
+    }
+
+    // ── Navigation ───────────────────────────────────────────────────
+    function go(n) {
+        n = Math.max(0, Math.min(N - 1, n));
+        idx = n;
+        const offset = n * window.innerWidth;
+        track().style.transform = `translateX(-${offset}px)`;
+        updateDots(n);
+        updateRail(n);
+        updateHUD();
+        if (n !== 0) $('scroll-hint').style.opacity = '0';
+        animating = true;
+        setTimeout(() => { animating = false; }, 520);
+    }
+
+    // ── Scroll / wheel ───────────────────────────────────────────────
+    function onWheel(e) {
+        // On mobile vertical layout, let native scroll work
+        if (window.innerWidth < 768) return;
+        e.preventDefault();
+        if (animating) return;
+        wheelAccum += e.deltaY;
+        if (Math.abs(wheelAccum) > 70) {
+            go(idx + (wheelAccum > 0 ? 1 : -1));
+            wheelAccum = 0;
+        }
+    }
+
+    // ── Touch ────────────────────────────────────────────────────────
+    let touchStartX = 0, touchStartY = 0;
+    function onTouchStart(e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+    }
+    function onTouchEnd(e) {
+        if (window.innerWidth < 768) return; // mobile uses native vertical scroll
+        const dx = touchStartX - e.changedTouches[0].clientX;
+        const dy = touchStartY - e.changedTouches[0].clientY;
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+            go(idx + (dx > 0 ? 1 : -1));
+        }
+    }
+
+    // ── Keyboard ─────────────────────────────────────────────────────
+    function onKey(e) {
+        if (['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) return;
+        const key = e.key;
+        if (key === 'ArrowRight' || key === 'ArrowDown')  { e.preventDefault(); go(idx + 1); }
+        if (key === 'ArrowLeft'  || key === 'ArrowUp')    { e.preventDefault(); go(idx - 1); }
+        if (key === 'Escape') { closeFastMode(); closeLightbox(); closeDepthModal(); }
+        if (key.toUpperCase() === 'E') openDepth(idx, 'E');
+        if (key.toUpperCase() === 'D') openDepth(idx, 'D');
+        if (key.toUpperCase() === 'M') openDepth(idx, 'M');
+    }
+
+    // ── Resize ───────────────────────────────────────────────────────
+    function onResize() {
+        track().style.transform = `translateX(-${idx * window.innerWidth}px)`;
+    }
+
+    // ── HUD update ───────────────────────────────────────────────────
+    let hudTimer = null;
+    function updateHUD() {
+        const s = SCENES[idx];
+        $('hud-name').textContent = s.name;
+        $('hud-scope').textContent = s.scope;
+        if (s.rows !== null) {
+            animateNumber('hud-rows', s.rows);
+        } else {
+            $('hud-rows').textContent = '—';
+        }
+    }
+
+    function animateNumber(elId, target) {
+        clearTimeout(hudTimer);
+        const el = $(elId);
+        if (!target) { el.textContent = '0'; return; }
+        let v = 0;
+        const step = target / 14;
+        const run = () => {
+            v += step;
+            if (v >= target) { el.textContent = target.toLocaleString(); return; }
+            el.textContent = Math.floor(v).toLocaleString();
+            hudTimer = setTimeout(run, 22);
+        };
+        run();
+    }
+
+    // ── Dot / rail sync ──────────────────────────────────────────────
+    function updateDots(n) {
+        document.querySelectorAll('#dot-nav .dot').forEach((d, i) => {
+            d.className = 'dot' + (i === n ? ' active' : '');
+        });
+    }
+    function updateRail(n) {
+        document.querySelectorAll('#mobile-rail .rail-chip').forEach((c, i) => {
+            c.className = 'rail-chip' + (i === n ? ' active' : '');
+        });
+    }
+
+    // ── KPI stream switcher ──────────────────────────────────────────
+    function switchKpiStream(src, label, btn) {
+        const img = $('kpi-img');
+        const lbl = $('kpi-label');
+        const svg = $('kpi-svg');
+        img.src = src;
+        lbl.textContent = `📡 CONTROL TOWER // ${label.toUpperCase()}`;
+        img.onload  = () => { img.classList.add('loaded'); if (svg) svg.style.opacity = '0'; };
+        img.onerror = () => { img.style.display = 'none'; };
+        // Update button states
+        ['kpi-btn-1','kpi-btn-2','kpi-btn-3'].forEach(id => {
+            const b = $(id);
+            if (!b) return;
+            b.className = (b === btn)
+                ? 'bg-blue-600 text-white font-mono text-[10px] font-bold py-2 rounded transition-colors cursor-pointer'
+                : 'bg-gray-900 border border-gray-800 text-gray-400 font-mono text-[10px] py-2 rounded transition-colors cursor-pointer';
+        });
+    }
+
+    // ── Fast mode ────────────────────────────────────────────────────
+    function openFastMode()  { $('modal-fast').classList.add('open'); }
+    function closeFastMode() { $('modal-fast').classList.remove('open'); }
+
+    // ── Lightbox ─────────────────────────────────────────────────────
+    function openLightbox(src, label) {
+        $('lightbox-img').src = src;
+        $('lightbox-label').textContent = label ? label.toUpperCase() : 'Dashboard';
+        $('modal-lightbox').classList.add('open');
+    }
+    function closeLightbox() { $('modal-lightbox').classList.remove('open'); }
+
+    // ── Depth modal ──────────────────────────────────────────────────
+    function openDepth(sceneIdx, mode) {
+        const d = DEPTH[sceneIdx];
+        if (!d) return;
+
+        // D mode → open lightbox directly
+        if (mode === 'D') {
+            const dm = d.D;
+            if (dm) openLightbox(dm.dashboard, dm.label);
+            return;
+        }
+
+        const m = d[mode];
+        if (!m) return;
+
+        $('depth-title').textContent    = m.title    || '';
+        $('depth-subtitle').textContent = m.subtitle || '';
+        $('depth-body').innerHTML       = m.html      || '';
+        $('modal-depth').classList.add('open');
+    }
+    function closeDepthModal() { $('modal-depth').classList.remove('open'); }
+
+    // ── Image fault recovery ─────────────────────────────────────────
+    document.addEventListener('error', e => {
+        if (e.target.tagName !== 'IMG') return;
+        if (e.target.classList.contains('img-real')) {
+            e.target.style.display = 'none'; // SVG fallback remains
+        }
+    }, true);
+
+    // ── Public API ───────────────────────────────────────────────────
+    return { init, go, openFastMode, closeFastMode, openLightbox, closeLightbox, openDepth, closeDepthModal, switchKpiStream };
+})();
+
+// Boot
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', AJ.init);
+} else {
+    AJ.init();
+}
+</script>
+
 </body>
 </html>
