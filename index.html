@@ -1135,7 +1135,7 @@
 
             <div class="relative inline-flex justify-center items-center w-14 h-14 mx-auto reveal">
                 <span class="absolute inset-0 rounded-full bg-orange-500/10 animate-ping"></span>
-                <span class="campfire-icon text-3xl">🔥</span>
+                <img class="campfire-icon" src="assets/campfire/campfire_1.png" alt="Animated campfire" width="56" height="56">
             </div>
 
             <div class="space-y-4 reveal" style="transition-delay:100ms">
@@ -1501,13 +1501,36 @@ rules = rules.sort_values('lift', ascending=False)
             if (e.key === 'Escape') { closeLightbox(); closeDepthModal(); }
         });
     }
+    // ── Campfire animation ───────────────────────────────────────────
+    function initCampfire() {
+        const frames = [
+            'assets/campfire/campfire_1.png',
+            'assets/campfire/campfire_2.png',
+            'assets/campfire/campfire_3.png',
+            'assets/campfire/campfire_4.png',
+            'assets/campfire/campfire_5.png',
+            'assets/campfire/campfire_6.png'
+        ];
+        const fireEl = document.querySelector('.campfire-icon');
+        if (!fireEl) return;
 
+        let frameIndex = 0;
+        const FPS = 7;
+        frames.forEach(src => { const img = new Image(); img.src = src; });
+
+        setInterval(() => {
+            frameIndex = (frameIndex + 1) % frames.length;
+            fireEl.src = frames[frameIndex];
+        }, 1000 / FPS);
+    }
+    
     // ── Init ─────────────────────────────────────────────────────────
     function init() {
         initReveal();
         initProgress();
         initActiveNav();
         initKeyboard();
+        initCampfire();
     }
 
     if (document.readyState === 'loading') {
