@@ -652,6 +652,23 @@
                     <span class="chip">LTV Estimation</span>
                     <span class="chip">Retention Analytics</span>
                 </div>
+                <div class="space-y-1.5">
+                    <div class="text-[9px] font-mono text-gray-600 uppercase tracking-wider">Select warehouse view:</div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button id="segmentation-btn-1" onclick="AJ.switchSegmentationStream('assets/segmentation/customer_segment_map.png','Customer Segment Map',this)"
+                            class="bg-blue-600 text-white font-mono text-[10px] font-bold py-2 rounded transition-colors cursor-pointer">
+                            Segment Map
+                        </button>
+                        <button id="segmentation-btn-2" onclick="AJ.switchSegmentationStream('assets/segmentation/revenue_concentration.png','Revenue Concentration',this)"
+                            class="bg-gray-900 border border-gray-800 text-gray-400 font-mono text-[10px] py-2 rounded transition-colors cursor-pointer">
+                            Revenue Mix
+                        </button>
+                        <button id="segmentation-btn-3" onclick="AJ.switchSegmentationStream('assets/segmentation/churn_risk_analysis.png','Churn Risk Analysis',this)"
+                            class="bg-gray-900 border border-gray-800 text-gray-400 font-mono text-[10px] py-2 rounded transition-colors cursor-pointer">
+                            Churn Risk
+                        </button>
+                    </div>
+                </div>
                 <div class="flex flex-wrap gap-2 pt-1">
                     <button onclick="AJ.openDepth(2,'E')"
                         class="bg-emerald-600 hover:bg-emerald-500 text-white font-mono font-bold text-xs py-2 px-4 rounded transition-colors cursor-pointer">
@@ -665,15 +682,18 @@
             </div>
 
             <div class="lg:col-span-7 reveal-right">
-                <div class="img-frame" onclick="AJ.openLightbox('assets/segmentation/05_segment_scorecard.png','Segment Scorecard')">
+                <div class="img-frame">
                     <div class="img-frame-bar">
-                        <span>👥 WAREHOUSE INTERFACE // SEGMENT_SCORECARD.PNG</span>
-                        <span class="text-emerald-400 font-bold text-[9px]">Click to expand</span>
+                        <span id="segmentation-label">WAREHOUSE INTERFACE // CUSTOMER SEGMENT MAP</span>
+                        <span onclick="AJ.openLightbox(document.getElementById('segmentation-img').src, document.getElementById('segmentation-img').dataset.lightboxLabel || 'Customer Segment Map')"
+                              class="text-emerald-400 font-bold text-[9px] cursor-pointer hover:text-emerald-300 transition-colors">
+                            Click to expand
+                        </span>
                     </div>
-                    <div class="img-frame-body" style="height: 46vh;">
-                        <svg class="img-placeholder w-full h-full" viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                    <div class="img-frame-body" style="height: 46vh;" onclick="AJ.openLightbox(document.getElementById('segmentation-img').src, document.getElementById('segmentation-img').dataset.lightboxLabel || 'Customer Segment Map')">
+                        <svg id="segmentation-svg" class="img-placeholder w-full h-full" viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
                             <rect width="560" height="280" fill="#040a0e"/>
-                            <text x="280" y="30" text-anchor="middle" fill="#374151" font-family="monospace" font-size="10">RFM Customer Segment Distribution</text>
+                            <text x="280" y="30" text-anchor="middle" fill="#374151" font-family="monospace" font-size="10">Customer Segment Map</text>
                             <rect x="40" y="50" width="147" height="24" rx="3" fill="#065f46" opacity="0.7"/>
                             <rect x="40" y="50" width="147" height="24" rx="3" fill="#10b981" opacity="0.2"/>
                             <text x="55" y="67" fill="#34d399" font-family="monospace" font-size="10" font-weight="bold">Champions</text>
@@ -695,8 +715,9 @@
                             <text x="495" y="243" fill="#374151" font-family="monospace" font-size="9">100%</text>
                             <text x="280" y="270" text-anchor="middle" fill="#374151" font-family="monospace" font-size="9">Champions generate 68.35% of total revenue from 26.2% of customers</text>
                         </svg>
-                        <img class="img-real" src="assets/segmentation/05_segment_scorecard.png" alt="Segment scorecard dashboard"
-                             onload="this.classList.add('loaded'); this.previousElementSibling.style.opacity='0';"
+                        <img id="segmentation-img" class="img-real" src="assets/segmentation/customer_segment_map.png" alt="Customer segment map"
+                             data-lightbox-label="Customer Segment Map" style="object-fit: contain;"
+                             onload="this.classList.add('loaded'); document.getElementById('segmentation-svg').style.opacity='0';"
                              onerror="this.style.display='none'">
                     </div>
                 </div>
@@ -1472,6 +1493,26 @@ rules = rules.sort_values('lift', ascending=False)
         });
     }
 
+    // ── Segmentation warehouse switcher ─────────────────────────────
+    function switchSegmentationStream(src, label, btn) {
+        const img = $('segmentation-img');
+        const lbl = $('segmentation-label');
+        const svg = $('segmentation-svg');
+        img.style.display = 'block';
+        img.src = src;
+        img.dataset.lightboxLabel = label;
+        lbl.textContent = `WAREHOUSE INTERFACE // ${label.toUpperCase()}`;
+        img.onload  = () => { img.classList.add('loaded'); if (svg) svg.style.opacity = '0'; };
+        img.onerror = () => { img.style.display = 'none'; };
+        ['segmentation-btn-1','segmentation-btn-2','segmentation-btn-3'].forEach(id => {
+            const b = $(id);
+            if (!b) return;
+            b.className = (b === btn)
+                ? 'bg-blue-600 text-white font-mono text-[10px] font-bold py-2 rounded transition-colors cursor-pointer'
+                : 'bg-gray-900 border border-gray-800 text-gray-400 font-mono text-[10px] py-2 rounded transition-colors cursor-pointer';
+        });
+    }
+
     // ── Lightbox ─────────────────────────────────────────────────────
     function openLightbox(src, label) {
         $('lightbox-img').src = src;
@@ -1539,7 +1580,7 @@ rules = rules.sort_values('lift', ascending=False)
         init();
     }
 
-    return { openLightbox, closeLightbox, openDepth, closeDepthModal, switchKpiStream };
+    return { openLightbox, closeLightbox, openDepth, closeDepthModal, switchKpiStream, switchSegmentationStream };
 })();
 </script>
 </body>
