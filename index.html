@@ -524,16 +524,37 @@
                         View Dashboard
                     </button>
                 </div>
+
+                <div class="space-y-1.5">
+                    <div class="text-[9px] font-mono text-gray-600 uppercase tracking-wider">Select warehouse view:</div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button id="warehouse-btn-1" onclick="AJ.switchWarehouseView('assets/warehouse/executive_overview.png','🏭 WAREHOUSE INTERFACE // EXECUTIVE OVERVIEW','Executive Overview',this)"
+                            class="bg-blue-600 text-white font-mono text-[10px] font-bold py-2 rounded transition-colors cursor-pointer">
+                            1. Overview
+                        </button>
+                        <button id="warehouse-btn-2" onclick="AJ.switchWarehouseView('assets/warehouse/product_return_risk.png','🏭 WAREHOUSE INTERFACE // PRODUCT RETURN RISK','Product Return Risk',this)"
+                            class="bg-gray-900 border border-gray-800 text-gray-400 font-mono text-[10px] py-2 rounded transition-colors cursor-pointer">
+                            2. Product Risk
+                        </button>
+                        <button id="warehouse-btn-3" onclick="AJ.switchWarehouseView('assets/warehouse/customer_value.png','🏭 WAREHOUSE INTERFACE // CUSTOMER VALUE INTELLIGENCE','Customer Value Intelligence',this)"
+                            class="bg-gray-900 border border-gray-800 text-gray-400 font-mono text-[10px] py-2 rounded transition-colors cursor-pointer">
+                            3. Customer Value
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <div class="lg:col-span-7 reveal-right">
-                <div class="img-frame" onclick="AJ.openLightbox('assets/warehouse/executive_overview.png','Executive Overview — Warehouse')">
+                <div class="img-frame">
                     <div class="img-frame-bar">
-                        <span>🏭 FACTORY OUTPUT // EXECUTIVE_OVERVIEW.PNG</span>
-                        <span class="text-indigo-400 font-bold text-[9px]">Click to expand</span>
+                        <span id="warehouse-label">🏭 WAREHOUSE INTERFACE // EXECUTIVE OVERVIEW</span>
+                        <span onclick="AJ.openLightbox(document.getElementById('warehouse-img').src, document.getElementById('warehouse-img').dataset.lightboxLabel || 'Executive Overview')"
+                              class="text-indigo-400 font-bold text-[9px] cursor-pointer hover:text-indigo-300 transition-colors">
+                            Click to expand
+                        </span>
                     </div>
-                    <div class="img-frame-body" style="height: 46vh;">
-                        <svg class="img-placeholder w-full h-full" viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                    <div class="img-frame-body" style="height: 46vh;" onclick="AJ.openLightbox(document.getElementById('warehouse-img').src, document.getElementById('warehouse-img').dataset.lightboxLabel || 'Executive Overview')">
+                        <svg id="warehouse-svg" class="img-placeholder w-full h-full" viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
                             <rect width="560" height="280" fill="#040710"/>
                             <rect x="200" y="100" width="160" height="80" rx="6" fill="#1e1b4b" stroke="#4338ca" stroke-width="1.5"/>
                             <text x="280" y="134" text-anchor="middle" fill="#818cf8" font-family="monospace" font-size="11" font-weight="bold">fact_sales</text>
@@ -557,8 +578,9 @@
                             <line x1="400" y1="215" x2="360" y2="168" stroke="#1e40af" stroke-width="1" stroke-dasharray="4"/>
                             <text x="280" y="265" text-anchor="middle" fill="#374151" font-family="monospace" font-size="9">Star Schema · PostgreSQL · ETL Pipeline</text>
                         </svg>
-                        <img class="img-real" src="assets/warehouse/executive_overview.png" alt="Executive overview dashboard"
-                             onload="this.classList.add('loaded'); this.previousElementSibling.style.opacity='0';"
+                        <img id="warehouse-img" class="img-real" src="assets/warehouse/executive_overview.png" alt="Warehouse dashboard"
+                             data-lightbox-label="Executive Overview" style="object-fit: contain;"
+                             onload="this.classList.add('loaded'); document.getElementById('warehouse-svg').style.opacity='0';"
                              onerror="this.style.display='none'">
                     </div>
                 </div>
@@ -912,15 +934,15 @@
                 <div class="space-y-1.5">
                     <div class="text-[9px] font-mono text-gray-600 uppercase tracking-wider">Select dashboard view:</div>
                     <div class="grid grid-cols-3 gap-2">
-                        <button id="kpi-btn-1" onclick="AJ.switchKpiStream('assets/kpi/incident_center.png','Incident Center',this)"
+                        <button id="kpi-btn-1" onclick="AJ.switchKpiStream('assets/kpi/incident_center.png','📡 CONTROL TOWER // INCIDENT CENTER','Incident Center',this)"
                             class="bg-blue-600 text-white font-mono text-[10px] font-bold py-2 rounded transition-colors cursor-pointer">
                             1. Incident
                         </button>
-                        <button id="kpi-btn-2" onclick="AJ.switchKpiStream('assets/kpi/incident_summary.png','Summary Log',this)"
+                        <button id="kpi-btn-2" onclick="AJ.switchKpiStream('assets/kpi/incident_summary.png','📡 CONTROL TOWER // INCIDENT SUMMARY','Incident Summary',this)"
                             class="bg-gray-900 border border-gray-800 text-gray-400 font-mono text-[10px] py-2 rounded transition-colors cursor-pointer">
                             2. Summary
                         </button>
-                        <button id="kpi-btn-3" onclick="AJ.switchKpiStream('assets/kpi/segment_root_cause.png','Root Cause',this)"
+                        <button id="kpi-btn-3" onclick="AJ.switchKpiStream('assets/kpi/segment_root_cause.png','📡 CONTROL TOWER // ROOT CAUSE ANALYSIS','Root Cause Analysis',this)"
                             class="bg-gray-900 border border-gray-800 text-gray-400 font-mono text-[10px] py-2 rounded transition-colors cursor-pointer">
                             3. Root Cause
                         </button>
@@ -938,13 +960,13 @@
             <div class="lg:col-span-7 reveal-right">
                 <div class="img-frame">
                     <div class="img-frame-bar">
-                        <span id="kpi-label">📡 CONTROL TOWER // INCIDENT_CENTER.PNG</span>
-                        <span onclick="AJ.openLightbox(document.getElementById('kpi-img').src, 'KPI Diagnostic View')"
+                        <span id="kpi-label">📡 CONTROL TOWER // INCIDENT CENTER</span>
+                        <span onclick="AJ.openLightbox(document.getElementById('kpi-img').src, document.getElementById('kpi-img').dataset.lightboxLabel || 'KPI Diagnostic View')"
                               class="text-rose-400 font-bold text-[9px] cursor-pointer hover:text-rose-300 transition-colors">
                             Maximize ↗
                         </span>
                     </div>
-                    <div class="img-frame-body" style="height: 46vh;" onclick="AJ.openLightbox(document.getElementById('kpi-img').src, 'KPI Diagnostic View')">
+                    <div class="img-frame-body" style="height: 46vh;" onclick="AJ.openLightbox(document.getElementById('kpi-img').src, document.getElementById('kpi-img').dataset.lightboxLabel || 'KPI Diagnostic View')">
                         <svg id="kpi-svg" class="img-placeholder w-full h-full" viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
                             <rect width="560" height="280" fill="#04070e"/>
                             <text x="280" y="22" text-anchor="middle" fill="#374151" font-family="monospace" font-size="10">KPI Monitoring — Conversion Rate Anomaly Detection</text>
@@ -961,6 +983,7 @@
                             <text x="280" y="265" text-anchor="middle" fill="#f43f5e" font-family="monospace" font-size="9">Anomaly: CVR 0.0606 vs 0.0988 baseline (−38.6%)</text>
                         </svg>
                         <img id="kpi-img" class="img-real" src="assets/kpi/incident_center.png" alt="KPI incident dashboard"
+                             data-lightbox-label="Incident Center" style="object-fit: contain;"
                              onload="this.classList.add('loaded'); document.getElementById('kpi-svg').style.opacity='0';"
                              onerror="this.style.display='none'">
                     </div>
@@ -1498,15 +1521,37 @@ rules = rules.sort_values('lift', ascending=False)
     }
 
     // ── KPI stream switcher ──────────────────────────────────────────
-    function switchKpiStream(src, label, btn) {
+    function switchKpiStream(src, title, lightboxLabel, btn) {
         const img = $('kpi-img');
         const lbl = $('kpi-label');
         const svg = $('kpi-svg');
+        img.style.display = 'block';
         img.src = src;
-        lbl.textContent = `📡 CONTROL TOWER // ${label.toUpperCase()}`;
+        img.dataset.lightboxLabel = lightboxLabel;
+        lbl.textContent = title;
         img.onload  = () => { img.classList.add('loaded'); if (svg) svg.style.opacity = '0'; };
         img.onerror = () => { img.style.display = 'none'; };
         ['kpi-btn-1','kpi-btn-2','kpi-btn-3'].forEach(id => {
+            const b = $(id);
+            if (!b) return;
+            b.className = (b === btn)
+                ? 'bg-blue-600 text-white font-mono text-[10px] font-bold py-2 rounded transition-colors cursor-pointer'
+                : 'bg-gray-900 border border-gray-800 text-gray-400 font-mono text-[10px] py-2 rounded transition-colors cursor-pointer';
+        });
+    }
+
+    // ── Warehouse dashboard switcher ────────────────────────────────
+    function switchWarehouseView(src, title, lightboxLabel, btn) {
+        const img = $('warehouse-img');
+        const lbl = $('warehouse-label');
+        const svg = $('warehouse-svg');
+        img.style.display = 'block';
+        img.src = src;
+        img.dataset.lightboxLabel = lightboxLabel;
+        lbl.textContent = title;
+        img.onload  = () => { img.classList.add('loaded'); if (svg) svg.style.opacity = '0'; };
+        img.onerror = () => { img.style.display = 'none'; };
+        ['warehouse-btn-1','warehouse-btn-2','warehouse-btn-3'].forEach(id => {
             const b = $(id);
             if (!b) return;
             b.className = (b === btn)
@@ -1622,7 +1667,7 @@ rules = rules.sort_values('lift', ascending=False)
         init();
     }
 
-    return { openLightbox, closeLightbox, openDepth, closeDepthModal, switchKpiStream, switchGrowthStream, switchSegmentationStream };
+    return { openLightbox, closeLightbox, openDepth, closeDepthModal, switchKpiStream, switchWarehouseView, switchGrowthStream, switchSegmentationStream };
 })();
 </script>
 </body>
