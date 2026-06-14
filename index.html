@@ -1075,21 +1075,38 @@
                         class="bg-amber-600 hover:bg-amber-500 text-white font-mono font-bold text-xs py-2 px-4 rounded transition-colors cursor-pointer">
                         Apriori Code
                     </button>
-                    <button onclick="AJ.openLightbox('assets/instacart/market_basket.png','Market Basket')"
-                        class="border border-[#1E293B] hover:border-amber-500/50 text-gray-400 font-mono text-xs py-2 px-4 rounded transition-colors cursor-pointer">
-                        Basket Map
-                    </button>
+                </div>
+
+                <div class="space-y-1.5">
+                    <div class="text-[9px] font-mono text-gray-600 uppercase tracking-wider">Select marketplace view:</div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button id="instacart-btn-1" onclick="AJ.switchInstacartView('assets/instacart/basket_affinity_map.png','🛒 MARKETPLACE INTERFACE // BASKET AFFINITY','Basket Affinity',this)"
+                            class="bg-blue-600 text-white font-mono text-[10px] font-bold py-2 rounded transition-colors cursor-pointer">
+                            Basket Affinity
+                        </button>
+                        <button id="instacart-btn-2" onclick="AJ.switchInstacartView('assets/instacart/category_performance.png','🛒 MARKETPLACE INTERFACE // CATEGORY PERFORMANCE','Category Performance',this)"
+                            class="bg-gray-900 border border-gray-800 text-gray-400 font-mono text-[10px] py-2 rounded transition-colors cursor-pointer">
+                            Category Performance
+                        </button>
+                        <button id="instacart-btn-3" onclick="AJ.switchInstacartView('assets/instacart/customer_segments.png','🛒 MARKETPLACE INTERFACE // CUSTOMER SEGMENTS','Customer Segments',this)"
+                            class="bg-gray-900 border border-gray-800 text-gray-400 font-mono text-[10px] py-2 rounded transition-colors cursor-pointer">
+                            Customer Segments
+                        </button>
+                    </div>
                 </div>
             </div>
 
             <div class="lg:col-span-7 reveal-right">
-                <div class="img-frame" onclick="AJ.openLightbox('assets/instacart/market_basket.png','Market Basket Affinity Map')">
+                <div class="img-frame">
                     <div class="img-frame-bar">
-                        <span>🛒 MARKETPLACE INTERFACE // MARKET_BASKET.PNG</span>
-                        <span class="text-amber-400 font-bold text-[9px]">Click to expand</span>
+                        <span id="instacart-label">🛒 MARKETPLACE INTERFACE // BASKET AFFINITY</span>
+                        <span onclick="AJ.openLightbox(document.getElementById('instacart-img').src, document.getElementById('instacart-img').dataset.lightboxLabel || 'Basket Affinity')"
+                              class="text-amber-400 font-bold text-[9px] cursor-pointer hover:text-amber-300 transition-colors">
+                            Click to expand
+                        </span>
                     </div>
-                    <div class="img-frame-body" style="height: 46vh;">
-                        <svg class="img-placeholder w-full h-full" viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                    <div class="img-frame-body" style="height: 46vh;" onclick="AJ.openLightbox(document.getElementById('instacart-img').src, document.getElementById('instacart-img').dataset.lightboxLabel || 'Basket Affinity')">
+                        <svg id="instacart-svg" class="img-placeholder w-full h-full" viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
                             <rect width="560" height="280" fill="#040710"/>
                             <text x="280" y="22" text-anchor="middle" fill="#374151" font-family="monospace" font-size="10">Market Basket — Item Affinity Network</text>
                             <circle cx="200" cy="120" r="28" fill="#451a03" stroke="#f59e0b" stroke-width="1.5"/>
@@ -1113,8 +1130,9 @@
                             <line x1="216" y1="140" x2="265" y2="182" stroke="#78716c" stroke-width="1" opacity="0.3"/>
                             <text x="280" y="265" text-anchor="middle" fill="#374151" font-family="monospace" font-size="9">25,820 rules · Apriori (min_support=0.01) · 18 cross-sell pathways identified</text>
                         </svg>
-                        <img class="img-real" src="assets/instacart/market_basket.png" alt="Market basket rules visualisation"
-                             onload="this.classList.add('loaded'); this.previousElementSibling.style.opacity='0';"
+                        <img id="instacart-img" class="img-real" src="assets/instacart/basket_affinity_map.png" alt="Instacart marketplace analytics"
+                             data-lightbox-label="Basket Affinity" style="object-fit: contain;"
+                             onload="this.classList.add('loaded'); document.getElementById('instacart-svg').style.opacity='0';"
                              onerror="this.style.display='none'">
                     </div>
                 </div>
@@ -1580,6 +1598,26 @@ rules = rules.sort_values('lift', ascending=False)
         });
     }
 
+    // ── Instacart marketplace switcher ──────────────────────────────
+    function switchInstacartView(src, title, lightboxLabel, btn) {
+        const img = $('instacart-img');
+        const lbl = $('instacart-label');
+        const svg = $('instacart-svg');
+        img.style.display = 'block';
+        img.src = src;
+        img.dataset.lightboxLabel = lightboxLabel;
+        lbl.textContent = title;
+        img.onload  = () => { img.classList.add('loaded'); if (svg) svg.style.opacity = '0'; };
+        img.onerror = () => { img.style.display = 'none'; };
+        ['instacart-btn-1','instacart-btn-2','instacart-btn-3'].forEach(id => {
+            const b = $(id);
+            if (!b) return;
+            b.className = (b === btn)
+                ? 'bg-blue-600 text-white font-mono text-[10px] font-bold py-2 rounded transition-colors cursor-pointer'
+                : 'bg-gray-900 border border-gray-800 text-gray-400 font-mono text-[10px] py-2 rounded transition-colors cursor-pointer';
+        });
+    }
+
     // ── Segmentation warehouse switcher ─────────────────────────────
     function switchSegmentationStream(src, label, btn) {
         const img = $('segmentation-img');
@@ -1667,7 +1705,7 @@ rules = rules.sort_values('lift', ascending=False)
         init();
     }
 
-    return { openLightbox, closeLightbox, openDepth, closeDepthModal, switchKpiStream, switchWarehouseView, switchGrowthStream, switchSegmentationStream };
+    return { openLightbox, closeLightbox, openDepth, closeDepthModal, switchKpiStream, switchWarehouseView, switchGrowthStream, switchInstacartView, switchSegmentationStream };
 })();
 </script>
 </body>
