@@ -1259,8 +1259,9 @@
 
 
     <!-- ─── REFLECTION ─── -->
+<!-- ─── REFLECTION ─── -->
     <section id="reflection" class="scene flex flex-col justify-center px-6 md:px-20 bg-[#0B111E]"
-             data-name="Reflection" data-rows="" data-scope="Journey Synthesis">
+            data-name="Reflection" data-rows="" data-scope="Journey Synthesis">
 
         <div class="max-w-4xl w-full mx-auto space-y-8">
 
@@ -1268,22 +1269,30 @@
                 <div class="stage-badge bg-teal-500/10 text-teal-400 border border-teal-500/20">
                     Journey Synthesis // What These Projects Mean Together
                 </div>
+
                 <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">
                     What I Learned<br>Building These Analytics Systems
                 </h2>
+
                 <p class="text-base text-gray-300 leading-relaxed max-w-2xl">
                     The hardest part of analytics is never the code. It's knowing which question to ask
                     before you write the first query. These systems taught me that data work has a
-                    natural order: <span class="text-white font-semibold">build reliable infrastructure first,
-                    understand your customers second, diagnose problems third, then optimise.</span>
+                    natural order:
+                    <span class="text-white font-semibold">
+                        build reliable infrastructure first, understand your customers second,
+                        diagnose problems third, optimise decisions fourth, and quantify risk when uncertainty matters.
+                    </span>
                     Every shortcut in that sequence costs you more than the shortcut saved.
                 </p>
             </div>
 
             <div class="space-y-3 reveal" style="transition-delay:120ms">
-                <div class="text-[9px] font-mono text-gray-600 uppercase tracking-wider">// Skills Demonstrated — Project Mapping</div>
+                <div class="text-[9px] font-mono text-gray-600 uppercase tracking-wider">
+                    // Skills Demonstrated -- Project Mapping
+                </div>
+
                 <div class="overflow-x-auto">
-                    <table class="w-full font-mono text-xs border-collapse">
+                    <table class="w-full min-w-[820px] font-mono text-xs border-collapse">
                         <thead>
                             <tr class="text-gray-600 text-[9px] uppercase tracking-wider">
                                 <th class="text-left py-2 pr-4 font-normal">Skill</th>
@@ -1292,42 +1301,127 @@
                                 <th class="text-center py-2 px-2 font-normal">Funnel</th>
                                 <th class="text-center py-2 px-2 font-normal">KPI</th>
                                 <th class="text-center py-2 px-2 font-normal">Basket</th>
+                                <th class="text-center py-2 px-2 font-normal">AQI</th>
                             </tr>
                         </thead>
+
                         <tbody class="text-gray-400">
-                            <tr class="border-t border-gray-800/60"><td class="py-1.5 pr-4 text-gray-300">SQL / PostgreSQL</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-gray-600">—</td></tr>
-                            <tr class="border-t border-gray-800/60"><td class="py-1.5 pr-4 text-gray-300">Python / Pandas</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td></tr>
-                            <tr class="border-t border-gray-800/60"><td class="py-1.5 pr-4 text-gray-300">ETL / Data Pipeline</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-gray-600">—</td><td class="text-center text-gray-600">—</td><td class="text-center text-gray-600">—</td><td class="text-center text-gray-600">—</td></tr>
-                            <tr class="border-t border-gray-800/60"><td class="py-1.5 pr-4 text-gray-300">Data Warehousing</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-gray-600">—</td><td class="text-center text-gray-600">—</td><td class="text-center text-gray-600">—</td><td class="text-center text-gray-600">—</td></tr>
-                            <tr class="border-t border-gray-800/60"><td class="py-1.5 pr-4 text-gray-300">Customer Analytics</td><td class="text-center text-gray-600">—</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-gray-600">—</td><td class="text-center text-gray-600">—</td><td class="text-center text-emerald-400">✓</td></tr>
-                            <tr class="border-t border-gray-800/60"><td class="py-1.5 pr-4 text-gray-300">Product Analytics / GA4</td><td class="text-center text-gray-600">—</td><td class="text-center text-gray-600">—</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-gray-600">—</td><td class="text-center text-gray-600">—</td></tr>
-                            <tr class="border-t border-gray-800/60"><td class="py-1.5 pr-4 text-gray-300">Statistical Analysis</td><td class="text-center text-gray-600">—</td><td class="text-center text-gray-600">—</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td></tr>
-                            <tr class="border-t border-gray-800/60"><td class="py-1.5 pr-4 text-gray-300">Dashboarding / BI</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td><td class="text-center text-emerald-400">✓</td></tr>
+                            <tr class="border-t border-gray-800/60">
+                                <td class="py-1.5 pr-4 text-gray-300">SQL / PostgreSQL</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-gray-600">—</td>
+                                <td class="text-center text-gray-600">—</td>
+                            </tr>
+
+                            <tr class="border-t border-gray-800/60">
+                                <td class="py-1.5 pr-4 text-gray-300">Python / Pandas</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                            </tr>
+
+                            <tr class="border-t border-gray-800/60">
+                                <td class="py-1.5 pr-4 text-gray-300">ETL / Data Pipeline</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-gray-600">—</td>
+                                <td class="text-center text-gray-600">—</td>
+                                <td class="text-center text-gray-600">—</td>
+                                <td class="text-center text-gray-600">—</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                            </tr>
+
+                            <tr class="border-t border-gray-800/60">
+                                <td class="py-1.5 pr-4 text-gray-300">Data Warehousing</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-gray-600">—</td>
+                                <td class="text-center text-gray-600">—</td>
+                                <td class="text-center text-gray-600">—</td>
+                                <td class="text-center text-gray-600">—</td>
+                                <td class="text-center text-gray-600">—</td>
+                            </tr>
+
+                            <tr class="border-t border-gray-800/60">
+                                <td class="py-1.5 pr-4 text-gray-300">Customer Analytics</td>
+                                <td class="text-center text-gray-600">—</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-gray-600">—</td>
+                                <td class="text-center text-gray-600">—</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-gray-600">—</td>
+                            </tr>
+
+                            <tr class="border-t border-gray-800/60">
+                                <td class="py-1.5 pr-4 text-gray-300">Product Analytics / GA4</td>
+                                <td class="text-center text-gray-600">—</td>
+                                <td class="text-center text-gray-600">—</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-gray-600">—</td>
+                                <td class="text-center text-gray-600">—</td>
+                                <td class="text-center text-gray-600">—</td>
+                            </tr>
+
+                            <tr class="border-t border-gray-800/60">
+                                <td class="py-1.5 pr-4 text-gray-300">Statistical Analysis</td>
+                                <td class="text-center text-gray-600">—</td>
+                                <td class="text-center text-gray-600">—</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                            </tr>
+
+                            <tr class="border-t border-gray-800/60">
+                                <td class="py-1.5 pr-4 text-gray-300">Dashboarding / BI</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                            </tr>
+
+                            <tr class="border-t border-gray-800/60">
+                                <td class="py-1.5 pr-4 text-gray-300">Risk Analytics / EVT</td>
+                                <td class="text-center text-gray-600">—</td>
+                                <td class="text-center text-gray-600">—</td>
+                                <td class="text-center text-gray-600">—</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                                <td class="text-center text-gray-600">—</td>
+                                <td class="text-center text-emerald-400">✓</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
             <div class="bg-gray-950/60 border border-teal-500/15 rounded-xl p-4 space-y-2 reveal" style="transition-delay:200ms">
-                <div class="text-[9px] font-mono text-teal-400 uppercase tracking-wider font-bold">// What I Am Looking For</div>
+                <div class="text-[9px] font-mono text-teal-400 uppercase tracking-wider font-bold">
+                    // What I Am Looking For
+                </div>
+
                 <p class="text-sm text-gray-300 leading-relaxed">
                     I am looking for a team where analytics genuinely influences what gets built or how resources get
-                    allocated — not one where dashboards are produced but rarely acted on.
-                    Data Analyst, Product Analyst, or Analytics Engineer roles at product-led organisations.
+                    allocated — not one where dashboards are produced but rarely acted on.<br>
+                    Data Analyst, Product Analyst, or Analytics Engineer roles at product-led organisations.<br>
                     Ideally London-based or remote-first.
                 </p>
             </div>
 
             <div class="reveal" style="transition-delay:280ms">
                 <a href="#campfire"
-                    class="inline-block bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-bold py-3 px-6 rounded-lg transition-colors">
+                class="inline-block bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-bold py-3 px-6 rounded-lg transition-colors">
                     One more thing ↓
                 </a>
             </div>
+
         </div>
     </section>
-
-
     <!-- ─── CAMPFIRE ─── -->
     <section id="campfire" class="scene flex flex-col justify-center items-center px-6 tex-warm bg-gradient-to-b from-[#0B111E] to-[#04070D] text-center min-h-screen"
              data-name="Campfire" data-rows="" data-scope="Shutdown">
