@@ -349,6 +349,7 @@
         <a href="#funnel"      class="nav-link" data-section="funnel">Funnel</a>
         <a href="#kpi"         class="nav-link" data-section="kpi">KPI Tower</a>
         <a href="#basket"      class="nav-link" data-section="basket">Marketplace</a>
+        <a href="#featured" class="nav-link" data-section="featured">Featured</a>
         <a href="#reflection"  class="nav-link" data-section="reflection">Reflection</a>
         <a href="#campfire"    class="nav-link" data-section="campfire">Campfire</a>
     </div>
@@ -1141,6 +1142,122 @@
     </section>
 
 
+    <!-- ─── FEATURED: AQI RISK MODELING ─── -->
+    <section id="featured" class="scene px-6 md:px-16 bg-[#06131A] tex-blueprint"
+             data-name="Featured" data-rows="6573" data-scope="AQI Risk Modeling">
+
+        <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+
+            <div class="lg:col-span-5 space-y-4 z-10 reveal-left">
+                <div class="stage-badge bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
+                    EPA AirData · Baltimore AQI · Extreme-Value Modeling
+                </div>
+                <div class="space-y-1">
+                    <div class="text-[9px] font-mono text-cyan-400 uppercase tracking-wider font-bold">Featured</div>
+                    <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">
+                        Extreme-Value AQI<br>Risk Modeling
+                    </h2>
+                </div>
+                <p class="text-sm text-gray-400 leading-relaxed">
+                    Rebuilt EPA AirData for the Baltimore-Columbia-Towson region into a reproducible AQI risk analytics pipeline.
+                    Benchmarked regression models for AQI prediction, then applied Extreme Value Theory to quantify severe
+                    air-quality tail risk beyond standard model averages.
+                </p>
+
+                <div class="grid grid-cols-2 gap-2 font-mono text-xs">
+                    <div class="metric-card border-cyan-500/15">
+                        <div class="text-[9px] text-gray-500 uppercase">Daily Records</div>
+                        <div class="font-bold text-cyan-300">6,573</div>
+                        <div class="text-[10px] text-gray-600 mt-0.5">2006–2023 EPA AirData</div>
+                    </div>
+                    <div class="metric-card border-teal-500/15">
+                        <div class="text-[9px] text-gray-500 uppercase">Best Model</div>
+                        <div class="font-bold text-teal-400">RMSE 8.99</div>
+                        <div class="text-[10px] text-gray-600 mt-0.5">Tuned XGBoost · R² 0.852</div>
+                    </div>
+                    <div class="metric-card border-rose-500/15">
+                        <div class="text-[9px] text-gray-500 uppercase">Extreme Events</div>
+                        <div class="font-bold text-rose-400">98</div>
+                        <div class="text-[10px] text-gray-600 mt-0.5">AQI &gt; 150 exceedances</div>
+                    </div>
+                    <div class="metric-card border-amber-500/15">
+                        <div class="text-[9px] text-gray-500 uppercase">Tail Risk</div>
+                        <div class="font-bold text-amber-400">6.65%</div>
+                        <div class="text-[10px] text-gray-600 mt-0.5">P(AQI &gt; 200 | AQI &gt; 150)</div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-950/80 border border-cyan-500/15 rounded-lg p-3 font-mono text-xs">
+                    <div class="text-[9px] text-cyan-400 font-bold uppercase tracking-wider mb-1">Key Finding</div>
+                    <p class="text-gray-300 leading-relaxed">
+                        Once AQI exceeded 150, the fitted GPD tail model estimated a
+                        <span class="text-amber-400 font-bold">6.65%</span> conditional probability of AQI exceeding
+                        <span class="text-rose-400 font-bold">200</span>.
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap gap-1 pt-1">
+                    <span class="chip">Python</span>
+                    <span class="chip">EPA AirData</span>
+                    <span class="chip">XGBoost</span>
+                    <span class="chip">Extreme Value Theory</span>
+                    <span class="chip">GPD</span>
+                    <span class="chip">Risk Analytics</span>
+                </div>
+
+                <div class="space-y-1.5">
+                    <div class="text-[9px] font-mono text-gray-600 uppercase tracking-wider">Select AQI view:</div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button id="aqi-btn-1" onclick="AJ.switchAqiView('assets/aqi/model_performance.png','🌫️ AQI MODELING // MODEL PERFORMANCE','AQI Model Performance',this)"
+                            class="bg-cyan-600 text-white font-mono text-[10px] font-bold py-2 rounded transition-colors cursor-pointer">
+                            Model
+                        </button>
+                        <button id="aqi-btn-2" onclick="AJ.switchAqiView('assets/aqi/extreme_events.png','🌫️ AQI MODELING // EXTREME EVENTS','Extreme AQI Events',this)"
+                            class="bg-gray-900 border border-gray-800 text-gray-400 font-mono text-[10px] py-2 rounded transition-colors cursor-pointer">
+                            Events
+                        </button>
+                        <button id="aqi-btn-3" onclick="AJ.switchAqiView('assets/aqi/tail_risk.png','🌫️ AQI MODELING // TAIL RISK','AQI Tail-Risk Curve',this)"
+                            class="bg-gray-900 border border-gray-800 text-gray-400 font-mono text-[10px] py-2 rounded transition-colors cursor-pointer">
+                            Tail Risk
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 reveal-right">
+                <div class="img-frame">
+                    <div class="img-frame-bar">
+                        <span id="aqi-label">🌫️ AQI MODELING // MODEL PERFORMANCE</span>
+                        <span onclick="AJ.openLightbox(document.getElementById('aqi-img').src, document.getElementById('aqi-img').dataset.lightboxLabel || 'AQI Model Performance')"
+                              class="text-cyan-400 font-bold text-[9px] cursor-pointer hover:text-cyan-300 transition-colors">
+                            Click to expand
+                        </span>
+                    </div>
+                    <div class="img-frame-body" style="height: 46vh;" onclick="AJ.openLightbox(document.getElementById('aqi-img').src, document.getElementById('aqi-img').dataset.lightboxLabel || 'AQI Model Performance')">
+                        <svg id="aqi-svg" class="img-placeholder w-full h-full" viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                            <rect width="560" height="280" fill="#031018"/>
+                            <text x="280" y="25" text-anchor="middle" fill="#475569" font-family="monospace" font-size="10">AQI Risk Modeling — EPA AirData</text>
+                            <line x1="45" y1="215" x2="520" y2="215" stroke="#164e63" stroke-width="1"/>
+                            <line x1="45" y1="65" x2="45" y2="215" stroke="#164e63" stroke-width="1"/>
+                            <polyline points="55,180 95,170 135,150 175,158 215,128 255,138 295,98 335,118 375,90 415,105 455,70 500,82" stroke="#22d3ee" stroke-width="2.5" fill="none"/>
+                            <polyline points="55,192 95,182 135,166 175,172 215,150 255,154 295,124 335,138 375,115 415,128 455,98 500,108" stroke="#14b8a6" stroke-width="1.5" fill="none" opacity="0.65"/>
+                            <line x1="45" y1="95" x2="520" y2="95" stroke="#f43f5e" stroke-width="1" stroke-dasharray="5" opacity="0.7"/>
+                            <text x="525" y="99" fill="#fb7185" font-family="monospace" font-size="9">AQI 150</text>
+                            <circle cx="455" cy="70" r="5" fill="#f43f5e"/>
+                            <text x="390" y="55" fill="#fbbf24" font-family="monospace" font-size="10" font-weight="bold">Tail risk: 6.65%</text>
+                            <text x="280" y="255" text-anchor="middle" fill="#475569" font-family="monospace" font-size="9">6,573 daily records · RMSE 8.99 · 98 exceedances above AQI 150</text>
+                        </svg>
+                        <img id="aqi-img" class="img-real" src="assets/aqi/model_performance.png" alt="AQI model performance dashboard"
+                             data-lightbox-label="AQI Model Performance" style="object-fit: contain;"
+                             onload="this.classList.add('loaded'); document.getElementById('aqi-svg').style.opacity='0';"
+                             onerror="this.style.display='none'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
     <!-- ─── REFLECTION ─── -->
     <section id="reflection" class="scene flex flex-col justify-center px-6 md:px-20 bg-[#0B111E]"
              data-name="Reflection" data-rows="" data-scope="Journey Synthesis">
@@ -1152,11 +1269,11 @@
                     Journey Synthesis // What These Projects Mean Together
                 </div>
                 <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">
-                    What I Learned<br>Building All Five Systems
+                    What I Learned<br>Building These Analytics Systems
                 </h2>
                 <p class="text-base text-gray-300 leading-relaxed max-w-2xl">
                     The hardest part of analytics is never the code. It's knowing which question to ask
-                    before you write the first query. These five systems taught me that data work has a
+                    before you write the first query. These systems taught me that data work has a
                     natural order: <span class="text-white font-semibold">build reliable infrastructure first,
                     understand your customers second, diagnose problems third, then optimise.</span>
                     Every shortcut in that sequence costs you more than the shortcut saved.
@@ -1302,6 +1419,7 @@ const AJ = (() => {
         { id: 'funnel',       name: 'Funnel Center',       rows: 34984,   scope: 'GA4 Telemetry Pipeline' },
         { id: 'kpi',          name: 'KPI Tower',          rows: 540,     scope: '−9.89 Anomaly Alert' },
         { id: 'basket',       name: 'Retail Marketplace', rows: 25820,   scope: 'Apriori Affinity Rules' },
+        { id: 'featured',     name: 'Featured',           rows: '6573',  scope: 'AQI Risk Modeling' },
         { id: 'reflection',   name: 'Reflection',         rows: null,    scope: 'Journey Synthesis' },
         { id: 'campfire',     name: 'Campfire',           rows: null,    scope: 'Shutdown' },
     ];
@@ -1618,6 +1736,26 @@ rules = rules.sort_values('lift', ascending=False)
         });
     }
 
+    // ── AQI featured switcher ───────────────────────────────────────
+    function switchAqiView(src, title, lightboxLabel, btn) {
+        const img = $('aqi-img');
+        const lbl = $('aqi-label');
+        const svg = $('aqi-svg');
+        img.style.display = 'block';
+        img.src = src;
+        img.dataset.lightboxLabel = lightboxLabel;
+        lbl.textContent = title;
+        img.onload = () => { img.classList.add('loaded'); if (svg) svg.style.opacity = '0'; };
+        img.onerror = () => { img.style.display = 'none'; };
+        ['aqi-btn-1','aqi-btn-2','aqi-btn-3'].forEach(id => {
+            const b = $(id);
+            if (!b) return;
+            b.className = (b === btn)
+                ? 'bg-cyan-600 text-white font-mono text-[10px] font-bold py-2 rounded transition-colors cursor-pointer'
+                : 'bg-gray-900 border border-gray-800 text-gray-400 font-mono text-[10px] py-2 rounded transition-colors cursor-pointer';
+        });
+    }
+
     // ── Segmentation warehouse switcher ─────────────────────────────
     function switchSegmentationStream(src, label, btn) {
         const img = $('segmentation-img');
@@ -1705,7 +1843,7 @@ rules = rules.sort_values('lift', ascending=False)
         init();
     }
 
-    return { openLightbox, closeLightbox, openDepth, closeDepthModal, switchKpiStream, switchWarehouseView, switchGrowthStream, switchInstacartView, switchSegmentationStream };
+    return { openLightbox, closeLightbox, openDepth, closeDepthModal, switchKpiStream, switchWarehouseView, switchGrowthStream, switchInstacartView, switchAqiView, switchSegmentationStream };
 })();
 </script>
 </body>
