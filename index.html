@@ -25,9 +25,17 @@
             --accent-orange:  #F97316;
         }
 
-        html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
 
         body {
+            margin: 0;
+            width: 100%;
+            max-width: 100%;
             background-color: var(--bg-deep);
             color: var(--text-body);
             font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
@@ -96,8 +104,16 @@
         /* ── SECTIONS ── */
         .scene {
             width: 100%;
+            max-width: 100%;
             position: relative;
-            padding: 5rem 0;
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+        .scene > * { min-width: 0; }
+        main {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: clip;
         }
 
         /* ── STICKY NAV ── */
@@ -213,6 +229,7 @@
             border-radius: 20px;
             border: 1px solid;
             white-space: nowrap;
+            max-width: 100%;
         }
         .stage-badge {
             display: inline-flex;
@@ -223,6 +240,15 @@
             text-transform: uppercase;
             padding: 3px 10px;
             border-radius: 4px;
+            max-width: 100%;
+            line-height: 1.4;
+        }
+        .table-scroll {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         /* ── METRIC CARD ── */
@@ -322,7 +348,23 @@
         @media (max-width: 767px) {
             #hud-panel { display: none !important; }
             #top-nav .nav-links { display: none; }
-            .scene { padding: 3.5rem 0; }
+            .scene {
+                padding-top: 3.5rem;
+                padding-bottom: 3.5rem;
+            }
+            .hero-title { font-size: clamp(2.75rem, 15vw, 4.5rem); }
+            .skill-pill {
+                white-space: normal;
+                overflow-wrap: anywhere;
+                line-height: 1.35;
+            }
+            .stage-badge { overflow-wrap: anywhere; }
+            .reveal-left, .reveal-right { transform: translateY(40px); }
+            .hero-cta { align-items: stretch; }
+            .hero-cta a {
+                justify-content: center;
+                text-align: center;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -373,14 +415,14 @@
     <!-- ─── HERO ─── -->
     <section id="hero" class="scene flex flex-col justify-center px-6 md:px-20 min-h-screen bg-gradient-to-br from-[#070A13] to-[#0B111E]"
              data-name="Overview" data-rows="" data-scope="Analytics Portfolio">
-        <div class="max-w-3xl mx-auto w-full space-y-5 pt-8">
+        <div class="max-w-3xl mx-auto w-full min-w-0 space-y-5 pt-8">
 
             <div class="flex flex-wrap items-center gap-2 reveal stagger">
                 <span class="skill-pill border-emerald-500/30 text-emerald-400 bg-emerald-500/8">● Open to Work</span>
                 <span class="skill-pill border-blue-500/20 text-blue-400 bg-blue-500/5">Data Analyst · Product Analytics · BI</span>
             </div>
 
-            <h1 class="text-5xl md:text-7xl font-black tracking-tight text-white leading-none reveal" style="transition-delay:100ms">
+            <h1 class="hero-title text-5xl md:text-7xl font-black tracking-tight text-white leading-none reveal" style="transition-delay:100ms">
                 Kartikeya<br>Vemula
             </h1>
 
@@ -425,7 +467,7 @@
                 </div>
             </div>
 
-            <div class="flex flex-wrap items-center gap-3 pt-2 reveal" style="transition-delay:460ms">
+            <div class="hero-cta flex flex-wrap items-center gap-3 pt-2 reveal" style="transition-delay:460ms">
                 <a href="#warehouse"
                     class="bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-bold py-3 px-6 rounded-lg transition-colors">
                     Begin Journey ↓
@@ -1263,7 +1305,7 @@
     <section id="reflection" class="scene flex flex-col justify-center px-6 md:px-20 bg-[#0B111E]"
             data-name="Reflection" data-rows="" data-scope="Journey Synthesis">
 
-        <div class="max-w-4xl w-full mx-auto space-y-8">
+        <div class="max-w-4xl w-full min-w-0 mx-auto space-y-8">
 
             <div class="space-y-3 reveal">
                 <div class="stage-badge bg-teal-500/10 text-teal-400 border border-teal-500/20">
@@ -1291,7 +1333,7 @@
                     // Skills Demonstrated -- Project Mapping
                 </div>
 
-                <div class="overflow-x-auto">
+                <div class="table-scroll">
                     <table class="w-full min-w-[820px] font-mono text-xs border-collapse">
                         <thead>
                             <tr class="text-gray-600 text-[9px] uppercase tracking-wider">
@@ -1400,7 +1442,7 @@
                 </div>
             </div>
 
-            <div class="bg-gray-950/60 border border-teal-500/15 rounded-xl p-4 space-y-2 reveal" style="transition-delay:200ms">
+            <div class="w-full max-w-full min-w-0 bg-gray-950/60 border border-teal-500/15 rounded-xl p-4 space-y-2 reveal" style="transition-delay:200ms">
                 <div class="text-[9px] font-mono text-teal-400 uppercase tracking-wider font-bold">
                     // What I Am Looking For
                 </div>
