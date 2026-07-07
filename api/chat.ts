@@ -1,5 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { KNOWLEDGE } from "./_knowledge";
+// Explicit .js extension: package.json sets "type": "module", so the compiled
+// function resolves imports with strict ESM rules.
+import { KNOWLEDGE } from "./_knowledge.js";
 
 const ALLOWED_ORIGINS = new Set([
   "https://kartz82.github.io",
