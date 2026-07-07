@@ -14,6 +14,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 function ProjectPanel({ project, index }: { project: MainProject; index: number }) {
   const image = project.visualAssets?.[0];
+  const metrics = project.metrics.filter(
+    (metric) => metric.verified && metric.label && metric.value,
+  );
+  const links = project.links.filter((link) => link.type !== "placeholder" && link.href);
 
   return (
     <article
@@ -44,7 +48,7 @@ function ProjectPanel({ project, index }: { project: MainProject; index: number 
         </div>
 
         <dl className="mt-6 grid max-w-md grid-cols-2 gap-3 sm:grid-cols-4">
-          {project.metrics.map((metric) => (
+          {metrics.map((metric) => (
             <div
               key={metric.label}
               className={`rounded-lg border bg-white/75 p-3 ${
@@ -67,22 +71,16 @@ function ProjectPanel({ project, index }: { project: MainProject; index: number 
           ))}
         </dl>
 
-        {project.links.map((link) =>
-          link.type === "placeholder" ? (
-            <div key={link.label} className="mt-4">
-              <Badge tone="placeholder">{link.label}</Badge>
-            </div>
-          ) : (
-            <a
-              key={link.label}
-              href={link.href}
-              rel="noreferrer"
-              className="mt-4 inline-block rounded-full border border-[#16181d]/20 px-4 py-1.5 text-sm text-[#16181d] transition-colors hover:border-[#e8480c]/60"
-            >
-              {link.label}
-            </a>
-          ),
-        )}
+        {links.map((link) => (
+          <a
+            key={link.label}
+            href={link.href}
+            rel="noreferrer"
+            className="mt-4 inline-block rounded-full border border-[#16181d]/20 px-4 py-1.5 text-sm text-[#16181d] transition-colors hover:border-[#e8480c]/60"
+          >
+            {link.label}
+          </a>
+        ))}
       </div>
 
       {/* framed dashboard panel */}

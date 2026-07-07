@@ -9,6 +9,8 @@ const ROLES = ["Analytics Engineer", "Data Analyst", "Product Analyst", "Data Sc
 
 /** Act 4: about statement, the four working layers, education, and background. */
 export function Profile() {
+  const visibleExperience = experience.filter((item) => item.verified);
+
   return (
     <Section
       id="about"
@@ -59,7 +61,7 @@ export function Profile() {
 
       {/* education / background */}
       <div className="mt-14 grid gap-5 md:grid-cols-2">
-        {experience.map((item, index) => (
+        {visibleExperience.map((item, index) => (
           <Reveal key={item.id} delay={index * 0.07}>
             <div className="paper-card h-full rounded-2xl p-6">
               <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#c23a08]">
@@ -75,17 +77,27 @@ export function Profile() {
                 {item.organization}
                 {item.location ? `, ${item.location}` : ""}
               </p>
-              <ul className="mt-3 space-y-1.5">
-                {item.description.map((line) => (
-                  <li key={line} className="text-sm leading-relaxed text-[#4b4f58]">
-                    {line}
-                  </li>
-                ))}
-              </ul>
-              {!item.verified && (
-                <div className="mt-3">
-                  <Badge tone="placeholder">Placeholder entry</Badge>
-                </div>
+              {item.kind === "experience" ? (
+                <p className="mt-3 text-sm leading-relaxed text-[#4b4f58]">
+                  {item.description.join(" ")}
+                </p>
+              ) : (
+                <ul className="mt-3 space-y-1.5">
+                  {item.description.map((line) => (
+                    <li key={line} className="text-sm leading-relaxed text-[#4b4f58]">
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {item.bullets && (
+                <ul className="mt-3 list-disc space-y-1.5 pl-4">
+                  {item.bullets.map((line) => (
+                    <li key={line} className="text-sm leading-relaxed text-[#4b4f58]">
+                      {line}
+                    </li>
+                  ))}
+                </ul>
               )}
             </div>
           </Reveal>

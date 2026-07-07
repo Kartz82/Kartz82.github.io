@@ -91,5 +91,6 @@ export type ExperienceItem = {
   startDate: string;
   endDate?: string;
   description: string[];
+  bullets?: string[];
   verified: boolean;
 };

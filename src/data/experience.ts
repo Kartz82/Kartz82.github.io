@@ -7,8 +7,8 @@ export const experience: ExperienceItem[] = [
     title: "M.S. Data Science",
     organization: "University of Maryland Baltimore County",
     location: "USA",
-    startDate: "Aug 2024",
-    endDate: "May 2026",
+    startDate: "Aug 27, 2024",
+    endDate: "May 20, 2026",
     description: [
       "Carnegie R1 Research University | GPA: 3.78 / 4.0",
       "Focus: Machine Learning, Statistical Modeling, Experimental Design, Time Series Analysis",
@@ -16,14 +16,19 @@ export const experience: ExperienceItem[] = [
     verified: true,
   },
   {
-    id: "experience-placeholder",
+    id: "umbc-graduate-assistant-aqi-forecasting",
     kind: "experience",
-    title: "[PLACEHOLDER: add verified role title]",
-    organization: "[PLACEHOLDER: add verified organization]",
-    startDate: "[PLACEHOLDER: add dates]",
+    title: "Graduate Assistant — Extreme Value AQI Forecasting",
+    organization: "University of Maryland Baltimore County",
+    startDate: "Aug 2024",
+    endDate: "May 2026",
     description: [
-      "Professional experience entries will be added once verified details are available.",
+      "Applied forecasting research on 17 years of EPA Baltimore air-quality data, focusing on extreme AQI events, pollutant drivers, and tail-risk modeling.",
     ],
-    verified: false,
+    bullets: [
+      "Built ML and EVT workflows for hazardous AQI spike analysis.",
+      "Analyzed PM2.5, NO2, seasonality, and model performance patterns.",
+    ],
+    verified: true,
   },
 ];

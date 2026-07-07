@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Badge } from "../components/ui/Badge";
 import { MagneticButton } from "../components/ui/MagneticButton";
 import { Reveal } from "../components/ui/Reveal";
 import { links } from "../data/links";
@@ -73,7 +72,7 @@ export function Contact() {
               >
                 Download resume (PDF)
               </a>
-              {links.linkedin ? (
+              {links.linkedin && (
                 <a
                   href={links.linkedin}
                   rel="noreferrer"
@@ -81,8 +80,6 @@ export function Contact() {
                 >
                   LinkedIn
                 </a>
-              ) : (
-                <Badge tone="inverse">[PLACEHOLDER: add LinkedIn URL]</Badge>
               )}
             </div>
           </Reveal>

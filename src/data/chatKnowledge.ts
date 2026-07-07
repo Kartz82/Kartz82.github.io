@@ -1,4 +1,4 @@
-import type { ChatAnswer, ChatIntent } from "../types/chat";
+import type { ChatAnswer, ChatBullet, ChatIntent } from "../types/chat";
 import { links } from "./links";
 
 /**
@@ -28,6 +28,12 @@ export const FALLBACK: ChatAnswer = {
     "“How do I contact him?”",
   ],
 };
+
+const contactBullets: ChatBullet[] = [
+  { text: `Email: ${links.email}`, href: `mailto:${links.email}` },
+  ...(links.linkedin ? [{ text: "LinkedIn: Kartikeya Vemula", href: links.linkedin }] : []),
+  { text: "GitHub: Kartz82", href: links.github },
+];
 
 export const chatIntents: ChatIntent[] = [
   {
@@ -225,8 +231,11 @@ export const chatIntents: ChatIntent[] = [
     keywords: ["experience", "job", "worked", "employer", "company", "internship", "years"],
     answer: {
       intro:
-        "Professional experience details aren't listed on this site yet — the resume is the best source.",
-      followUp: { label: "Download resume", href: links.resume },
+        "Graduate Assistant — Extreme Value AQI Forecasting at University of Maryland Baltimore County (Aug 2024 – May 2026).",
+      bullets: [
+        "Applied forecasting research on 17 years of EPA Baltimore air-quality data",
+        "Built ML and EVT workflows for hazardous AQI spike analysis",
+      ],
     },
   },
   {
@@ -247,11 +256,7 @@ export const chatIntents: ChatIntent[] = [
     keywords: ["contact", "email", "reach", "linkedin", "github", "resume", "cv", "connect", "hire"],
     answer: {
       intro: "Fastest ways to reach Kartikeya:",
-      bullets: [
-        { text: `Email: ${links.email}`, href: `mailto:${links.email}` },
-        { text: "LinkedIn: Kartikeya Vemula", href: links.linkedin ?? "#" },
-        { text: "GitHub: Kartz82", href: links.github },
-      ],
+      bullets: contactBullets,
       followUp: { label: "Download resume", href: links.resume },
     },
   },
