@@ -26,11 +26,13 @@ function ProjectPanel({ project, index }: { project: MainProject; index: number 
         </p>
         <h3
           id={`${project.id}-title`}
-          className="mt-2 font-display text-3xl font-bold tracking-tight text-[#16181d] sm:text-4xl"
+          className="mt-2 font-display text-3xl font-bold leading-tight tracking-tight text-[#16181d] sm:text-4xl"
         >
           {project.title}
         </h3>
-        <p className="mt-1.5 text-sm font-medium text-[#c23a08]">{project.recruiterTitle}</p>
+        <p className="mt-1.5 text-sm font-semibold leading-snug text-[#c23a08]">
+          {project.recruiterTitle}
+        </p>
         <p className="mt-4 max-w-md text-[15px] leading-relaxed text-[#4b4f58]">
           {project.hook}
         </p>
@@ -41,21 +43,21 @@ function ProjectPanel({ project, index }: { project: MainProject; index: number 
           ))}
         </div>
 
-        <dl className="mt-6 grid max-w-md grid-cols-3 gap-3">
+        <dl className="mt-6 grid max-w-md grid-cols-2 gap-3 sm:grid-cols-4">
           {project.metrics.map((metric) => (
             <div
               key={metric.label}
-              className={`rounded-xl border bg-white/70 p-3 ${
+              className={`rounded-lg border bg-white/75 p-3 ${
                 metric.verified
                   ? "border-[#16181d]/12"
                   : "border-dashed border-[#e8480c]/35"
               }`}
             >
-              <dt className="font-mono text-[9px] uppercase tracking-wider text-[#8a8e98]">
+              <dt className="font-mono text-[9px] font-medium uppercase leading-tight tracking-[0.16em] text-[#8a8e98]">
                 {metric.label}
               </dt>
               <dd
-                className={`mt-1 font-mono text-sm font-bold ${
+                className={`mt-1.5 font-mono text-sm font-bold leading-none ${
                   metric.verified ? "text-[#16181d]" : "text-[#c23a08]"
                 }`}
               >
