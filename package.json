@@ -23,6 +23,7 @@
     "@tailwindcss/postcss": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "@vercel/node": "^5.8.22",
     "@vitejs/plugin-react": "latest",
     "postcss": "latest",
     "shadcn": "^4.13.0",

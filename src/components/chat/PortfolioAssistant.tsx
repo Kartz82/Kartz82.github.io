@@ -9,6 +9,10 @@ import {
 } from "../../data/chatKnowledge";
 import type { ChatAnswer, ChatBullet, ChatMessage } from "../../types/chat";
 
+/** Serverless AI endpoint; on any failure the static matcher below answers instead. */
+const CHAT_API = "https://kartz82-github-io.vercel.app/api/chat";
+const AI_TIMEOUT_MS = 9000;
+
 const bulletText = (bullet: ChatBullet) =>
   typeof bullet === "string" ? bullet : bullet.text;
 
@@ -30,7 +34,7 @@ function scoreIntent(query: string, keywords: string[]): number {
   return score;
 }
 
-function resolveAnswer(rawQuery: string): ChatAnswer {
+function resolveStaticAnswer(rawQuery: string): ChatAnswer {
   const query = rawQuery.toLowerCase().trim();
   let best: { score: number; answer: ChatAnswer } = { score: 0, answer: FALLBACK };
   for (const intent of chatIntents) {
@@ -38,6 +42,30 @@ function resolveAnswer(rawQuery: string): ChatAnswer {
     if (score > best.score) best = { score, answer: intent.answer };
   }
   return best.answer;
+}
+
+async function resolveAiAnswer(
+  question: string,
+  history: { role: "user" | "bot"; text: string }[],
+): Promise<ChatAnswer | null> {
+  const controller = new AbortController();
+  const timer = window.setTimeout(() => controller.abort(), AI_TIMEOUT_MS);
+  try {
+    const response = await fetch(CHAT_API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question, history }),
+      signal: controller.signal,
+    });
+    if (!response.ok) return null;
+    const data = (await response.json()) as ChatAnswer;
+    if (!data.intro && !data.bullets?.length) return null;
+    return data;
+  } catch {
+    return null;
+  } finally {
+    window.clearTimeout(timer);
+  }
 }
 
 function answerToText(answer: ChatAnswer): string {
@@ -60,7 +88,7 @@ function BotMessage({ answer }: { answer: ChatAnswer }) {
         <ul className="mt-1.5 space-y-1.5">
           {answer.bullets.map((bullet, i) => (
             <motion.li
-              key={bulletText(bullet)}
+              key={`${bulletText(bullet)}-${i}`}
               initial={reduce ? false : { opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
@@ -90,6 +118,7 @@ function BotMessage({ answer }: { answer: ChatAnswer }) {
         <a
           href={answer.followUp.href}
           rel="noreferrer"
+          target={answer.followUp.href.startsWith("http") ? "_blank" : undefined}
           {...(answer.followUp.href.startsWith("/") ? { download: true } : {})}
           className="mt-2.5 inline-block rounded-full border border-[#16181d]/20 px-3.5 py-1 text-xs font-medium text-[#16181d] transition-colors hover:border-[#e8480c] hover:text-[#c23a08]"
         >
@@ -100,32 +129,58 @@ function BotMessage({ answer }: { answer: ChatAnswer }) {
   );
 }
 
+function TypingDots() {
+  return (
+    <div className="flex items-center gap-1 py-1" aria-label="Assistant is thinking">
+      {[0, 1, 2].map((i) => (
+        <motion.span
+          key={i}
+          className="h-1.5 w-1.5 rounded-full bg-[#8a8e98]"
+          animate={{ opacity: [0.3, 1, 0.3] }}
+          transition={{ duration: 1, repeat: Infinity, delay: i * 0.18 }}
+        />
+      ))}
+    </div>
+  );
+}
+
 /**
- * Static portfolio assistant: bottom-right trigger, solid paper-card panel,
- * keyword-matched answers from a curated knowledge base. Text only, no
- * backend, no keys.
+ * Portfolio assistant: bottom-right trigger, solid paper-card panel.
+ * Answers come from a Gemini-backed serverless function grounded in a
+ * verified knowledge document; if that call fails or times out, a local
+ * keyword matcher answers instead so the widget never breaks.
  */
 export function PortfolioAssistant() {
   const reduce = useReducedMotion();
   const [open, setOpen] = useState(false);
   const [everOpened, setEverOpened] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [pending, setPending] = useState(false);
   const [input, setInput] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const logRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
-  const showChips = messages.filter((m) => m.role === "user").length === 0;
+  const showChips = messages.filter((m) => m.role === "user").length === 0 && !pending;
 
-  const ask = (raw: string) => {
+  const ask = async (raw: string) => {
     const question = raw.trim();
-    if (!question) return;
-    const answer = resolveAnswer(question);
+    if (!question || pending) return;
+    const history = messages
+      .slice(-6)
+      .map((m) => ({ role: m.role, text: m.text.slice(0, 500) }));
     setMessages((prev) => [
       ...prev,
       { id: nextId(), role: "user", answer: { intro: question }, text: question },
-      { id: nextId(), role: "bot", answer, text: answerToText(answer) },
     ]);
     setInput("");
+    setPending(true);
+    const answer =
+      (await resolveAiAnswer(question, history)) ?? resolveStaticAnswer(question);
+    setMessages((prev) => [
+      ...prev,
+      { id: nextId(), role: "bot", answer, text: answerToText(answer) },
+    ]);
+    setPending(false);
   };
 
   // Autofocus input and greet on first open.
@@ -143,7 +198,7 @@ export function PortfolioAssistant() {
   // Keep the newest message in view.
   useEffect(() => {
     logRef.current?.scrollTo({ top: logRef.current.scrollHeight });
-  }, [messages]);
+  }, [messages, pending]);
 
   // Esc closes and returns focus to the trigger.
   useEffect(() => {
@@ -200,7 +255,7 @@ export function PortfolioAssistant() {
                 Ask about Kartikeya
               </p>
               <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#8a8e98]">
-                Portfolio assistant · no AI calls
+                Portfolio assistant · verified facts only
               </p>
             </div>
 
@@ -230,6 +285,8 @@ export function PortfolioAssistant() {
                 ),
               )}
 
+              {pending && <TypingDots />}
+
               {showChips && (
                 <div className="flex flex-wrap gap-1.5 pt-1">
                   {SUGGESTED_QUESTIONS.map((question) => (
@@ -251,7 +308,7 @@ export function PortfolioAssistant() {
               className="flex items-center gap-2 border-t border-[#16181d]/10 px-4 py-3"
               onSubmit={(event) => {
                 event.preventDefault();
-                ask(input);
+                void ask(input);
               }}
             >
               <input
@@ -267,7 +324,7 @@ export function PortfolioAssistant() {
                 type="submit"
                 aria-label="Send question"
                 className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#16181d] text-[#f7f6f3] transition-colors hover:bg-[#e8480c] active:scale-95 disabled:opacity-40"
-                disabled={!input.trim()}
+                disabled={!input.trim() || pending}
               >
                 <PaperPlaneRight size={16} weight="fill" />
               </button>
