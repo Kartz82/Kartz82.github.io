@@ -1,6 +1,7 @@
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { useEffect } from "react";
+import { PortfolioAssistant } from "./components/chat/PortfolioAssistant";
 import { Navbar } from "./components/layout/Navbar";
 import { ScrollProgress } from "./components/ui/ScrollProgress";
 import { usePrefersReducedMotion } from "./hooks/usePrefersReducedMotion";
@@ -45,6 +46,7 @@ function App() {
         <Profile />
         <Contact />
       </main>
+      <PortfolioAssistant />
     </div>
   );
 }
