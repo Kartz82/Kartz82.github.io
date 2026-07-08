@@ -9,7 +9,9 @@ const ALLOWED_ORIGINS = new Set([
   "http://localhost:4173",
 ]);
 
-const MODEL = process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
+// flash-lite: higher free-tier quota and its own per-model allowance;
+// override with GEMINI_MODEL if needed.
+const MODEL = process.env.GEMINI_MODEL ?? "gemini-2.5-flash-lite";
 
 const SYSTEM_PROMPT = `You are the portfolio assistant on Kartikeya Vemula's website. Recruiters ask you quick questions.
 
