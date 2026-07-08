@@ -92,7 +92,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     let response = await callModel(MODEL);
 
-    // Capacity/rate errors are model-specific; one retry on the fallback model.
+    // 503s are momentary capacity spikes: retry the same model once after a
+    // short pause before spending the fallback model's separate quota.
+    if (response.status === 503) {
+      await new Promise((resolve) => setTimeout(resolve, 900));
+      response = await callModel(MODEL);
+    }
     if (response.status === 503 || response.status === 429) {
       console.error(`Gemini ${response.status} on ${MODEL}, retrying with ${FALLBACK_MODEL}`);
       response = await callModel(FALLBACK_MODEL);
