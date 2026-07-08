@@ -10,8 +10,11 @@ const ALLOWED_ORIGINS = new Set([
 ]);
 
 // flash-lite: higher free-tier quota and its own per-model allowance;
-// override with GEMINI_MODEL if needed.
+// override with GEMINI_MODEL if needed. On capacity errors (503/429) the
+// handler retries once against the fallback model, which has a separate
+// per-model quota and capacity pool.
 const MODEL = process.env.GEMINI_MODEL ?? "gemini-2.5-flash-lite";
+const FALLBACK_MODEL = process.env.GEMINI_FALLBACK_MODEL ?? "gemini-2.0-flash";
 
 const SYSTEM_PROMPT = `You are the portfolio assistant on Kartikeya Vemula's website. Recruiters ask you quick questions.
 
@@ -68,26 +71,32 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     { role: "user", parts: [{ text: question }] },
   ];
 
-  try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-goog-api-key": apiKey,
-        },
-        body: JSON.stringify({
-          systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-          contents,
-          generationConfig: {
-            temperature: 0.3,
-            maxOutputTokens: 2048,
-            responseMimeType: "application/json",
-          },
-        }),
+  const callModel = (model: string) =>
+    fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-goog-api-key": apiKey,
       },
-    );
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+        contents,
+        generationConfig: {
+          temperature: 0.3,
+          maxOutputTokens: 2048,
+          responseMimeType: "application/json",
+        },
+      }),
+    });
+
+  try {
+    let response = await callModel(MODEL);
+
+    // Capacity/rate errors are model-specific; one retry on the fallback model.
+    if (response.status === 503 || response.status === 429) {
+      console.error(`Gemini ${response.status} on ${MODEL}, retrying with ${FALLBACK_MODEL}`);
+      response = await callModel(FALLBACK_MODEL);
+    }
 
     if (!response.ok) {
       const detail = await response.text();
