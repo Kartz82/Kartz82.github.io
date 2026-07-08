@@ -239,8 +239,20 @@ export const chatIntents: ChatIntent[] = [
     },
   },
   {
+    id: "location",
+    keywords: ["location", "based", "relocate", "relocation", "remote", "hybrid", "onsite", "sponsorship", "visa", "authorization", "where is"],
+    answer: {
+      intro:
+        "Kartikeya is based in the Baltimore/Maryland area and graduates from UMBC in May 2026.",
+      bullets: [
+        "Relocation, remote/hybrid preference, and work authorization: confirm directly",
+      ],
+      followUp: { label: `Email ${links.email}`, href: `mailto:${links.email}` },
+    },
+  },
+  {
     id: "roles",
-    keywords: ["role", "open to", "looking for", "hiring", "position", "relocate", "relocation", "available", "opportunity"],
+    keywords: ["role", "open to", "looking for", "hiring", "position", "available", "opportunity"],
     answer: {
       intro: "Open to these roles:",
       bullets: [
