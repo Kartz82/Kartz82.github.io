@@ -6,6 +6,8 @@ export const profile = {
   roleLine: "Analytics Engineering / BI Reporting / Applied Analysis",
   topSkills: ["SQL", "dbt Core", "Power BI", "Python"] as const,
   photo: "/assets/profile/kartikeya-vemula-profile.png",
+  /** Square face-centered crop for small circular avatars. */
+  photoHeadshot: "/assets/profile/kartikeya-vemula-profile2.png",
   resume: "/resume/Kartikeya_Vemula_Resume.pdf",
   openTo:
     "Open to Analytics Engineer, Data Analyst, Product Analyst, and Data Scientist roles where data modeling, reporting systems, and applied analysis support business and product workflows.",

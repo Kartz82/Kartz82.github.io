@@ -45,7 +45,7 @@ export function Hero() {
         >
           <p className="inline-flex items-center gap-2.5 rounded-full border border-[#16181d]/15 bg-white/60 py-1.5 pr-4 pl-1.5 backdrop-blur">
             <img
-              src={profile.photo}
+              src={profile.photoHeadshot}
               alt=""
               className="h-7 w-7 rounded-full object-cover"
               width={28}
