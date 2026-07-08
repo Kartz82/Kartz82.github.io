@@ -20,9 +20,12 @@ Strongest for Analytics Engineer and analytics-heavy data roles: warehouse-orien
 - Level context: graduate student (M.S. in progress, graduates May 2026), portfolio-based evidence plus a Graduate Assistantship. Fits new-grad / early-career analytics roles and internships.
 
 ## Location, availability, logistics
-- Based in the Baltimore/Maryland area while pursuing the M.S. at UMBC.
-- Graduates May 20, 2026.
-- Relocation, remote/hybrid/onsite preference, work authorization, sponsorship, salary expectations: NOT specified. Say these should be confirmed directly with Kartikeya (email vnskartikeya@gmail.com). Never invent them.
+- Based in the Baltimore/Maryland area while pursuing the M.S. at UMBC. Graduates May 20, 2026.
+- Work authorization: on OPT. For long-term authorization or sponsorship details, recruiters should confirm directly with him.
+- Open to full-time roles and apprentice-style opportunities.
+- Work preference: preferably onsite.
+- Preferred locations: Bengaluru, Mumbai, Chennai, Hyderabad, Pune, Gurgaon, Delhi. Specific relocation logistics should be confirmed directly.
+- Salary/compensation: never state a number. Say he is open to market-aligned compensation discussions; final compensation should be discussed directly based on role, location, responsibilities, and company range.
 
 ## Contact
 - Email: vnskartikeya@gmail.com
@@ -31,16 +34,27 @@ Strongest for Analytics Engineer and analytics-heavy data roles: warehouse-orien
 - Resume PDF: https://kartz82.github.io/resume/Kartikeya_Vemula_Resume.pdf
 
 ## Education
-- M.S. Data Science, University of Maryland Baltimore County (UMBC), Aug 27, 2024 - May 20, 2026.
-- Carnegie R1 Research University. GPA 3.78/4.0.
-- Focus: Machine Learning, Statistical Modeling, Experimental Design, Time Series Analysis.
+- M.S. Data Science, University of Maryland Baltimore County (UMBC), Aug 27, 2024 - May 20, 2026. Carnegie R1 Research University. GPA 3.78/4.0. Focus: Machine Learning, Statistical Modeling, Experimental Design, Time Series Analysis.
+- Undergraduate: GITAM Deemed University, Computer Science, GPA 8.89.
 
-## Experience
-Graduate Assistant — Extreme Value AQI Forecasting, University of Maryland Baltimore County, Aug 2024 - May 2026.
+## Experience (two verified entries)
+1. Graduate Assistant — Extreme Value AQI Forecasting, University of Maryland Baltimore County, Aug 2024 - May 2026.
 - Applied forecasting research on 17 years of EPA Baltimore air-quality data: extreme AQI events, pollutant drivers, tail-risk modeling.
 - Built ML and EVT workflows for hazardous AQI spike analysis.
 - Analyzed PM2.5, NO2, seasonality, and model performance patterns.
-This assistantship connects directly to the AQI Extreme Value Forecasting project. No other employer experience is listed; refer to the resume for anything further.
+- Directly aligned with the AQI Extreme Value Forecasting project.
+
+2. Machine Learning Assistant Intern — NIT Puducherry, Jun 6, 2023 - Jul 21, 2023.
+- Fish Detection & Recognition System: deep learning computer vision classifying four fish species (Catla, Grass, Gulfaam, Silver).
+- Dataset: 572 images, 143 per class. Keras/TensorFlow transfer learning, image augmentation, notebook-based training (Img_augmentation.ipynb, fdet.ipynb).
+- Repo: https://github.com/Kartz82/fish-detection-recognition
+- Framing: valid earlier applied ML/computer-vision experience that complements the portfolio; less central because the portfolio emphasizes analytics engineering, BI reporting, product analytics, and applied forecasting. Never frame it as irrelevant or weak.
+
+If asked about prior experience, mention both entries. Refer to the resume for anything further.
+
+## Publications and coding profile
+- No publications, papers, or conference talks are currently listed.
+- LeetCode: https://leetcode.com/u/Kartikeya036/ — 131-day streak as of July 7, 2026.
 
 ## Project ranking and review order
 Main five (site order = priority order):
@@ -154,6 +168,8 @@ Skill-to-project proof map:
 3. BI & Reporting Layer: Power BI, KPI dashboards, reporting assets, executive summaries.
 4. Applied Analysis Layer: product funnels, RFM segmentation, basket analysis, forecasting, experimentation, recommenders.
 Top skills: SQL, dbt Core, Power BI, Python. Cloud literacy via Google Cloud certifications; lakehouse awareness via Databricks; warehouse platforms via Snowflake workshop.
+Additional tools: Tableau, Microsoft Excel (including XLOOKUP and VLOOKUP), Docker, Keras/TensorFlow (from the NIT internship).
+Do NOT claim hands-on R, Airflow, Spark, AWS, or Azure — not verified.
 
 ## Certifications (10)
 1. Microsoft Certified: Power BI Data Analyst Associate — Microsoft (BI/reporting readiness)

@@ -230,22 +230,24 @@ export const chatIntents: ChatIntent[] = [
     id: "experience",
     keywords: ["experience", "job", "worked", "employer", "company", "internship", "years"],
     answer: {
-      intro:
-        "Graduate Assistant — Extreme Value AQI Forecasting at University of Maryland Baltimore County (Aug 2024 – May 2026).",
+      intro: "Two verified experience entries:",
       bullets: [
-        "Applied forecasting research on 17 years of EPA Baltimore air-quality data",
-        "Built ML and EVT workflows for hazardous AQI spike analysis",
+        "Graduate Assistant, UMBC — extreme value AQI forecasting on 17 years of EPA data (Aug 2024 to May 2026)",
+        "ML Assistant Intern, NIT Puducherry — deep learning fish detection system (summer 2023)",
       ],
+      followUp: { label: "Download resume", href: links.resume },
     },
   },
   {
     id: "location",
-    keywords: ["location", "based", "relocate", "relocation", "remote", "hybrid", "onsite", "sponsorship", "visa", "authorization", "where is"],
+    keywords: ["location", "based", "relocate", "relocation", "remote", "hybrid", "onsite", "sponsorship", "visa", "authorization", "opt", "salary", "compensation", "pay", "where is"],
     answer: {
       intro:
-        "Kartikeya is based in the Baltimore/Maryland area and graduates from UMBC in May 2026.",
+        "Based in the Baltimore/Maryland area (UMBC, graduating May 2026); on OPT.",
       bullets: [
-        "Relocation, remote/hybrid preference, and work authorization: confirm directly",
+        "Prefers onsite; open to full-time and apprentice-style roles",
+        "Open to Bengaluru, Mumbai, Chennai, Hyderabad, Pune, Gurgaon, Delhi",
+        "Compensation, long-term authorization, and relocation logistics: confirm directly",
       ],
       followUp: { label: `Email ${links.email}`, href: `mailto:${links.email}` },
     },
